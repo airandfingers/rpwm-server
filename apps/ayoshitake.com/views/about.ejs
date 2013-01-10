@@ -1,0 +1,40 @@
+<% include head.ejs %>
+
+<% include header.ejs %>
+  <div role="main" class="main" id="about_page">
+      <% 
+      var rand = Math.floor(Math.random()*5),
+          intros = [
+          "A long time ago, in a galaxy far, far away...",
+          "Once upon a time in Mexico...",
+          "Way back when, in the good ol' days...",
+          "Far in the distant past, in a time not unlike the current one...",
+          "Back when I was your age.. Oh my, how things were simpler back then..."
+      ],
+          intro = intros[rand];
+      %>
+      <div id="about_intro">
+          <%= intro %>
+      </div>
+      <div id="about_content">
+          <p>Red Pill Web Masons is a fellowship of men and women who share their experience, strength, and hope with each other that they may solve their common problem and help others to recover from technophobia.</p>
+          <p>The only requirement for membership is a desire to stop being computer illiterate.</p>
+          <p>There are no dues or fees for WBA membership; we are self-supporting through our own contributions.</p>
+          <p>RPWM is not allied with any sect, denomination, politics, organization or institution; does not wish to engage in any controversy, neither endorses nor opposes any causes.</p>
+          <p>Our primary purpose is to stay sober (or not) and help other technophobes to achieve technical proficiency in their chosen area(s) of expertise.</p>
+      </div>
+      <img src="img/big_redpill_right.gif" />
+  </div>
+
+  <footer>
+  </footer>
+
+  <script>
+  $(document).ready(function() {
+      $('#about_intro').fadeOut(2000, function() {
+          $('#about_content').fadeIn();
+      });
+  });
+  </script>
+
+<% include foot.ejs %>

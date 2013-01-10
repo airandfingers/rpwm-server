@@ -1,0 +1,25 @@
+<% include head.ejs %>
+
+  <h2>Welcome to Markslist! </h2>
+  <h4>Please log in.</h4>
+  <% if (message) { %>
+  <p><%= message %></p>
+  <% } %>
+  <form action="/login" method="post">
+    <div>
+      <label>Username:</label>
+      <input type="text" name="username" placeholder="username"/><br/>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" name="password" placeholder="password"/>
+    </div>
+    <div>
+      <input type="submit" value="Log In"/>
+    </div>
+    <% if (next) { %>
+      <input type="hidden" name="next" value="<%= next %>"/>
+    <% } %>
+  </form>
+
+<% include foot.ejs %>

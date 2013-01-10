@@ -1,0 +1,23 @@
+<% include head.ejs %>
+
+  <header>
+    <a href="http://ayoshitake.com"> 
+      <img src="/img/aybanner3.png" title="ayoshitake.com" />
+    </a>
+    <br />
+    <br />
+    <br />
+  </header>
+
+  <div role="main">
+    <img src="img/opencookie.jpg" height = 300em />
+    <% if (result.fortune) { %>
+      <p>
+        <span class="fortune" id="my_fortune_<%= result._id %>">
+          <%= result.fortune %>
+        </span>
+      </p>
+    <% } %>
+  </div>
+  
+<% include foot.ejs %>

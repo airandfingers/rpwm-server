@@ -1,0 +1,66 @@
+@font-face {
+  font-family: wizzta;
+  src: url("/wizzta.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: raven_serif;
+  src: url("/raven_serif_nbp.ttf") format("truetype");
+}
+
+/* line 13, ../sass/application.scss */
+body {
+  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #111111), color-stop(100%, #555555));
+  background-image: -webkit-linear-gradient(right, #111111, #555555);
+  background-image: -moz-linear-gradient(right, #111111, #555555);
+  background-image: -o-linear-gradient(right, #111111, #555555);
+  background-image: linear-gradient(right, #111111, #555555);
+  color: #e5e5e5;
+  margin: 35px;
+}
+
+/* line 19, ../sass/application.scss */
+#simple1Tab {
+  cursor: pointer;
+}
+
+/* line 24, ../sass/application.scss */
+#header h1, #header h3 {
+  margin-bottom: 0px;
+  bottom: 0px;
+}
+/* line 28, ../sass/application.scss */
+#header hr {
+  margin-top: 0px;
+}
+
+/* line 34, ../sass/application.scss */
+#book-me h4, #book-me .button {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* line 40, ../sass/application.scss */
+h2 {
+  color: #00000;
+}
+
+/* line 44, ../sass/application.scss */
+ul {
+  list-style-type: none;
+}
+
+/* line 48, ../sass/application.scss */
+#why-hire-list li:before {
+  content: "\2605";
+}
+
+/* line 52, ../sass/application.scss */
+#venues-performed-list li:before, #organizations-performed-list li:before {
+  content: "\2726";
+}
+
+/* line 56, ../sass/application.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: wizzta;
+}

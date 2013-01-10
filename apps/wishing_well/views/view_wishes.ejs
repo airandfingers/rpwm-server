@@ -1,0 +1,15 @@
+<% include head.ejs %>
+
+  <div role="main">
+    <h2><%= title %></h2>
+    <% for (var i = 0, wish; i < wishes.length; i++) {
+      wish = wishes[i]; %>
+      <p>
+        <span>
+          <%= wish.wish %>
+        </span>
+      </p>
+    <% } %>
+  </div>
+
+<% include foot.ejs %>

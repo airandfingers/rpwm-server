@@ -1,0 +1,58 @@
+@import "compass";
+
+@font-face {
+    font-family: wizzta;
+    src: url('/wizzta.ttf') format('truetype');
+}
+@font-face {
+    font-family: raven_serif;
+    src: url('/raven_serif_nbp.ttf') format('truetype');
+}
+
+// This yields a horizontal linear gradient spanning from left to right.
+body {
+    @include background-image(linear-gradient(right, #111111, #555555));
+    color: #e5e5e5;
+    margin: 35px;
+}
+
+#simple1Tab {
+    cursor : pointer;
+}
+
+#header {
+    h1, h3 {
+        margin-bottom: 0px;
+        bottom: 0px;
+    }
+    hr {
+        margin-top: 0px;
+    }
+}
+
+#book-me {
+    h4, .button {
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+}
+
+h2 {
+    color: #00000;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#why-hire-list li:before {
+    content: "\2605";
+}
+
+#venues-performed-list li:before, #organizations-performed-list li:before {
+    content: "\2726";
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: wizzta;
+}

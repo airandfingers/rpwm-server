@@ -1,0 +1,36 @@
+<header>
+    <div class="navbar">
+        <ul>
+            <%
+            var base_url = 'http://www.ayoshitake.com',
+                pages = ['home','about','contact','blah','login'],
+                i,
+                page;
+            for (i = 0, len = pages.length; i < len; i++) {
+                page = pages[i];
+            %>
+                <li>
+                    <a
+                        <%
+                        if (current_page === page) { %>
+                            class="current_page"
+                        <% }
+                        else { %>
+                            href="<%= base_url %>/<%= page %>"
+                        <% } %>
+                    ><%= page.toUpperCase() %></a>
+                </li>
+            <% } %>
+        </ul>
+        <a href="http://jitsu.com" style="float:right;">
+            <img src="/img/nodejitsu.png" />
+        </a>
+        <br />
+    </div>
+    <div class="banner">
+        <a href="<%= base_url %>">
+            <img src="/img/aybanner3.png" title="ayoshitake.com" />
+        </a>
+        <h3 id="under_construction">PERMANENTLY UNDER CONSTRUCTION</h3>
+    </div>
+</header>

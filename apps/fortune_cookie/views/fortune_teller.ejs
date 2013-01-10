@@ -1,0 +1,23 @@
+<% include head.ejs %>
+
+  <header>
+    <a href="http://ayoshitake.com"> 
+      <img src="/img/aybanner3.png" title="ayoshitake.com" />
+    </a>
+    <br />
+    <br />
+    <br />
+  </header>
+
+  <div role="main">
+    <img src="img/crystalball.jpg" height = 300em />
+    <form method="post" action="new_fortune" id="new_fortune_form">
+        <label for="fortune" id="fortune_label">New fortune:</label>
+        <input type="text" id="fortune" name="fortune" />
+        <input type="submit" id="new_fortune_button" value="Predict the future" />
+    </form>
+  </div>
+  <footer>
+  </footer>
+  
+<% include foot.ejs %>

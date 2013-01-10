@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title><%= title %></title>
+
+    <!-- Included CSS Files -->
+    <link rel="stylesheet" href="stylesheets/app.css">
+    <link rel="stylesheet" href="stylesheets/application.css">
+
+    <script src="javascripts/foundation/modernizr.foundation.js"></script>
+
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29868593-1']);
+      _gaq.push(['_setDomainName', 'ayoshitake.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+    <div class="row" id="header">
+        <div class="seven columns">
+            <h1>Welcome to Magi-Cal.Me</h1>
+        </div>
+        <div class="five columns">
+            <h2>Home of the great Magi-Cal!</h2>
+        </div>
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="seven columns">
+            <h4>Elite Magician</h4>
+            <p>A member of the world-famous <a href="http://www.magiccastle.com/">Magic Castle</a>, Calvin has performed at over 200 events, specializing in a variety of types of magic tricks.</p>
+            <a href="http://www.magiccastle.com/"><img src="images/magiccastle.jpg" /></a>
+
+            <h4>Why hire Magi-Cal?</h4>
+            <ul id="why-hire-list">
+                <li>
+                    <strong>Amazing & Fun</strong>
+                    <br />
+                    Performance for up to 200 people at your special event!
+                    Mind-boggling magic tricks, including table magic or strolling magic!
+                </li>
+                <li>
+                    <strong>Abrakadabra!</strong>
+                    <br />
+                    Card tricks, rope tricks, coin tricks, and many other wild and wonderfully entertaining tricks!
+                </li>
+                <li>
+                    <strong>Great entertainment for an intimate or large event</strong>
+                    <br />
+                    Calvin has performed at a number of venues, including:
+                    <ul id="venues-performed-list">
+                        <li><a href="http://www.magiccastle.com/">The Magic Castle</a></li>
+                        <li><a href="http://www.cbssc.com/">CBS Studio</a></li>
+                        <li><a href="http://www.citynationalgroveofanaheim.com/index.asp">City National Grove of Anaheim</a></li>
+                        <li><a href="http://www.queenmary.com/">The Queen Mary</a></li>
+                        <li><a href="http://www.missioninn.com/">The Mission Inn Hotel & Spa</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Ideal for your organization's next event</strong>
+                    <br />
+                    Calvin has also performed for various organizations, including:
+                    <ul id="organizations-performed-list">
+                        <li>Hospitals</li>
+                        <li>Schools</li>
+                        <li>Churches</li>
+                        <li>Companies</li>
+                        <li>Charities</li>
+                    </ul>
+                </li>
+            </ul>
+            
+        </div>
+        <div class="five columns">
+            <img src="images/magi_cal.jpg" width="100%" />
+            <div class="row" id="book-me">
+                <div class="six columns">
+                    <h4>
+                        Book an event today!
+                    </h4>
+                </div>
+                <div class="six columns">
+                    <a class="small button" href="mailto:magi-calvin@yahoo.com"> E-mail</a>
+                    <a class="small button" href="tel:562.577.0948">Phone</a>
+                </div>
+            </div>
+            <h4>
+                Reviews
+            </h4>
+            <p>
+                Want to read what Magi-Cal's customers have to say about his work?
+                <br />
+                Check out Magi-Cal on
+                <a href="http://www.yelp.com/biz/magi-cal-montebello">Yelp</a> and
+                <a href="http://www.gigsalad.com/magi_cal_montebello">Gigsalad</a>!
+            </p>
+            <img src="images/impressed_girl2.jpg" id="impressed_girl" />
+        </div>
+    </div>
+    
+    <!-- Included JS Files (Uncompressed) -->
+    <script src="javascripts/foundation/jquery.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.forms.js"></script>
+    
+    <script src="javascripts/foundation/jquery.placeholder.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.navigation.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.tabs.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.orbit.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.buttons.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.tooltips.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.mediaQueryToggle.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.accordion.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.alerts.js"></script>
+    
+    <script src="javascripts/foundation/jquery.foundation.reveal.js"></script>
+    
+    
+  <!-- Application Javascript, safe to override -->
+  <script src="javascripts/foundation/app.js"></script>
+</body>
+</html>
