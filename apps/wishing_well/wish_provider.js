@@ -1,15 +1,16 @@
 module.exports = (function() {
   var mongodb = require('mongodb')
   ,   ObjectID = mongodb.ObjectID
+  ,   connection = require('./.connection')
 
   ,   WishProvider = function() {
-    var db = this.db = new mongodb.Db('nodejitsu_airandfingers_nodejitsudb7948049551',
-      new mongodb.Server('ds043937.mongolab.com', 43937, {}), 
+    var db = this.db = new mongodb.Db(connection.DB_NAME,
+      new mongodb.Server(connection.DB_HOST, connection.DB_PORT, {}),
       {w: 1}
     );
     db.open(function (err, db_p) {
       if (err) { throw err; }
-      db.authenticate('nodejitsu_airandfingers', 'lhr2gt3oghbmc4ql40n2tbqs3e', function (err, replies) {
+      db.authenticate(connection.DB_USER, connection.DB_PASSWORD, function (err, replies) {
         // You are now connected and authenticated.
       });
     });

@@ -2,15 +2,16 @@ module.exports = (function() {
   var mongodb = require('mongodb')
   ,   _ = require('underscore')
   ,   ObjectID = mongodb.ObjectID
+  ,   connection = require('./.connection')
 
   ,   GameProvider = function(host, port) {
-    var db = this.db = new mongodb.Db('nodejitsu_airandfingers_nodejitsudb8038539723',
-      new mongodb.Server('ds043927.mongolab.com', 43927, {}),
+    var db = this.db = new mongodb.Db(connection.DB_NAME,
+      new mongodb.Server(connection.DB_HOST, connection.DB_PORT, {}),
       {w: 1}
     );
     db.open(function (err, db_p) {
       if (err) { throw err; }
-      db.authenticate('nodejitsu_airandfingers', 'feo1srfrb6bjsdm9hm77orceg', function (err, replies) {
+      db.authenticate(connection.DB_USER, connection.DB_PASSWORD, function (err, replies) {
       // You are now connected and authenticated.
       });
     });
