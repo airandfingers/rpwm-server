@@ -61,7 +61,7 @@ bootstrap_app.use(express.vhost('www.magi-cal.me', require('./apps/magi_cal.me/a
 bootstrap_app.use(express.vhost('w.ayoshitake.com', require('./apps/template/app')(starter_app_generator)));
 
 //default - portal
-bootstrap_app.use(express.vhost('*', require('./apps/markslist/app')(starter_app_generator)));
+bootstrap_app.use(express.vhost('*', require('./apps/ayoshitake.com/app')(starter_app_generator)));
 //DO NOT ADD MORE VHOSTS AFTER THIS WILDCARD RULE
 
 //Configure Production Mode
