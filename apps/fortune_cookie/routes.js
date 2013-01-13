@@ -1,6 +1,7 @@
 module.exports = function (app) {
   var FortuneProvider = require('./fortune_provider')
-    , fortune_provider = new FortuneProvider();
+    , fortune_provider = new FortuneProvider()
+    , auth = require('../../modules/auth');
 
   app.get('/', function (req, res) {
     console.log('index called');
@@ -47,7 +48,7 @@ module.exports = function (app) {
   });
 
   //Display a fortune-management screen with all fortunes in database
-  app.get('/manage_fortunes', function (req, res) {
+  app.get('/manage_fortunes', auth.ensureAuthenticated, function (req, res) {
     console.log('manage_fortunes called');
     fortune_provider.findAll(function(error, results) {
       console.log(error, results);
@@ -59,7 +60,7 @@ module.exports = function (app) {
   });
 
   //Remove specified fortune from database
-  app.get('/remove_fortune/:id', function (req, res) {
+  app.get('/remove_fortune/:id', auth.ensureAuthenticated, function (req, res) {
     console.log('remove_fortune called on id ', req.params.id);
     fortune_provider.remove(req.params.id, function(error, results) {
       console.log(error, results);

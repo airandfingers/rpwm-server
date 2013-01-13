@@ -1,5 +1,6 @@
-module.exports = function (app, auth) {
-  var passport = require('passport');
+module.exports = function (app) {
+  var passport = require('passport'),
+      auth = require('./modules/auth');
 
   app.get('/login', function (req, res) {
     //console.log("GET /login called!");
@@ -7,7 +8,7 @@ module.exports = function (app, auth) {
     res.render('login', {
       message: req.flash('error'),
       next: req.query.next,
-      title: 'Markslist Login'
+      title: 'ayoshitake.com Login'
     });
   });
 
@@ -31,7 +32,7 @@ module.exports = function (app, auth) {
     //console.log("GET /logout called!");
     //End this user's session.
     req.logout();
-    res.redirect('/login');
+    res.redirect('/');
   });
 
   //Handle all other cases with a 404

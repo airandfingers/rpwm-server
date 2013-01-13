@@ -1,6 +1,7 @@
 module.exports = function (app) {
   var WishProvider = require('./wish_provider')
-    , wish_provider = new WishProvider();
+    , wish_provider = new WishProvider()
+    , auth = require('../../modules/auth');
 
   app.get('/', function (req, res) {
     console.log('index called');
@@ -16,7 +17,7 @@ module.exports = function (app) {
   });
 
   //Display wishes made so far
-  app.get('/view_wishes', function (req, res, next) {
+  app.get('/view_wishes', auth.ensureAuthenticated, function (req, res, next) {
     console.log('view_wishes called');
     
     wish_provider.findAll(function(err, results) {
