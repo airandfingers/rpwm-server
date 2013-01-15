@@ -26,7 +26,7 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('base_url', 'http://192.168.1.103:9000');
+      app.set('base_url', 'http://10.0.2.15:9000');
     });
     app.configure('production', function() {
       app.set('base_url', 'http://www.ayoshitake.com');
