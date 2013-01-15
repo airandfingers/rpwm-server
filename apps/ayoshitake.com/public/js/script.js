@@ -1,4 +1,3 @@
 /* Author:
-ayoshitake
+Red Pill Web Masons
 */
-$('#under_construction').hide().fadeIn(2000);

@@ -11,6 +11,7 @@ module.exports = function(starter_app_generator) {
 
   //Middleware Configuration
   app.configure(function() {
+    app.set('site_name', 'minesweeper');
     app.set('views', __dirname + '/views');
     app.use(express.cookieParser());
     app.use(express.session({ secret: 'M450NRY4TUN3W1N' }));

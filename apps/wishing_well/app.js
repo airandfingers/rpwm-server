@@ -6,6 +6,7 @@ module.exports = function(starter_app_generator) {
 
   //Middleware Configuration
   app.configure(function() {
+    app.set('site_name', 'wishing well');
     app.set('views', __dirname + '/views');
     app.use(express.methodOverride());
   });

@@ -15,6 +15,7 @@ module.exports = function(starter_app_generator) {
   }, sessionStore = new MongoStore({db: session_settings.db_name});*/
   //Middleware Configuration
   app.configure(function() {
+    app.set('site_name', 'corridor');
     app.set('views', __dirname + '/views');
     app.use(express.cookieParser()); //parse cookies the client sends over
     /*app.use(express.session({

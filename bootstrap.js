@@ -25,11 +25,18 @@ var express = require('express')
     app.set('view engine', 'ejs');
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
+    app.configure('development', function() {
+      app.set('base_url', 'http://192.168.1.103:9000');
+    });
+    app.configure('production', function() {
+      app.set('base_url', 'http://www.ayoshitake.com');
+    });
     return app;
   }, bootstrap_app = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
 
 bootstrap_app.set('views', __dirname + '/views');
+bootstrap_app.set('show_banner', true);
 bootstrap_app.use(express.cookieParser());
 bootstrap_app.use(express.session({ secret: 'M450NRY4TUN3W1N' }));
 bootstrap_app.use(passport.initialize());
@@ -82,11 +89,6 @@ bootstrap_app.use(express.vhost('w.ayoshitake.com', template_app));
 bootstrap_app.use(express.vhost('*', portal_app));
 
 //DO NOT ADD MORE VHOSTS AFTER THE ABOVE WILDCARD RULE
-
-//Configure Production Mode
-bootstrap_app.configure('production', function () {
-  bootstrap_app.use(express.errorHandler());
-});
 
 //Development-mode-specific middleware configuration
 bootstrap_app.configure('development', function() {

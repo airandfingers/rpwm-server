@@ -643,6 +643,7 @@ var BOARD =
     
 $(document).ready(function()
 {
+    console.log($, $.ui, $('<div></div>').dialog);
     $('<div></div>')
         .append($('<p>(Press Enter to continue.)</p>'))
         .append($('<input type="text" id="dialog_name" />')

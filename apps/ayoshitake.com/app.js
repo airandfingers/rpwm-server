@@ -6,6 +6,8 @@ module.exports = function(starter_app_generator) {
 
   //Middleware Configuration
   app.configure(function() {
+    app.set('site_name', 'home');
+    app.set('show_banner', true)
     app.set('views', __dirname + '/views');
     app.use(express.static(__dirname + '/public'));
     app.use(app.router);

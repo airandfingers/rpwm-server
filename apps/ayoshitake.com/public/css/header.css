@@ -1,0 +1,62 @@
+@font-face {
+    /*font found at http://www.fontsquirrel.com/fonts/Destroy*/
+    font-family: "DESTROY";
+    src: url(/DESTROY.ttf) format("truetype");
+}
+
+header {
+    font-family: DESTROY, sans-serif;
+}
+
+.navbar {
+    background: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    height: 26px;
+}
+
+.navbar ul {
+    margin: 0px;
+    padding: 3px;
+}
+
+.navbar li {
+    display: inline;
+    float: left;
+    background: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: center;
+}
+
+.navbar li.right {
+    float: right;
+}
+
+.navbar a {
+    display: block;
+    text-decoration: none;
+}
+
+.navbar a:link    { color: #CCCCCC; }
+.navbar a:visited { color: white; }
+.navbar a:hover   { color: red; }
+.navbar a.current_site  { color: chartreuse; }
+
+.banner {
+    padding-top: 1.5em;
+    display: block;
+}
+
+h3 {
+    font-size: 1em;
+    color: #efefff;
+    text-align: center;
+    margin: 0px auto 0 auto;
+    margin-bottom: 20px;
+}

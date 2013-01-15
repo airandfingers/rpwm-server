@@ -8,6 +8,8 @@ module.exports = function(starter_app_generator) {
 
   //Middleware Configuration
   app.configure(function() {
+    app.set('site_name', 'markslist');
+    app.set('show_banner', true);
     //app.use(express.methodOverride());
     //app.use(express.static(__dirname + '/public'));
     app.use(auth.ensureAuthenticated);
