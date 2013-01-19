@@ -26,13 +26,15 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('base_url', 'http://10.0.2.15:9000');
+      app.set('base_url', 'http://192.168.1.103:9000');
     });
     app.configure('production', function() {
       app.set('base_url', 'http://www.ayoshitake.com');
     });
     return app;
-  }, bootstrap_app = starter_app_generator()
+  };
+
+var bootstrap_app = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
 
 bootstrap_app.set('views', __dirname + '/views');
@@ -43,6 +45,7 @@ bootstrap_app.use(passport.initialize());
 bootstrap_app.use(passport.session());
 bootstrap_app.use(flash());
 bootstrap_app.use(bootstrap_app.router);
+
 require('./routes')(bootstrap_app);
 
 //bootstrap_app.use(function(req, res, next) { console.log('request on bootstrap server!'); next(); });
@@ -86,7 +89,7 @@ var template_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.com', template_app));
 
 //default - portal
-bootstrap_app.use(express.vhost('*', portal_app));
+bootstrap_app.use(express.vhost('*', minesweeper_app));
 
 //DO NOT ADD MORE VHOSTS AFTER THE ABOVE WILDCARD RULE
 

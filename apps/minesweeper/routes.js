@@ -1,8 +1,7 @@
 module.exports = function(app) {
   var _ = require('underscore')
   , util = require('util')
-  , GameProvider = require('./game_provider')
-  , game_provider = new GameProvider()
+  , Game = require('./game')
   , LOSS = "LOSS"
   , WIN = "WIN"
   , numRows = 8 //default to be overriden if resuming a game
@@ -13,7 +12,7 @@ module.exports = function(app) {
     console.log('index called!');
     var id = req.session.game_id;
     if (id !== undefined) {
-      game_provider.findById(id, function(error, result) {
+      Game.findById(id, function(error, result) {
         if (error) console.error(error);
         var visited;
         numRows = result.numRows;
@@ -80,7 +79,7 @@ module.exports = function(app) {
     }
   });
   
-  app.post('/new_game', function(req, res) {
+  app.post('/new_game', function(req, res, next) {
     console.log('new_game called!');
     var numRows = req.body.numRows
     , numCols = req.body.numCols
@@ -164,23 +163,22 @@ module.exports = function(app) {
       reveal = step_result.reveal;
     }
 
-    game_provider.save(
-      {numRows: numRows, numCols: numCols, numMines: numMines, board: board, mines: mines},
-      function(error, games) {
-        var game = games[0]
-        , game_id = game._id;
-        //console.log("Game saved: ", game);
-        req.session.game_id = game_id;
-        console.log("About to render index with: ",
-                    {title: 'Minesweeper!', numRows: numRows, numCols: numCols,
-                    numMines: numMines, visited: reveal, board_contents_only: true, layout: false});
-        res.render('index',
-        {title: 'Minesweeper!', numRows: numRows, numCols: numCols,
-         numMines: numMines, visited: reveal, board_contents_only: true, layout: false});
+    new Game({numRows: numRows, numCols: numCols, numMines: numMines, board: board, mines: mines})
+      .save(function(err, game) {
+      if (err) { return next(err); }
+      var game_id = game._id;
+      console.log("Game saved: ", game);
+      req.session.game_id = game_id;
+      console.log("About to render index with: ",
+                  {title: 'Minesweeper!', numRows: numRows, numCols: numCols,
+                  numMines: numMines, visited: reveal, board_contents_only: true, layout: false});
+      res.render('index',
+      {title: 'Minesweeper!', numRows: numRows, numCols: numCols,
+       numMines: numMines, visited: reveal, board_contents_only: true, layout: false});
     });
   });
 
-  app.post('/step', function(req, res) {
+  app.post('/step', function(req, res, next) {
     console.log('step called!');
     var row = req.body.row
     , col = req.body.col
@@ -195,8 +193,8 @@ module.exports = function(app) {
       res.json({ error: "req.session.game_id is undefined!" });
     }
     else {
-      game_provider.findById(id, function(error, result) {
-        if (error) console.error(error);
+      Game.findById(id, function(err, result) {
+        if (err) { return next(err); }
         board = result.board;
         //perform the step using our helper function below
         step_result = step(board, row, col);
@@ -206,9 +204,9 @@ module.exports = function(app) {
         console.log("response is ", response);
         res.json(response);
         //update the game board in the database
-        game_provider.step(id, step_result.board, step_result.result,
-                            function(error, result) {
-          if (error) console.error(error);
+        Game.step(id, step_result.board, step_result.result,
+                            function(err, result) {
+          if (err) console.error(err);
         });
       });
     }
@@ -241,13 +239,13 @@ module.exports = function(app) {
     return {board: board, reveal: reveal, result: result};
   };
 
-  app.get('/validate', function(req, res) {
+  app.get('/validate', function(req, res, next) {
     console.log('validate called!');
     var id = req.session.game_id;
     if (id === undefined) { console.error('req.session.game_id is undefined!'); }
     else {
-      game_provider.findById(id, function(error, result) {
-        if (error) console.error(error);
+      Game.findById(id, function(err, result) {
+        if (err) { return next(err); }
         var numRows = result.numRows
         , numCols = result.numCols
         , numMines = result.numMines
@@ -279,39 +277,43 @@ module.exports = function(app) {
         response.reveal = reveal;
         console.log('response: ', response);
         res.json(response);
-        game_provider.update(id, {result: response.result},
-                            function(error, result) {
-          if (error) console.error(error);
+        Game.findById(id, function(err, game) {
+          if (err) { return next(err); }
+          game.result = response.result;
+          game.save(function(err2) {
+            if (err2) { console.error(err2); }
+          });
         });
       });
     }
   });
 
-  app.get('/cheat', function(req, res) {
+  app.get('/cheat', function(req, res, next) {
     console.log('cheat called!');
     var id = req.session.game_id
     , response = {};
     if (id === undefined) { console.error('req.session.game_id is undefined!'); }
     else {
-      game_provider.findById(id, function(error, result) {
+      Game.findById(id, function(error, result) {
         if (error) console.error(error);
         response.reveal = result.mines;
         console.log('response: ', response);
         res.json(response);
-        game_provider.update(id, {cheated: true},
-                            function(error, result) {
-          if (error) console.error(error);
+        Game.findById(id, function(err, game) {
+          if (err) { return next(err); }
+          game.cheated = true;
+          game.save(function(err2) {
+            if (err2) { console.error(err2); }
+          });
         });
       });
     }
   });
 
-  /* Clears the database of all games
-    game_provider.removeAll(function(error, result) {
-      if (error) console.error(error);
-    })
-  */
-
+  /*Handle all other cases with a 404
+  ONLY do this if app.use(app.router) comes after app.use(express.static)
+  in this app's configuration; otherwise, this route will catch
+  all incoming requests, including requests for static files that exist.*/
   app.all('*', function(req, res) {
     console.log("404'd while trying to reach %s", req.originalUrl);
   	res.redirect('/404.html');

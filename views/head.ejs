@@ -57,13 +57,10 @@
                         site_href = sites[i][1];
                     %>
                         <li>
-                            <a
+                            <a href="http://<%= site_href %>"
                                 <%
                                 if (settings.site_name === site_name) { %>
                                     class="current_site"
-                                <% }
-                                else { %>
-                                    href="http://<%= site_href %>"
                                 <% } %>
                             ><%= site_name.toUpperCase() %></a>
                         </li>

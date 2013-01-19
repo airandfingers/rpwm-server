@@ -1,14 +1,14 @@
 module.exports = (function () {
-  var UserProvider = require('./user_provider')
-    , user_provider = new UserProvider()
+  var User = require('./user')
     , passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy;
+    , LocalStrategy = require('passport-local').Strategy
+    , crypto = require('crypto');
 
   //gets called whenever attempted login
   //returns user or an error message
   passport.use(new LocalStrategy(
     function (username, password, done) {
-      user_provider.authenticate(username, password, function(err, result) {
+      authenticate(username, password, function(err, result) {
         if (err) {
           return done(err);
         }
@@ -21,6 +21,21 @@ module.exports = (function () {
       });
     }
   ));
+
+  var authenticate = function(username, password, callback) {
+    var shasum = crypto.createHash('sha1');
+    shasum.update(password);
+    shasum = shasum.digest('hex');
+    // look for a matching username/password combination
+    User.findOne({
+      username: username,
+      password: shasum
+    }, function(err, result) {
+      if (err) callback(error);
+      else callback(null, result)
+    });
+  };
+
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to
   //   serialize users into and deserialize users out of the session.  Typically,
@@ -33,7 +48,7 @@ module.exports = (function () {
 
   passport.deserializeUser(function(id, done) {
     //console.log("deserializeUser called!");
-    user_provider.findById(id, function(err, result) {
+    User.findById(id, function(err, result) {
       if (err) { return done(err); }
       if (! result) {
         return done(null, false, {message: 'Unknown id!'});
@@ -52,8 +67,12 @@ module.exports = (function () {
   return {
     ensureAuthenticated: function (req, res, next) {
       //console.log("ensureAuthenticated called!");
-      if (req.isAuthenticated()) { return next(); }
-      res.redirect('/login?next=' + req.url);
+      if (req.isAuthenticated()) {
+        return next();
+      }
+      else {
+        res.redirect('/login?next=' + req.url);
+      }
     }
   };
 })();

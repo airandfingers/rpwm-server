@@ -1,6 +1,6 @@
 {
 	"name": "rpwm-server",
-	"version": "1.0.0-71",
+	"version": "1.0.0-74",
 	"private": true,
 	"dependencies": {
 		"connect-flash": "latest",
@@ -10,7 +10,7 @@
 		"connect": "latest",
 		"connect-mongo": "latest",
 		"mime": "latest",
-		"mongodb": "latest",
+		"mongoose": "latest",
 		"passport": "latest",
 		"passport-local": "latest",
 		"socket.io": "latest",

@@ -2,14 +2,19 @@
 
   <div role="main">
     <h2><%= title %></h2>
-    <% for (var i = 0, wish; i < wishes.length; i++) {
-      wish = wishes[i]; %>
-      <p>
-        <span>
-          <%= wish.wish %>
-        </span>
-      </p>
-    <% } %>
+    <table>
+      <tr>
+        <th>Wish</th>
+        <th>Wisher</th>
+      </tr>
+      <% for (var i = 0, wish; i < wishes.length; i++) {
+        wish = wishes[i]; %>
+        <tr>
+          <td><%= wish.wish %></td>
+          <td><%= typeof(wish.user) === 'object' ? wish.user.username : '' %></td>
+        </tr>
+      <% } %>
+    </table>
   </div>
 
 <% include ../../../views/foot %>

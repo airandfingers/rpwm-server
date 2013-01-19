@@ -13,7 +13,12 @@
       <% for (var i = 0, cell_contents; i < numRows; i++) { %>
         <tr id="board-row-<%= i %>">
           <% for (var j = 0; j < numCols; j++) { 
-            if (visited !== undefined && visited[i] !== undefined) cell_contents = visited[i][j]; %>
+            if (visited !== undefined && visited[i] !== undefined) {
+              cell_contents = visited[i][j];
+            } else {
+              cell_contents = undefined;
+            }
+            %>
             <% if (cell_contents === undefined) { %>
               <td class="boardCell">
                 <button class = "boardTile" id="board-tile-<%= i %>-<%= j %>">
