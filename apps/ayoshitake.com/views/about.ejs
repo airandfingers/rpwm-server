@@ -1,6 +1,5 @@
-<% include head.ejs %>
+<% include ../../../views/head %>
 
-<% include header.ejs %>
   <div role="main" class="main" id="about_page">
       <% 
       var rand = Math.floor(Math.random()*5),
@@ -29,6 +28,11 @@
   <footer>
   </footer>
 
+  <!-- Scripts not included in foot.ejs (or which need to be added before these site-specific scripts) -->
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
   <script>
   $(document).ready(function() {
       $('#about_intro').fadeOut(2000, function() {
@@ -37,4 +41,4 @@
   });
   </script>
 
-<% include foot.ejs %>
+<% include ../../../views/foot %>

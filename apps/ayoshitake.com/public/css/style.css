@@ -32,6 +32,19 @@ a.portal img {
     height: 275px;
 }
 
+#about_intro {
+    text-wrap: normal;
+    color: white;
+    font-family: Georgia, sans-serif;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 1px #000;
+
+    width: 720px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 #about_content {
 	display: none; 
 	text-wrap: normal;

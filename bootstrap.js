@@ -89,7 +89,7 @@ var template_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.com', template_app));
 
 //default - portal
-bootstrap_app.use(express.vhost('*', minesweeper_app));
+bootstrap_app.use(express.vhost('*', portal_app));
 
 //DO NOT ADD MORE VHOSTS AFTER THE ABOVE WILDCARD RULE
 
