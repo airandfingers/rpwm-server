@@ -1,11 +1,10 @@
-// Module dependencies.
-//here we import other modules
-//and store local references to them
+// Require dependencies.
 var express = require('express')
   , http = require('http')
   , passport = require('passport')
   , flash = require('connect-flash')
 
+// Define how to format log messages.
   , logger_options = function(tokens, req, res) {
     var status = res.statusCode
       , color = 32;
@@ -20,19 +19,24 @@ var express = require('express')
       + ' \033[90m'
       + (new Date - req._startTime)
       + 'ms\033[0m';
+
+// Define an initial app (middleware shared by all Express apps)
   }, starter_app_generator = function() {
     var app = express();
     app.set('view engine', 'ejs');
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('base_url', 'http://192.168.1.103:9000');
+      app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
-      app.set('base_url', 'http://www.ayoshitake.com');
+      app.set('base_url', 'ayoshitake.com');
     });
     return app;
-  };
+  },
+
+// Declare configuration value(s).
+  EXPRESS_PORT = 9000;
 
 var bootstrap_app = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
@@ -54,39 +58,39 @@ require('./routes')(bootstrap_app);
 
 //portal
 var portal_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('ayoshitake.com', portal_app));
-bootstrap_app.use(express.vhost('www.ayoshitake.com', portal_app));
+bootstrap_app.use(express.vhost('ayoshitake.*', portal_app));
+bootstrap_app.use(express.vhost('www.ayoshitake.*', portal_app));
 
 //wishing well
 var wishing_well_app = require('./apps/wishing_well/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('wishingwell.ayoshitake.com', wishing_well_app));
+bootstrap_app.use(express.vhost('wishingwell.ayoshitake.*', wishing_well_app));
 
 //markslist
 var markslist_app = require('./apps/markslist/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('markslist.ayoshitake.com', markslist_app));
+bootstrap_app.use(express.vhost('markslist.ayoshitake.*', markslist_app));
 
 //corridor
 var corridor_app = require('./apps/corridor/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('corridor.ayoshitake.com', corridor_app));
+bootstrap_app.use(express.vhost('corridor.ayoshitake.*', corridor_app));
 
 //minesweeper
 var minesweeper_app = require('./apps/minesweeper/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('minesweeper.ayoshitake.com', minesweeper_app));
+bootstrap_app.use(express.vhost('minesweeper.ayoshitake.*', minesweeper_app));
 
 //fortune_cookie
 var fortune_cookie_app = require('./apps/fortune_cookie/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('fortunecookie.ayoshitake.com', fortune_cookie_app));
+bootstrap_app.use(express.vhost('fortunecookie.ayoshitake.*', fortune_cookie_app));
 
 //magi-cal.me
 var magi_cal_app = require('./apps/magi_cal.me/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('magi-cal.me', magi_cal_app));
-bootstrap_app.use(express.vhost('w.magi-cal.me', magi_cal_app));
-bootstrap_app.use(express.vhost('ww.magi-cal.me', magi_cal_app));
-bootstrap_app.use(express.vhost('www.magi-cal.me', magi_cal_app));
+bootstrap_app.use(express.vhost('magi-cal.*', magi_cal_app));
+bootstrap_app.use(express.vhost('w.magi-cal.*', magi_cal_app));
+bootstrap_app.use(express.vhost('ww.magi-cal.*', magi_cal_app));
+bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 
 //template (just for fun)
-var template_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('w.ayoshitake.com', template_app));
+var template_app = require('./apps/template/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));
 
 //default - portal
 bootstrap_app.use(express.vhost('*', portal_app));
@@ -107,7 +111,7 @@ bootstrap_app.configure('production', function() {
 //thus, this server is accessible at the URL:
 //  [hostname]:X
 //where [hostname] is the IP address or any of the domains we're hosting
-bootstrap_server.listen(9000);
+bootstrap_server.listen(EXPRESS_PORT);
 
 //this is printed after the server is up
 //console.log("bootstrap server listening on port %d in %s mode", bootstrap_app.address().port, bootstrap_app.settings.env);

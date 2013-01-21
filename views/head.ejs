@@ -20,7 +20,7 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="<%= settings.base_url %>/css/header.css" />
+  <link rel="stylesheet" href="http://<%= settings.base_url %>/css/header.css" />
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -40,12 +40,12 @@
                 <ul>
                     <%
                     var sites = [
-                            ['home', 'ayoshitake.com'],
-                            ['corridor', 'corridor.ayoshitake.com'],
-                            ['fortune cookie', 'fortunecookie.ayoshitake.com'],
-                            ['markslist', 'markslist.ayoshitake.com'],
-                            ['minesweeper', 'minesweeper.ayoshitake.com'],
-                            ['wishing well', 'wishingwell.ayoshitake.com'],
+                            ['home', settings.base_url],
+                            ['corridor', 'corridor.' + settings.base_url],
+                            ['fortune cookie', 'fortunecookie.' + settings.base_url],
+                            ['markslist', 'markslist.' + settings.base_url],
+                            ['minesweeper', 'minesweeper.' + settings.base_url],
+                            ['wishing well', 'wishingwell.' + settings.base_url],
                             ['magi-cal', 'magi-cal.me'],
                             ['ETS', 'etstutoring.org'],
                         ],
