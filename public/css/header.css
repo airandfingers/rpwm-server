@@ -33,6 +33,7 @@ header {
     padding-left: 10px;
     padding-right: 10px;
     vertical-align: center;
+    color: #FFFFCC;
 }
 
 .navbar li.right {
@@ -44,8 +45,8 @@ header {
     text-decoration: none;
 }
 
-.navbar a:link    { color: #CCCCCC; }
-.navbar a:visited { color: white; }
+.navbar a:link    { color: white; }
+.navbar a:visited { color: #CCCCCC; }
 .navbar a:hover   { color: red; }
 .navbar a.current_site  { color: chartreuse; }
 

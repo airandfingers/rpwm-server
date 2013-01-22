@@ -43,10 +43,15 @@ var bootstrap_app = starter_app_generator()
 
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
+bootstrap_app.use(express.static(__dirname + '/public'));
 bootstrap_app.use(express.cookieParser());
 bootstrap_app.use(express.session({ secret: 'M450NRY4TUN3W1N' }));
 bootstrap_app.use(passport.initialize());
 bootstrap_app.use(passport.session());
+bootstrap_app.use(function(req, res, next) {
+  res.locals.username = req.user && req.user.username;
+  next();
+});
 bootstrap_app.use(flash());
 bootstrap_app.use(bootstrap_app.router);
 

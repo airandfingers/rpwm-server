@@ -66,10 +66,18 @@
                         </li>
                     <% } %>
                     <li class="right">
+                      <% if (locals.username) { %>
+                        <a href="/logout">LOGOUT</a>
+                      <% } else { %>
                         <a href="/login">LOGIN</a>
+                      <% } %>
                     </li>
                     <li class="right">
-                        <a href="/logout">LOGOUT</a>
+                      <% if (locals.username) { %>
+                        <%= locals.username.toUpperCase() %>    
+                      <% } else { %>
+                        <a href="/register">REGISTER</a>
+                      <% } %>
                     </li>
                 </ul>
             </div>
