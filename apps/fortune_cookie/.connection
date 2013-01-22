@@ -1,7 +1,0 @@
-module.exports = {
-	DB_HOST: 'ds043927.mongolab.com',
-	DB_PORT: 43927,
-	DB_NAME: 'nodejitsu_airandfingers_nodejitsudb3017694572',
-	DB_USER: 'nodejitsu_airandfingers',
-	DB_PASSWORD: 'npg32b3l5m5bnhksackfg62s93'
-};
