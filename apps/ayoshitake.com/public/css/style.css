@@ -1,3 +1,9 @@
+@font-face {
+    /*font found at http://www.fontsquirrel.com/fonts/Destroy*/
+    font-family: "DESTROY";
+    src: url(/DESTROY.ttf) format("truetype");
+}
+
 #logo {
 opacity: 0.5;
 -moz-opacity: 0.5;
@@ -30,6 +36,55 @@ a.portal {
 
 a.portal img {
     height: 275px;
+}
+
+.button {
+   border-top: 1px solid #5a6770;
+   background: #586975;
+   background: -webkit-gradient(linear, left top, left bottom, from(#888c8b), to(#586975));
+   background: -webkit-linear-gradient(top, #888c8b, #586975);
+   background: -moz-linear-gradient(top, #888c8b, #586975);
+   background: -ms-linear-gradient(top, #888c8b, #586975);
+   background: -o-linear-gradient(top, #888c8b, #586975);
+   padding: 9px 18px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #ffffff;
+   font-size: 17px;
+   font-family: Georgia, Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border-top-color: #6b7880;
+   background: #6b7880;
+   color: #88db83;
+   }
+.button:active {
+   border-top-color: #040505;
+   background: #040505;
+   }
+
+.password {
+    margin: 20px;
+}
+
+.submit_button {
+    margin: 20px;
+}
+
+.username {
+    margin: 20px;
+}
+
+.uglyregistration {
+    margin: 20px;
+    text-align: center;   
 }
 
 #about_intro {
@@ -76,6 +131,11 @@ a.portal img {
 	float: right;
 }
 
+#login_main {
+    font-family: DESTROY, Paprika, sans-serif;
+    margin: 100px 20px 20px 20px;
+}
+
 #under_construction {
 	display: none;
     font-weight: normal;
@@ -85,4 +145,10 @@ a.portal img {
 	background-image: url('/img/space_768.jpeg');
 	width:100%;
 	height:100%;
+}
+
+#registration_main {
+	font-family: DESTROY, Paprika, sans-serif;
+	margin: 100px 20px 20px 20px;
+
 }

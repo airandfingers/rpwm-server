@@ -1,14 +1,13 @@
 module.exports = (function () {
   var User = require('./user')
     , passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy
-    , crypto = require('crypto');
+    , LocalStrategy = require('passport-local').Strategy;
 
   //gets called whenever attempted login
   //returns user or an error message
   passport.use(new LocalStrategy(
     function (username, password, done) {
-      authenticate(username, password, function(err, result) {
+      User.authenticate(username, password, function(err, result) {
         if (err) {
           return done(err);
         }
@@ -21,20 +20,6 @@ module.exports = (function () {
       });
     }
   ));
-
-  var authenticate = function(username, password, callback) {
-    var shasum = crypto.createHash('sha1');
-    shasum.update(password);
-    shasum = shasum.digest('hex');
-    // look for a matching username/password combination
-    User.findOne({
-      username: username,
-      password: shasum
-    }, function(err, result) {
-      if (err) callback(error);
-      else callback(null, result)
-    });
-  };
 
   // Passport session setup.
   //   To support persistent login sessions, Passport needs to be able to

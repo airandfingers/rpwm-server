@@ -1,0 +1,38 @@
+<% include head %>
+
+<div role="main" class="main" id="registration_main">
+    <h1>
+      Pick your username and password, matey. Yarrr....
+    </h1>
+    <% if (message) { console.log(message);%>
+      <p><%= message %></p>
+    <% } %>
+    <div>
+        <a href="/login"> Already have an account? Login here</a>
+        </br>
+    </div>
+    <div class="uglyregistration">
+        <form action="/register" method="post">
+            <div class="username">
+                <label>Username:</label>
+                <input type="text" name="username" placeholder="username" autofocus /><br/>
+            </div>
+            <div class="password">
+                <label>Password:</label>
+                <input type="password" name="password" placeholder="password" />
+            </div>
+            <div class="password">
+                <label>Confirm Password:</label>
+                <input type="password" name="password2" placeholder="re-type password" />
+            </div>
+            <div class="submit_button">
+                <input type="submit" value="Log In" class="button"/>
+            </div>
+            <% if (next) { %>
+                <input type="hidden" name="next" value="<%= next %>" />
+            <% } %>
+        </form>
+    </div>
+</div>
+
+<% include foot %>

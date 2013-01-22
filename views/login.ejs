@@ -2,23 +2,29 @@
 
   <h4>Please log in.</h4>
   <% if (message) { %>
-  <p><%= message %></p>
+    <p><%= message %></p>
   <% } %>
-  <form action="/login" method="post">
+  <div id="login_main">
     <div>
-      <label>Username:</label>
-      <input type="text" name="username" placeholder="username" autofocus/><br/>
+      <a href="/register"> Don't have a login? Register here</a>
+      </br>
     </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" name="password" placeholder="password"/>
-    </div>
-    <div>
-      <input type="submit" value="Log In"/>
-    </div>
-    <% if (next) { %>
-      <input type="hidden" name="next" value="<%= next %>"/>
-    <% } %>
-  </form>
+    <form action="/login" method="post">
+      <div class="username">
+        <label>Username:</label>
+        <input type="text" name="username" placeholder="username" autofocus /><br/>
+      </div>
+      <div class="password">
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="password" />
+      </div>
+      <div class="submit_button">
+        <input type="submit" value="Boomcat!" class="button" />
+      </div>
+      <% if (next) { %>
+        <input type="hidden" name="next" value="<%= next %>" />
+      <% } %>
+    </form>
+  </div>
 
 <% include foot %>
