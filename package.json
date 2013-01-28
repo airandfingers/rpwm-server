@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.0-90",
+  "version": "1.0.0-93",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
@@ -42,6 +42,6 @@
   },
   "devDependencies": {
     "chai": "~1.4.2",
-    "chai-date": "~1.0.0"
+    "mocha": "~1.8.1"
   }
 }

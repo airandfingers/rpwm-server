@@ -1,6 +1,7 @@
 module.exports = (function() {
   var mongoose = require('mongoose') //MongoDB abstraction layer
     , crypto = require('crypto')
+    , db = require('./db')
     , Schema = mongoose.Schema
     , ObjectId = Schema.ObjectId
 
