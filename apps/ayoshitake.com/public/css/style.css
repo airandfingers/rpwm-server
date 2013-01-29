@@ -32,13 +32,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b5f66', end
 	min-height: 100%;
 }
 
-a.portal {
-    margin: 10px;
-    text-decoration: none;
+.slideshow {
+  margin-top: 5em;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-a.portal img {
-    height: 275px;
+.slideshow a {
+  width: 276px;
+}
+
+.slideshow a.portal img {
+    width: 275px;
 }
 
 .button {

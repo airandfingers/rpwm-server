@@ -1,43 +1,47 @@
 {
-	"name": "rpwm-server",
-	"version": "1.0.0-86",
-	"private": true,
-	"dependencies": {
-		"connect-flash": "latest",
-		"ecstatic": "latest",
-		"ejs": "latest",
-		"express": "latest",
-		"connect": "latest",
-		"connect-mongo": "0.2.0",
-		"mime": "latest",
-		"mongoose": "latest",
-		"passport": "latest",
-		"passport-local": "latest",
-		"socket.io": "latest",
-		"underscore": "latest",
-		"underscore.string": "latest"
-	},
-	"subdomain": "rpwm-server",
-	"domains": [
-		"ayoshitake.com",
-		"corridor.ayoshitake.com",
-		"fortunecookie.ayoshitake.com",
-		"markslist.ayoshitake.com",
-		"minesweeper.ayoshitake.com",
-		"rpsls.ayoshitake.com",
-		"wishingwell.ayoshitake.com",
-		"w.ayoshitake.com",
-		"ww.ayoshitake.com",
-		"www.ayoshitake.com",
-		"magi-cal.me",
-		"w.magi-cal.me",
-		"ww.magi-cal.me",
-		"www.magi-cal.me"
-	],
-	"scripts": {
-		"start": "bootstrap.js"
-	},
-	"engines": {
-		"node": "0.8.x"
-	}
+  "name": "rpwm-server",
+  "version": "1.0.0-93",
+  "private": true,
+  "dependencies": {
+    "connect-flash": "latest",
+    "ecstatic": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "connect": "latest",
+    "connect-mongo": "0.2.0",
+    "mime": "latest",
+    "mongoose": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "socket.io": "latest",
+    "underscore": "latest",
+    "underscore.string": "latest"
+  },
+  "subdomain": "rpwm-server",
+  "domains": [
+    "ayoshitake.com",
+    "corridor.ayoshitake.com",
+    "fortunecookie.ayoshitake.com",
+    "markslist.ayoshitake.com",
+    "minesweeper.ayoshitake.com",
+    "rpsls.ayoshitake.com",
+    "wishingwell.ayoshitake.com",
+    "w.ayoshitake.com",
+    "ww.ayoshitake.com",
+    "www.ayoshitake.com",
+    "magi-cal.me",
+    "w.magi-cal.me",
+    "ww.magi-cal.me",
+    "www.magi-cal.me"
+  ],
+  "scripts": {
+    "start": "bootstrap.js"
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "devDependencies": {
+    "chai": "~1.4.2",
+    "mocha": "~1.8.1"
+  }
 }
