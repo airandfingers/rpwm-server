@@ -28,7 +28,7 @@
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="js/libs/modernizr-2.5.3.min.js"></script>
+  <script src="http://<%= settings.base_url %>/js/lib/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -40,21 +40,35 @@
                 <ul>
                     <%
                     var sites = [
-                            ['home', settings.base_url],
-                            ['corridor', 'corridor.' + settings.base_url],
-                            ['fortune cookie', 'fortunecookie.' + settings.base_url],
-                            ['markslist', 'markslist.' + settings.base_url],
-                            ['minesweeper', 'minesweeper.' + settings.base_url],
-                            ['wishing well', 'wishingwell.' + settings.base_url],
-                            ['magi-cal', 'magi-cal.me'],
-                            ['ETS', 'etstutoring.org'],
+                            { name: 'home', 
+                              href: settings.base_url, 
+                              dropdown: [
+                                { name: 'about', href: settings.base_url + '/about' },
+                                { name: 'contact', href: settings.base_url + '/contact' },
+                              ],
+                            },
+                            { name: 'corridor', href: 'corridor.' + settings.base_url },
+                            { name: 'fortune cookie', href: 'fortunecookie.' + settings.base_url },
+                            { name: 'markslist', href: 'markslist.' + settings.base_url },
+                            { name: 'minesweeper', href: 'minesweeper.' + settings.base_url },
+                            { name: 'wishing well', href: 'wishingwell.' + settings.base_url },
+                            { name: 'magi-cal', href: 'magi-cal.me' },
+                            { name: 'ETS', href: 'etstutoring.org' },
                         ],
                         i,
+                        j,
+                        len,
+                        len2,
+                        pagename,
+                        pagehref,
                         site_name,
-                        site_href;
+                        site_href,
+                        site_dropdown;
+
                     for (i = 0, len = sites.length; i < len; i++) {
-                        site_name = sites[i][0],
-                        site_href = sites[i][1];
+                        site_name = sites[i].name;
+                        site_href = sites[i].href;
+                        site_dropdown = sites[i].dropdown;
                     %>
                         <li>
                             <a href="http://<%= site_href %>"
@@ -63,6 +77,19 @@
                                     class="current_site"
                                 <% } %>
                             ><%= site_name.toUpperCase() %></a>
+                           <!--write nested ul for dropdowns-->
+                            <% if (site_dropdown !== undefined ) { %>
+                              <ul>
+                              <% for (j=0, len2 = site_dropdown.length; j < len2; j++) {
+                                pagename = site_dropdown[j].name;
+                                pagehref = site_dropdown[j].href;
+                                %>
+                                <li>
+                                  <a href="http://<%= pagehref %>"> <%= pagename %> </a>
+                                </li>
+                              <% } %>  
+                              </ul>
+                            <% } %>
                         </li>
                     <% } %>
                     <li class="right">
