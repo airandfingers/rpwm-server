@@ -92,6 +92,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b5f66', end
     margin: 20px;
 }
 
+.slideshow {
+  margin-top: 5em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .username {
     margin: 20px;
 }
