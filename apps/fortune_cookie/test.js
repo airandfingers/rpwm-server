@@ -1,7 +1,15 @@
 //test boilerplate
 var tu = require('../../modules/test_utils')
 //modules being tested
+  , app = require('./app')(tu.starter_app_generator)
   , Fortune = require('./fortune');
+
+describe('fortune_cookie', function() {
+
+describe('app', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testBase();
+});
 
 describe('Fortune', function() {
   var fortune_tester = new tu.ModelTester(Fortune);
@@ -33,4 +41,6 @@ describe('Fortune', function() {
       });
     });
   });
+});
+
 });

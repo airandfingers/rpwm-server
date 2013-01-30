@@ -2,10 +2,19 @@ module.exports = (function() {
   var _ = require('underscore')
     , util = require('util')
     , mongoose = require('mongoose')
+    , express = require('express')
+  //load supertest HTTP assertion library
+    , request = require('supertest')
   //load chai assertion library
     , chai = require('chai')
     , should = chai.should()
-    , Assertion = chai.Assertion;
+    , starter_app_generator = function() {
+      var app = express();
+      app.set('view engine', 'ejs');
+      app.use(express.bodyParser());
+      app.set('base_url', 'ayoshitake.com');
+      return app;
+    }, Assertion = chai.Assertion;
 
   Assertion.addMethod('supersetOf', function(subset) {
     var obj = this._obj
@@ -42,6 +51,29 @@ module.exports = (function() {
     , result     // actual
     );
   });
+
+  var AppTester = function(app) {
+    return {
+      testBase: function() {
+        describe('/', function() {
+          it('should respond with HTML, 200 OK, with body', function(done) {
+            request(app)
+              .get('/')
+              .expect('Content-Type', /html/)
+              .expect(200)
+              .end(function(err, res) {
+                if (err) { done(err); }
+                else {
+                  should.exist(res.text);
+                  res.text.should.be.a('string');
+                  done();
+                }
+              });
+          });
+        });
+      }
+    };
+  };
 
   var ModelTester = function(model) {
     var model_name = model.modelName
@@ -103,10 +135,7 @@ module.exports = (function() {
         //test that the instance saves
         //Note: this assumes test_doc is valid
         it('should save without error', function(done) {
-          instance.save(function(err, result) {
-            console.log(err, result);
-            done(err);
-          });
+          instance.save(done);
         });
       }
     , testRemove: function(instance) {
@@ -148,9 +177,11 @@ module.exports = (function() {
   }
 
   return {
-    ModelTester: ModelTester
+    AppTester: AppTester
+  , ModelTester: ModelTester
   , E: E
   , inspect: inspect
   , should: should
+  , starter_app_generator: starter_app_generator
   };
 })();

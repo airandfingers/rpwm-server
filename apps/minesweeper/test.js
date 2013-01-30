@@ -1,7 +1,15 @@
 //test boilerplate
 var tu = require('../../modules/test_utils')
 //modules being tested
+  , app = require('./app')(tu.starter_app_generator)
   , Game = require('./game');
+
+describe('minesweeper', function() {
+
+describe('app', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testBase();
+});
 
 describe('Game', function() {
   var game_tester = new tu.ModelTester(Game);
@@ -26,4 +34,6 @@ describe('Game', function() {
     game_tester.testFind(game_def, null);
     game_tester.testFind({ _id: game._id }, null);
   });
+});
+
 });

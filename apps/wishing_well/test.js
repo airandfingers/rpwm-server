@@ -1,8 +1,16 @@
 //test boilerplate
 var tu = require('../../modules/test_utils')
 //modules being tested
+  , app = require('./app')(tu.starter_app_generator)
   , Wish = require('./wish')
   , User = require('../../modules/user');
+
+describe('wishing_well', function() {
+
+describe('app', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testBase();
+});
 
 describe('Wish', function() {
   var wish_tester = new tu.ModelTester(Wish);
@@ -40,4 +48,6 @@ describe('Wish', function() {
     wish_tester.testFind(wish_def, null);
     wish_tester.testFind({ _id: wish._id }, null);
   });
+});
+
 });
