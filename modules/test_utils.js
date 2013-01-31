@@ -54,22 +54,58 @@ module.exports = (function() {
 
   var AppTester = function(app) {
     return {
-      testBase: function() {
-        describe('/', function() {
-          it('should respond with HTML, 200 OK, with body', function(done) {
+      testHtmlGet: function(route, options) {
+        describe(route, function() {
+          var content_type = options.type || 'html'
+            , redirect = options.redirect
+            , code = redirect ? 302 : 200
+            , description = 'should respond with HTML, HTTP Code ' + code +
+                ((redirect) ? ', redirecting to ' + redirect : '')
+            , response_text;
+          it(description, function(done) {
             request(app)
-              .get('/')
-              .expect('Content-Type', /html/)
-              .expect(200)
+              .get(route)
+              .expect('Content-Type', new RegExp(content_type))
+              .expect(code)
               .end(function(err, res) {
                 if (err) { done(err); }
                 else {
-                  should.exist(res.text);
-                  res.text.should.be.a('string');
+                  response_text = res.text;
+                  should.exist(response_text);
+                  response_text.should.be.a('string');
+                  if (redirect) {
+                    response_text.should.match(new RegExp(
+                      'Redirecting to ' + redirect
+                    ));
+                  }
                   done();
                 }
               });
           });
+          if (options.navbar === true) {
+            it('should display the navbar', function() {
+              should.exist(response_text);
+              response_text.should.contain('<div class="navbar">');
+            });
+          }
+          else if (options.navbar === false) {
+            it('should not display the navbar', function() {
+              should.exist(response_text);
+              response_text.should.not.contain('<div class="navbar">');
+            });
+          }
+          if (options.banner === true) {
+            it('should display the banner', function() {
+              should.exist(response_text);
+              response_text.should.contain('<div class="banner">');
+            });
+          }
+          else if (options.banner === false) {
+            it('should not display the banner', function() {
+              should.exist(response_text);
+              response_text.should.not.contain('<div class="banner">');
+            });
+          }
         });
       }
     };

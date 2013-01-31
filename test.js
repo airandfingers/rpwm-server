@@ -4,7 +4,28 @@ var crypto = require('crypto')
 //test boilerplate
   , tu = require('./modules/test_utils')
 //modules being tested
+  , app = require('./bootstrap')
   , User = require('./modules/user');
+
+describe('bootstrap', function() {
+
+describe('app', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testHtmlGet('/login', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/register', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/logout', {
+    type: 'text'
+  , redirect: '/'
+  });
+});
 
 describe('User', function() {
   var user_tester = new tu.ModelTester(User);
@@ -31,4 +52,6 @@ describe('User', function() {
     user_tester.testFind(user_def, null);
     user_tester.testFind({ _id: user._id }, null);
   });
+});
+
 });

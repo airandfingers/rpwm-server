@@ -38,7 +38,7 @@ var express = require('express')
 // Declare configuration value(s).
   EXPRESS_PORT = 9000;
 
-var bootstrap_app = starter_app_generator()
+var bootstrap_app = module.exports = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
 
 bootstrap_app.set('views', __dirname + '/views');

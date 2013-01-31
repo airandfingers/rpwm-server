@@ -8,7 +8,10 @@ describe('minesweeper', function() {
 
 describe('app', function() {
   var app_tester = new tu.AppTester(app);
-  app_tester.testBase();
+  app_tester.testHtmlGet('/', {
+    navbar: true
+  , banner: false
+  });
 });
 
 describe('Game', function() {

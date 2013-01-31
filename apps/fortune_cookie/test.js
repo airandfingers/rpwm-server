@@ -8,7 +8,35 @@ describe('fortune_cookie', function() {
 
 describe('app', function() {
   var app_tester = new tu.AppTester(app);
-  app_tester.testBase();
+  app_tester.testHtmlGet('/', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/fortune_teller', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/fortune_cookie', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/view_fortunes', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testHtmlGet('/manage_fortunes', {
+    type: 'text'
+  , redirect: '/login\\?next=/manage_fortunes'
+  });
+
+  app_tester.testHtmlGet('/asdf', {
+    type: 'text'
+  , redirect: '/404.html'
+  });
 });
 
 describe('Fortune', function() {

@@ -9,7 +9,20 @@ describe('wishing_well', function() {
 
 describe('app', function() {
   var app_tester = new tu.AppTester(app);
-  app_tester.testBase();
+  app_tester.testHtmlGet('/', {
+    navbar: true
+  , banner: false
+  });
+
+  app_tester.testHtmlGet('/view_wishes', {
+    type: 'text'
+  , redirect: '/login\\?next=/view_wishes'
+  });
+
+  app_tester.testHtmlGet('/asdf', {
+    type: 'text'
+  , redirect: '/404.html'
+  });
 });
 
 describe('Wish', function() {
