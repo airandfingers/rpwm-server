@@ -5,24 +5,24 @@ var tu = require('../../modules/test_utils')
 
 describe('portal', function() {
 
-describe('app', function() {
+describe('routes', function() {
   var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/home', {
+  app_tester.testGet('/home', {
     navbar: true
   , banner: true
   });
 
-  app_tester.testHtmlGet('/about', {
+  app_tester.testGet('/about', {
     navbar: true
   , banner: true
   });
 
-  app_tester.testHtmlGet('/contact', {
+  app_tester.testGet('/contact', {
     navbar: true
   , banner: true
   });
 
-  app_tester.testHtmlGet('/asdf', {
+  app_tester.testGet('/asdf', {
     type: 'text'
   , redirect: '/404.html'
   });

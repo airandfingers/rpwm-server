@@ -8,6 +8,10 @@ module.exports = (function() {
   //load chai assertion library
     , chai = require('chai')
     , should = chai.should()
+  //get test user/password information
+    , db = require('./db')
+    , test_user = db.TEST_USER
+    , test_password = db.TEST_PASSWORD
     , starter_app_generator = function() {
       var app = express();
       app.set('view engine', 'ejs');
@@ -54,33 +58,45 @@ module.exports = (function() {
 
   var AppTester = function(app) {
     return {
-      testHtmlGet: function(route, options) {
-        describe(route, function() {
-          var content_type = options.type || 'html'
-            , redirect = options.redirect
-            , code = redirect ? 302 : 200
-            , description = 'should respond with HTML, HTTP Code ' + code +
+      testGet: function(route, options) {
+        _.defaults(options, {
+          describe: true
+        , code: 200
+        , type: 'html'
+        });
+
+        if (options.describe) {
+          describe(route, runTest);
+        }
+        else {
+          runTest();
+        }
+
+        function runTest() {
+          var redirect = options.redirect
+            , code = redirect ? 302 : options.code
+            , description = 'should respond with ' +
+                'Content-Type ' + options.type +
+                ((code) ? ', HTTP Code ' + code : '') +
                 ((redirect) ? ', redirecting to ' + redirect : '')
             , response_text;
           it(description, function(done) {
             request(app)
               .get(route)
-              .expect('Content-Type', new RegExp(content_type))
+              .expect('Content-Type', new RegExp(options.type))
               .expect(code)
-              .end(function(err, res) {
-                if (err) { done(err); }
-                else {
-                  response_text = res.text;
-                  should.exist(response_text);
-                  response_text.should.be.a('string');
-                  if (redirect) {
-                    response_text.should.match(new RegExp(
-                      'Redirecting to ' + redirect
-                    ));
-                  }
-                  done();
-                }
-              });
+              .end(onResponse);
+
+            function onResponse(err, res) {
+              should.not.exist(err);
+              response_text = res.text;
+              should.exist(response_text);
+              response_text.should.be.a('string');
+              if (redirect) {
+                res.header.location.should.equal(redirect);
+              }
+              done();
+            };
           });
           if (options.navbar === true) {
             it('should display the navbar', function() {
@@ -106,7 +122,46 @@ module.exports = (function() {
               response_text.should.not.contain('<div class="banner">');
             });
           }
+        };
+      }
+    , testPost: function(route, args, options) {
+        _.defaults(options, {
+          describe: true
+        , code: 200
         });
+
+        if (options.describe) {
+          describe(route, runTest);
+        }
+        else {
+          runTest();
+        }
+
+        function runTest() {
+          var redirect = options.redirect
+            , code = redirect ? 302 : options.code
+            , description = 'should respond with ' +
+                ((code) ? ', HTTP Code ' + code : '') +
+                ((redirect) ? ', redirecting to ' + redirect : '');
+          it(description, function(done) {
+            request(app)
+              .post(route)
+              .send(args)
+              .expect(code)
+              .end(onResponse);
+
+            function onResponse(err, res) {
+              should.not.exist(err);
+              var response_text = res.text;
+              should.exist(response_text);
+              response_text.should.be.a('string');
+              if (redirect) {
+                res.header.location.should.equal(redirect);
+              }
+              done();
+            };
+          });
+        };
       }
     };
   };
@@ -174,30 +229,38 @@ module.exports = (function() {
           instance.save(done);
         });
       }
-    , testRemove: function(instance) {
+    , testRemove: function(instanceOrWhere) {
         //test that the instance removes
         it('should remove without error', function(done) {
-          instance.remove(done);
+          if (_.isFunction(instanceOrWhere.remove)) {
+            instanceOrWhere.remove(done);
+          }
+          else {
+            model.remove(instanceOrWhere, done)
+          }
         });
       }
     , testFind: function(where, expected) {
-        var can_cannot = expected ? 'can' : 'cannot';
+        var can_cannot = expected === null ? 'cannot' : 'can';
         it(can_cannot + ' be found using ' + inspect(where), function(done) {
-          model.findOne(where, function(err, result) {
-            //console.log('found', result);
-            if (err) { done(err); }
-            else if (_.isObject(result) && _.isObject(expected)) {
+          model.findOne(where, handleResult);
+          
+          function handleResult(err, result) {
+            should.not.exist(err);
+            if (_.isObject(result) && _.isObject(expected)) {
               //pass if the result matches the expected instance
               result.equals(expected).should.equal(true);
-              done();
+            }
+            else if (_.isUndefined(expected)) {
+              //pass if a result was found
+              result.should.be.a('object');
             }
             else {
-              //pass if the result is an exact match (e.g., null)
-              //fail otherwise
+              //pass if result and expected are null
               should.equal(result, expected);
-              done();
             }
-          });
+            done();
+          };
         });
       }
     };

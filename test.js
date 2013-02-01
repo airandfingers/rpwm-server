@@ -9,24 +9,6 @@ var crypto = require('crypto')
 
 describe('bootstrap', function() {
 
-describe('app', function() {
-  var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/login', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/register', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/logout', {
-    type: 'text'
-  , redirect: '/'
-  });
-});
-
 describe('User', function() {
   var user_tester = new tu.ModelTester(User);
   user_tester.testModel();
@@ -51,6 +33,24 @@ describe('User', function() {
     user_tester.testRemove(user);
     user_tester.testFind(user_def, null);
     user_tester.testFind({ _id: user._id }, null);
+  });
+});
+
+describe('routes', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testGet('/login', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testGet('/register', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testGet('/logout', {
+    type: 'text'
+  , redirect: '/'
   });
 });
 

@@ -7,26 +7,8 @@ var tu = require('../../modules/test_utils')
 
 describe('wishing_well', function() {
 
-describe('app', function() {
-  var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/', {
-    navbar: true
-  , banner: false
-  });
-
-  app_tester.testHtmlGet('/view_wishes', {
-    type: 'text'
-  , redirect: '/login\\?next=/view_wishes'
-  });
-
-  app_tester.testHtmlGet('/asdf', {
-    type: 'text'
-  , redirect: '/404.html'
-  });
-});
-
+var wish_tester = new tu.ModelTester(Wish);
 describe('Wish', function() {
-  var wish_tester = new tu.ModelTester(Wish);
   wish_tester.testModel();
   wish_tester.testSchema();
   describe('wish with user', function() {
@@ -60,6 +42,33 @@ describe('Wish', function() {
     wish_tester.testRemove(wish);
     wish_tester.testFind(wish_def, null);
     wish_tester.testFind({ _id: wish._id }, null);
+  });
+});
+
+var app_tester = new tu.AppTester(app);
+describe('routes', function() {
+  app_tester.testGet('/', {
+    navbar: true
+  , banner: false
+  });
+
+  app_tester.testGet('/asdf', {
+    type: 'text'
+  , redirect: '/404.html'
+  });
+
+  app_tester.testGet('/view_wishes', {
+    type: 'text'
+  , redirect: '/login?next=/view_wishes'
+  });
+
+  describe('/wish', function() {
+    var wish_def = { wish : 'test wish' };
+    app_tester.testPost('/wish', wish_def, {
+      describe: false
+    });
+    wish_tester.testFind(wish_def);
+    wish_tester.testRemove(wish_def);
   });
 });
 

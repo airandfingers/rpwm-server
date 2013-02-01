@@ -70,13 +70,10 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/logout', auth.ensureAuthenticated, function (req, res) {
+  app.get('/logout', function (req, res) {
     //console.log("GET /logout called!");
     //End this user's session.
     req.logout();
     res.redirect('/');
   });
-
-
 };
-

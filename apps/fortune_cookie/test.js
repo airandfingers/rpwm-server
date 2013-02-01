@@ -6,41 +6,8 @@ var tu = require('../../modules/test_utils')
 
 describe('fortune_cookie', function() {
 
-describe('app', function() {
-  var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/fortune_teller', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/fortune_cookie', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/view_fortunes', {
-    navbar: true
-  , banner: true
-  });
-
-  app_tester.testHtmlGet('/manage_fortunes', {
-    type: 'text'
-  , redirect: '/login\\?next=/manage_fortunes'
-  });
-
-  app_tester.testHtmlGet('/asdf', {
-    type: 'text'
-  , redirect: '/404.html'
-  });
-});
-
+var fortune_tester = new tu.ModelTester(Fortune);
 describe('Fortune', function() {
-  var fortune_tester = new tu.ModelTester(Fortune);
   fortune_tester.testModel();
   fortune_tester.testSchema();
   describe('test instance', function() {
@@ -68,6 +35,55 @@ describe('Fortune', function() {
         }
       });
     });
+  });
+});
+
+var app_tester = new tu.AppTester(app);
+describe('routes', function() {
+  app_tester.testGet('/', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testGet('/fortune_teller', {
+    navbar: true
+  , banner: true
+  });
+
+  describe('/new_fortune', function() {
+    var fortune_def = { fortune : 'test fortune' };
+    app_tester.testPost('/new_fortune', fortune_def, {
+      describe: false
+    , redirect: '/'
+    });
+    fortune_tester.testFind(fortune_def);
+    fortune_tester.testRemove(fortune_def);
+  });
+
+  app_tester.testGet('/fortune_cookie', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testGet('/view_fortunes', {
+    navbar: true
+  , banner: true
+  });
+
+  app_tester.testGet('/view_fortunes.json', {
+    type: 'json'
+  , navbar: false
+  , banner: false
+  });
+
+  app_tester.testGet('/manage_fortunes', {
+    type: 'text'
+  , redirect: '/login?next=/manage_fortunes'
+  });
+
+  app_tester.testGet('/asdf', {
+    type: 'text'
+  , redirect: '/404.html'
   });
 });
 

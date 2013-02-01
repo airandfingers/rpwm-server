@@ -6,14 +6,6 @@ var tu = require('../../modules/test_utils')
 
 describe('minesweeper', function() {
 
-describe('app', function() {
-  var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/', {
-    navbar: true
-  , banner: false
-  });
-});
-
 describe('Game', function() {
   var game_tester = new tu.ModelTester(Game);
   game_tester.testModel();
@@ -36,6 +28,14 @@ describe('Game', function() {
     game_tester.testRemove(game);
     game_tester.testFind(game_def, null);
     game_tester.testFind({ _id: game._id }, null);
+  });
+});
+
+describe('routes', function() {
+  var app_tester = new tu.AppTester(app);
+  app_tester.testGet('/', {
+    navbar: true
+  , banner: false
   });
 });
 

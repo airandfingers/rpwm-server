@@ -5,16 +5,16 @@ var tu = require('../../modules/test_utils')
 
 describe('markslist', function() {
 
-describe('app', function() {
+describe('routes', function() {
   var app_tester = new tu.AppTester(app);
-  app_tester.testHtmlGet('/', {
+  app_tester.testGet('/', {
     type: 'text'
-  , redirect: '/login\\?next=/'
+  , redirect: '/login?next=/'
   });
 
-  app_tester.testHtmlGet('/asdf', {
+  app_tester.testGet('/asdf', {
     type: 'text'
-  , redirect: '/login\\?next=/asdf'
+  , redirect: '/login?next=/asdf'
   });  
 });
 
