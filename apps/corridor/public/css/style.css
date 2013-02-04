@@ -378,6 +378,15 @@ img.possibleMove:hover {
     float: left
 }
 
+#new_game_form {
+    display: inline;
+    float: left
+}
+
+#new_game_form input[type="text"] {
+    width: 1em;
+}
+
 #fence_counters {
     display: inline;
     float: left;

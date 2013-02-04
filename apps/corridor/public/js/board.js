@@ -63,18 +63,46 @@ var BOARD =
             .insertBefore('#board');
         _board.disableUndoButton();
         $('<span></span>')
+            .append($('<form></form>',
+                { id: 'new_game_form' })
+                .append($('<label># Rows</label>',
+                    { for: 'new_game_num_rows' }))
+                .append($('<input></input>',
+                    { id: 'new_game_num_rows',
+                      type: 'text'
+                    }).val(_board.num_rows))
+                .append($('<label># Columns</label>',
+                    { for: 'new_game_num_cols' }))
+                .append($('<input></input>',
+                    { id: 'new_game_num_cols',
+                      type: 'text'
+                    }).val(_board.num_cols))
+                .append($('<input type="submit" />')
+                    .val('Start a New Game'))
+                .submit(function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var num_rows = parseInt($('#new_game_num_rows').val()),
+                        num_cols = parseInt($('#new_game_num_cols').val());
+                    console.log(window.location.host + '?num_rows=' + num_rows + '&num_cols=' + num_cols);
+                    window.location.href = 'http://' + window.location.host + '?num_rows=' + num_rows + '&num_cols=' + num_cols;
+                    return false;
+                })
+                )
+            .insertBefore('#board');
+        $('<span></span>')
             .attr('id', 'fence_counters')
             .append('Fences Placed: ')
-            .append($('<strong></strong>')
-                .attr('id', 'red_fence_counter')
-                .text('0')
-                .addClass('fenceCounter')
+            .append($('<strong>0</strong>')
+                .attr(
+                { id: 'red_fence_counter',
+                  class: 'fenceCounter' })
                 )
             .append('-')
-            .append($('<strong></strong>')
-                .attr('id', 'blue_fence_counter')
-                .text('0')
-                .addClass('fenceCounter')
+            .append($('<strong>0</strong>')
+                .attr(
+                { id: 'blue_fence_counter',
+                  class: 'fenceCounter' })
                 )
             .insertBefore('#board')
             .after('<br /><br /><br /><br />') //hack to make positioning work
@@ -643,90 +671,6 @@ var BOARD =
     
 $(document).ready(function()
 {
-    console.log($, $.ui, $('<div></div>').dialog);
-    $('<div></div>')
-        .append($('<p>(Press Enter to continue.)</p>'))
-        .append($('<input type="text" id="dialog_name" />')
-            .on('keypress', function(e)
-            {
-                if (e.which === 13)
-                {
-                    var name = $('#dialog_name').val() || 'Lazy Guy';
-                    $('#chat_sender').val(name);
-                    socket.emit('setName', {name: name});
-                    $(this).parent().dialog('close').remove();
-                }
-            }))
-        .dialog(
-        {
-            title: 'Please enter a name for yourself.',
-            closeOnEscape: false,
-            buttons:
-            {
-                'Okay': function()
-                {
-                    //trigger the handler defined above
-                    $('#dialog_name').trigger($.Event('keypress', { which: 13}));
-                }
-            },
-            open: function()
-            {
-                $('.ui-dialog-titlebar-close').hide();
-                $('#dialog_name').focus();
-            },
-            close: function()
-            {
-                $('#chat_message').focus();
-                $(document).on('keydown', function(e)
-                {
-                    var $chat_sender = $('#chat_sender'),
-                        $chat_message = $('#chat_message'),
-                        key_code = e.which;
-                    if (key_code < 32 || key_code > 126)
-                    {
-                        return;
-                    }
-                    else if (key_code > 36 && key_code < 41)
-                    {
-                        //don't move pieces if the user means to navigate a text field
-                        if ($chat_sender.is(':focus') && $chat_sender.val() !== ''
-                        || $chat_message.is(':focus') && $chat_message.val() !== '')
-                        {
-                            return;
-                        }
-                        var arrow_id = '.move_';
-                        switch(key_code)
-                        {
-                            case 37:
-                                arrow_id += 'left';
-                                break;
-                            case 38:
-                                arrow_id += 'up';
-                                break;
-                            case 39:
-                                arrow_id += 'right';
-                                break;
-                            case 40:
-                                arrow_id += 'down';
-                                break;
-                        }
-                        $(arrow_id).parent().click();
-                        e.stopPropagation();
-                        e.preventDefault();
-                    }
-                    else if ($chat_sender.is(':focus') || $chat_message.is(':focus'))
-                    {
-                        //don't focus $chat_message if the user's typing in a text field
-                        return;
-                    }
-                    else
-                    {
-                        $chat_message
-                            .focus();
-                    }
-                });
-            }
-        });
     BOARD.initialize();
     BOARD.buildBoard();
     BOARD.buildControls();
@@ -735,6 +679,61 @@ $(document).ready(function()
     BOARD.initializeBoard();
     console.log('Connecting to ', window.location.href);
     socket = io.connect(window.location.href, {transports: ['xhr-multipart', 'htmlfile', 'xhr-polling', 'jsonp-polling']});
+    var name = prompt('Please enter a name for yourself.') || 'Lazy Person';
+    $('#chat_sender').val(name);
+    socket.emit('setName', { name: name } );
+    $('#chat_message').focus();
+    $(document).on('keydown', function(e)
+    {
+        var $chat_sender = $('#chat_sender'),
+            $chat_message = $('#chat_message'),
+            $new_game_num_rows = $('#new_game_num_rows'),
+            $new_game_num_cols = $('#new_game_num_cols'),
+            key_code = e.which;
+        if (key_code < 32 || key_code > 126)
+        {
+            return;
+        }
+        else if (key_code > 36 && key_code < 41)
+        {
+            //don't move pieces if the user means to navigate a text field
+            if ($chat_sender.is(':focus') && $chat_sender.val() !== ''
+            || $chat_message.is(':focus') && $chat_message.val() !== '')
+            {
+                return;
+            }
+            var arrow_id = '.move_';
+            switch(key_code)
+            {
+                case 37:
+                    arrow_id += 'left';
+                    break;
+                case 38:
+                    arrow_id += 'up';
+                    break;
+                case 39:
+                    arrow_id += 'right';
+                    break;
+                case 40:
+                    arrow_id += 'down';
+                    break;
+            }
+            $(arrow_id).parent().click();
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        else if ($chat_sender.is(':focus') || $chat_message.is(':focus') ||
+                 $new_game_num_rows.is(':focus') || $new_game_num_cols.is(':focus'))
+        {
+            //don't focus $chat_message if the user's typing in a text field
+            return;
+        }
+        else
+        {
+            $chat_message
+                .focus();
+        }
+    });
     /*socket.on('connect', function () { console.log('connect'); });
     socket.on('connecting', function () { console.log('connecting'); });
     socket.on('disconnect', function () { console.log('disconnect'); });
