@@ -92,27 +92,68 @@
                             <% } %>
                         </li>
                     <% } %>
-                    <li class="right">
-                      <% if (locals.username) { %>
-                        <a href="/logout">LOGOUT</a>
-                      <% } else { %>
-                        <a href="/login">LOGIN</a>
-                      <% } %>
-                    </li>
+                    <!-- REGISTER dropdown Link -->
                     <li class="right">
                       <% if (locals.username) { %>
                         <%= locals.username.toUpperCase() %>    
                       <% } else { %>
-                        <a href="/register">REGISTER</a>
+                        <a href="#" id="register_trigger">REGISTER</a>
                       <% } %>
                     </li>
+                    <% if (! locals.username) { %>                    
+                    <div id="register" class="dropdown_form">
+                      <form action="/register" method="post">
+                          <div class="username">
+                              <label>Username:</label>
+                              <input type="text" name="username" placeholder="username" autofocus /><br/>
+                          </div>
+                          <div class="password">
+                              <label>Password:</label>
+                              <input type="password" name="password" placeholder="password" />
+                          </div>
+                          <div class="password">
+                              <label>Confirm Password:</label>
+                              <input type="password" name="password2" placeholder="re-type password" />
+                          </div>
+                          <div class="submit_button">
+                              <input type="submit" value="Log In" class="button"/>
+                          </div>
+                      </form>
+                    </div>
+                    <% } %>
+
+                    <!--Login or Logout Link-->
+                    <li class="right">
+                        <% if (locals.username) { %>
+                          <a href="/logout">LOGOUT</a>
+                        <% } else { %>
+                          <a href="#" id="login_trigger">LOGIN</a>
+                        <% } %>
+                    </li>
+                    <% if (! locals.username) { %>
+                    <div id="login" class="dropdown_form">
+                      <form action="/login" method="post">
+                        <div class="username">
+                          <label>Username:</label>
+                          <input type="text" name="username" placeholder="username" autofocus /><br/>
+                        </div>
+                        <div class="password">
+                          <label>Password:</label>
+                          <input type="password" name="password" placeholder="password" />
+                        </div>
+                        <div class="submit_button">
+                          <input type="submit" value="Login" class="button" />
+                        </div>
+                      </form>
+                    </div>                          
+                        <% } %>
                 </ul>
             </div>
         <% } %>
         <% if (settings.show_banner) { %>
             <div class="banner">
-                <a href="http://ayoshitake.com">
-                    <img src="http://ayoshitake.com/img/aybanner3.png" title="ayoshitake.com" />
+                <a href="<% settings.base_url %>">
+                    <img src="<% settings.base_url %>/img/aybanner3.png" title="ayoshitake.com" />
                 </a>
                 <h3 id="under_construction">PERMANENTLY UNDER CONSTRUCTION</h3>
             </div>

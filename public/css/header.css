@@ -53,7 +53,7 @@ header {
     left: -999em;
 }
 
-.navbar a:link    { color: white; }
+.navbar a:link    { color: #CCCCCC; }
 .navbar a:visited { color: #CCCCCC; }
 .navbar a:hover   { color: red; }
 .navbar a.current_site  { color: chartreuse; }
@@ -74,3 +74,11 @@ h3 {
     margin: 0px auto 0 auto;
     margin-bottom: 20px;
 }
+
+#login, #register {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    display: none;
+}
+

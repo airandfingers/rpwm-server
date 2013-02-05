@@ -28,6 +28,61 @@
     </script>
   <% } %>
 
+  <!-- Hide/Show Login functionality -->
+  <script>
+    $(document).ready(function() {
+      $('#login').hide();
+      $('#login_trigger').toggle(function() {
+        $(this)
+          .addClass('active');
+        $('#login')
+          .css({
+          left: $(this).position().left - $(this).width(), 
+          top: $(this).position().top + $(this).height()
+          })
+          .slideDown();
+      }, function () {
+        $(this)
+          .removeClass('active');
+        $('#login')
+          .slideUp();
+      });
+      $('#login form :submit').click(function() {
+        $(this)
+          .parent()
+          .prev('a')
+          .click();
+        });
+    });
+  </script>
+
+  <!-- Hide/Show Register functionality -->
+  <script>
+    $(document).ready(function() {
+      $('#register').hide();
+      $('#register_trigger').toggle(function() {
+        $(this)
+          .addClass('active');
+        $('#register')
+          .css({
+          left: $(this).position().left - $(this).width(), 
+          top: $(this).position().top + $(this).height()
+          })
+          .slideDown();
+      }, function () {
+        $(this)
+          .removeClass('active');
+        $('#register')
+          .slideUp();
+      });
+      $('#register form :submit').click(function() {
+        $(this)
+          .parent()
+          .prev('a')
+          .click();
+        });
+    });
+  </script>
 
   <% if (settings.show_banner) { %> 
   <!-- fade in the "under construction" message -->
