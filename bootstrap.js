@@ -93,6 +93,10 @@ bootstrap_app.use(express.vhost('w.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('ww.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 
+//rock paper scissors
+var rps_app = require('./apps/rps/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));
+
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));

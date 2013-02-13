@@ -92,44 +92,16 @@
                             <% } %>
                         </li>
                     <% } %>
-                    <!-- REGISTER dropdown Link -->
+                    <!-- Combined Register/Login Dropdown-->
                     <li class="right">
                       <% if (locals.username) { %>
-                        <%= locals.username.toUpperCase() %>    
+                        <a href="/logout">Logout <%= locals.username.toUpperCase() %></a>
                       <% } else { %>
-                        <a href="#" id="register_trigger">REGISTER</a>
+                        <a href="#" id="login_trigger">Login/Register</a>
                       <% } %>
                     </li>
-                    <% if (! locals.username) { %>                    
-                    <div id="register" class="dropdown_form">
-                      <form action="/register" method="post">
-                          <div class="username">
-                              <label>Username:</label>
-                              <input type="text" name="username" placeholder="username" autofocus /><br/>
-                          </div>
-                          <div class="password">
-                              <label>Password:</label>
-                              <input type="password" name="password" placeholder="password" />
-                          </div>
-                          <div class="password">
-                              <label>Confirm Password:</label>
-                              <input type="password" name="password2" placeholder="re-type password" />
-                          </div>
-                          <div class="submit_button">
-                              <input type="submit" value="Log In" class="button"/>
-                          </div>
-                      </form>
-                    </div>
-                    <% } %>
 
-                    <!--Login or Logout Link-->
-                    <li class="right">
-                        <% if (locals.username) { %>
-                          <a href="/logout">LOGOUT</a>
-                        <% } else { %>
-                          <a href="#" id="login_trigger">LOGIN</a>
-                        <% } %>
-                    </li>
+                    <!--Login div-->
                     <% if (! locals.username) { %>
                     <div id="login" class="dropdown_form">
                       <form action="/login" method="post">
@@ -145,7 +117,33 @@
                           <input type="submit" value="Login" class="button" />
                         </div>
                       </form>
-                    </div>                          
+
+                        <!-- Register form div-->
+                        <div class="dropdown_form">
+                        <form action="/register" method="post">
+                            <div class="username">
+                                <label>Username:</label>
+                                <input type="text" name="username" placeholder="username" autofocus /><br/>
+                            </div>
+                            <div class="password">
+                                <label>Password:</label>
+                                <input type="password" name="password" placeholder="password" />
+                            </div>
+                            <div class="password">
+                                <label>Confirm Password:</label>
+                                <input type="password" name="password2" placeholder="re-type password" />
+                            </div>
+                            <div class="submit_button">
+                                <input type="submit" value="Register" class="button"/>
+                            </div>
+                        </form>
+                      </div>
+                      <!--Guest Access button, to add later
+                      <div>
+                        <input type="submit" value="Guest Access" class="button" />
+                      </div>  -->
+                    </div><!-- end of login div-->
+                      
                         <% } %>
                 </ul>
             </div>

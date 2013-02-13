@@ -76,4 +76,12 @@ module.exports = function (app) {
     req.logout();
     res.redirect('/');
   });
+
+  //_____Guest registration/login method________
+  //request guest # from database
+
+  //create guest account by using the register function with guest + #+1), update guest number on database, if not unique, loop.
+
+  //login with new guest account.  password is null.
+
 };
