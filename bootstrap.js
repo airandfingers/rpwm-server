@@ -27,9 +27,11 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
+      app.set('protocol', 'http');
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
+      app.set('protocol', 'https');
       app.set('base_url', 'ayoshitake.com');
     });
     return app;
@@ -41,6 +43,19 @@ var express = require('express')
 var bootstrap_app = module.exports = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
 
+// When in production mode (deployed to Nodejitsu)..
+bootstrap_app.configure('production', function() {
+  // Forward all incoming HTTP requests to HTTPS
+  bootstrap_app.use(function(req, res, next) {
+    if (! req.connection.encrypted &&
+        req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect('https://' + req.headers.host + req.url);
+    }
+    else {
+      next();
+    }
+  });
+});
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 bootstrap_app.use(express.static(__dirname + '/public'));
@@ -94,8 +109,9 @@ bootstrap_app.use(express.vhost('ww.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 
 //rock paper scissors
+/*COMMENTED OUT UNTIL RPS APP IS ADDED TO GIT
 var rps_app = require('./apps/rps/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));
+bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));*/
 
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);

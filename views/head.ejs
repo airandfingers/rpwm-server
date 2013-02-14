@@ -20,7 +20,7 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="http://<%= settings.base_url %>/css/header.css" />
+  <link rel="stylesheet" href="<%= settings.protocol %>://<%= settings.base_url %>/css/header.css" />
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -28,7 +28,7 @@
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="http://<%= settings.base_url %>/js/lib/modernizr-2.5.3.min.js"></script>
+  <script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/modernizr-2.5.3.min.js"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -71,7 +71,7 @@
                         site_dropdown = sites[i].dropdown;
                     %>
                         <li>
-                            <a href="http://<%= site_href %>"
+                            <a href="<%= settings.protocol %>://<%= site_href %>"
                                 <%
                                 if (settings.site_name === site_name) { %>
                                     class="current_site"
@@ -85,7 +85,7 @@
                                 pagehref = site_dropdown[j].href;
                                 %>
                                 <li>
-                                  <a href="http://<%= pagehref %>"> <%= pagename %> </a>
+                                  <a href="<%= settings.protocol %>://<%= pagehref %>"> <%= pagename %> </a>
                                 </li>
                               <% } %>  
                               </ul>
@@ -150,8 +150,8 @@
         <% } %>
         <% if (settings.show_banner) { %>
             <div class="banner">
-                <a href="http://<%= settings.base_url %>">
-                    <img src="http://<%= settings.base_url %>/img/aybanner3.png" title="ayoshitake.com" />
+                <a href="<%= settings.protocol %>://<%= settings.base_url %>">
+                    <img src="<%= settings.protocol %>://<%= settings.base_url %>/img/aybanner3.png" title="ayoshitake.com" />
                 </a>
                 <h3 id="under_construction">PERMANENTLY UNDER CONSTRUCTION</h3>
             </div>
