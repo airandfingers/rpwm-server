@@ -85,7 +85,7 @@ var BOARD =
                     var num_rows = parseInt($('#new_game_num_rows').val()),
                         num_cols = parseInt($('#new_game_num_cols').val());
                     console.log(window.location.host + '?num_rows=' + num_rows + '&num_cols=' + num_cols);
-                    window.location.href = 'http://' + window.location.host + '?num_rows=' + num_rows + '&num_cols=' + num_cols;
+                    window.location.href = 'https://' + window.location.host + '?num_rows=' + num_rows + '&num_cols=' + num_cols;
                     return false;
                 })
                 )
