@@ -31,7 +31,7 @@ var express = require('express')
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
-      app.set('protocol', 'https');
+      app.set('protocol', 'http');
       app.set('base_url', 'ayoshitake.com');
     });
     return app;
@@ -44,7 +44,7 @@ var bootstrap_app = module.exports = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
 
 // When in production mode (deployed to Nodejitsu)..
-bootstrap_app.configure('production', function() {
+/*bootstrap_app.configure('production', function() {
   // Forward all incoming HTTP requests to HTTPS
   bootstrap_app.use(function(req, res, next) {
     if (! req.connection.encrypted &&
@@ -55,7 +55,7 @@ bootstrap_app.configure('production', function() {
       next();
     }
   });
-});
+});*/
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 bootstrap_app.use(express.static(__dirname + '/public'));
