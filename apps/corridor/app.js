@@ -3,7 +3,7 @@ module.exports = function(starter_app_generator) {
       http = require('http'), // Node's built-in HTTP module
       app = starter_app_generator(), // our express app
       server = http.createServer(app), // the web server itself
-      MongoStore = require('connect-mongo')(express), //used as our session store
+      //MongoStore = require('connect-mongo')(express), //used as our session store
 //, parseCookie = require('connect').utils.parseCookie //parseCookie function used to parse cookies
 
       io = require('socket.io').listen(server); //abstracted-out bidirectional communication
