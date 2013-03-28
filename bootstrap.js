@@ -38,7 +38,13 @@ var express = require('express')
   },
 
 // Declare configuration value(s).
-  EXPRESS_PORT = 9000;
+  EXPRESS_PORT = 9000,
+// Define some session-related settings
+  session_settings = {
+    store: require( './modules/db' ).session_store
+  , secret: '0Pp3nH3!meR'
+  , sid_name: 'express.sid'
+};
 
 var bootstrap_app = module.exports = starter_app_generator()
   , bootstrap_server = http.createServer(bootstrap_app);
@@ -60,7 +66,11 @@ bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 bootstrap_app.use(express.static(__dirname + '/public'));
 bootstrap_app.use(express.cookieParser());
-bootstrap_app.use(express.session({ secret: 'M450NRY4TUN3W1N' }));
+bootstrap_app.use(express.session({
+  store: session_settings.store, //where to store sessions
+  secret: session_settings.secret, //seed used to randomize some aspect of sessions?
+  key: session_settings.sid_name, //the name under which the session ID will be stored
+})); //enable session use with these settings
 bootstrap_app.use(passport.initialize());
 bootstrap_app.use(passport.session());
 bootstrap_app.use(function(req, res, next) {
