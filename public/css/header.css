@@ -17,7 +17,7 @@ header {
     font-size: 1em;
     padding: 0;
     margin: 0;
-    height: 26px;
+    height: 1.625em; /* 26/16 px */
 }
 
 .navbar ul {
@@ -65,6 +65,7 @@ header {
 .banner {
     padding-top: 2em;
     display: block;
+    clear: both;
 }
 
 h3 {

@@ -15,12 +15,26 @@
       <div id="about_intro">
           <%= intro %>
       </div>
+      <%
+      var rand2 = Math.floor(Math.random()*6), 
+          goals = [
+          , "being everywhere at once."
+          , "immortality! MUAHAHAHA."
+          , "helping to make the World Wide Web a more user-friendly place."
+          , "speaking fluent Spanish."
+          , "reading every word written by mankind. Ever."
+          , "realizing that the truth was right in front of him, all along."
+          , "finding out just how deep the rabbit hole goes."
+          ],
+            goal = goals[rand2];
+      %>
       <div id="about_content">
-          <p>Red Pill Web Masons is a fellowship of men and women who share their experience, strength, and hope with each other that they may solve their common problem and help others to recover from technophobia.</p>
-          <p>The only requirement for membership is a desire to stop being computer illiterate.</p>
-          <p>There are no dues or fees for WBA membership; we are self-supporting through our own contributions.</p>
-          <p>RPWM is not allied with any sect, denomination, politics, organization or institution; does not wish to engage in any controversy, neither endorses nor opposes any causes.</p>
-          <p>Our primary purpose is to stay sober (or not) and help other technophobes to achieve technical proficiency in their chosen area(s) of expertise.</p>
+          <p>Aaron Yoshitake is a Full-Stack web developer and wizard based out of breezy, Oceanside, California.</p>
+          <p>When he is not wielding his supernatural powers, Aaron can be found in a crazy thing called "The Internet," engineering new, interactive systems using HTML, CSS, JavaScript (jQuery and Node.js), and MongoDB. </p>
+          <p>A member of the 
+            <a href = "http://www.yelp.com/biz/self-realization-fellowship-hermitage-and-meditation-gardens-encinitas-2"> 
+            Encinitas Doshin-Aikido Dojo
+            </a>, Aaron is finding the way of harmony with universal energy through practice, focus, and meditation.  He will one day achieve his goal of <%= goal %>
       </div>
       <img src="img/big_redpill_right.gif" />
   </div>
@@ -35,7 +49,7 @@
 
   <script>
   $(document).ready(function() {
-      $('#about_intro').fadeOut(2000, function() {
+      $('#about_intro').fadeOut(3750, function() {
           $('#about_content').fadeIn();
       });
   });
