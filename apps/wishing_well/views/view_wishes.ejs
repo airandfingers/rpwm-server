@@ -11,7 +11,7 @@
         wish = wishes[i]; %>
         <tr>
           <td><%= wish.wish %></td>
-          <td><%= typeof(wish.user) === 'object' ? wish.user.username : '' %></td>
+          <td><%= (typeof(wish.user) === 'object' && wish.user !== null) ? wish.user.username : '' %></td>
         </tr>
       <% } %>
     </table>

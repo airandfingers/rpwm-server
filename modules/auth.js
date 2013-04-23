@@ -44,20 +44,27 @@ module.exports = (function () {
     });
   });
 
+  function isAuthenticated(req) {
+    return req.isAuthenticated();
+  }
+
+  function ensureAuthenticated(req, res, next) {
+    //console.log("ensureAuthenticated called!");
+    if (isAuthenticated(req)) {
+      return next();
+    }
+    else {
+      res.redirect('/login?next=' + req.url);
+    }
+  }
+
   // Simple route middleware to ensure user is authenticated.
   //   Use this route middleware on any resource that needs to be protected.  If
   //   the request is authenticated (typically via a persistent login session),
   //   the request will proceed.  Otherwise, the user will be redirected to the
   //   login page.
   return {
-    ensureAuthenticated: function (req, res, next) {
-      //console.log("ensureAuthenticated called!");
-      if (req.isAuthenticated()) {
-        return next();
-      }
-      else {
-        res.redirect('/login?next=' + req.url);
-      }
-    }
+    isAuthenticated: isAuthenticated,
+    ensureAuthenticated: ensureAuthenticated
   };
 })();
