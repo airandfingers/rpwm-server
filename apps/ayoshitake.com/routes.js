@@ -8,7 +8,7 @@ module.exports = function(app) {
   });
   
   app.get('/about', function(req, res) {
-    res.render('about', {title: 'All about us!', current_page: 'about'});
+    res.render('about', {title: 'About Aaron', current_page: 'about'});
   });
   
   app.get('/contact', function(req, res) {
