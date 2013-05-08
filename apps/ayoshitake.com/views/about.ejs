@@ -1,20 +1,7 @@
 <% include ../../../views/head %>
 
   <div role="main" class="main" id="about_page">
-      <% 
-      var rand = Math.floor(Math.random()*5),
-          intros = [
-          "A long time ago, in a galaxy far, far away...",
-          "Once upon a time in Mexico...",
-          "Way back when, in the good ol' days...",
-          "Far in the distant past, in a time not unlike the current one...",
-          "Back when I was your age.. Oh my, how things were simpler back then..."
-      ],
-          intro = intros[rand];
-      %>
-      <div id="about_intro">
-          <%= intro %>
-      </div>
+
       <%
       var rand2 = Math.floor(Math.random()*6), 
           goals = [
@@ -47,13 +34,5 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-
-  <script>
-  $(document).ready(function() {
-      $('#about_intro').delay(3000).fadeOut(2000, function() {
-          $('#about_content').fadeIn();
-      });
-  });
-  </script>
 
 <% include ../../../views/foot %>
