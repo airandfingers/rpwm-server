@@ -93,11 +93,11 @@ html {
 }
 
 .slideshow a {
-  width: 50%;
+  min-width: 275px;
 }
 
 .slideshow a.portal img {
-    width: 50%;
+    min-width: 275px; 
 }
 
 .username {
@@ -132,6 +132,8 @@ html {
 
 #about_page > img {
 	opacity: 50%;
+  width: 10%;
+  min-width: 100px;
 }
 
 #contact-main {
