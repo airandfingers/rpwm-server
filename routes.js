@@ -3,6 +3,16 @@ module.exports = function (app) {
       passport = require('passport'),
       auth = require('./modules/auth');
 
+  //temp bitcoin_test route for other server.
+  app.get('/bitcoin_test/:username', function (req, res) {
+    var username = req.params.username;
+    console.log('Request came in on route for username ' + username);
+    res.render('bitcoin_test', {
+      message: req.flash('error'),
+      title: 'bitcoin_test',
+    });
+  });
+
   app.get('/login', function (req, res) {
     //console.log("GET /login called!");
     //Show the login form.
