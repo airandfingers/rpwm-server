@@ -41,10 +41,16 @@
 <script type="text/javascript" src="js/jquery.cycle.all.latest.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-  $('.slideshow').cycle({
-    fx: 'fade', // transition type
-    delay: 2700,
-    pause: 1
+  $('.slideshow')    
+    .after('<div id="slide_nav">')
+    .cycle({ 
+        fx: 'fade', // transition type
+        delay: 2700,
+        pause: 1,
+        pager: '#slide_nav',
+        pagerAnchorBuilder: function paginate(idx, el) {
+            return '<a class="service' + idx + '" href="#" >&bull;</a>'; 
+            }
   });
 });
 </script>
