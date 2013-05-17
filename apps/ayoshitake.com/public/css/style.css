@@ -152,6 +152,12 @@ html {
     margin: 100px 20px 20px 20px;
 }
 
+#slide_nav {
+  position: relative;
+  text-decoration: none;
+  font-size: 2.5em;
+}
+
 #under_construction {
 	display: none;
   font-weight: normal;
