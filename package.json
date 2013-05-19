@@ -36,9 +36,7 @@
     "ww.magi-cal.me",
     "www.magi-cal.me"
   ],
-  "scripts": {
-    "start": "bootstrap.js"
-  },
+  "main": "bootstrap.js",
   "engines": {
     "node": "0.8.x"
   },

@@ -27,18 +27,18 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('protocol', 'http');
+      app.set('protocol', 'https');
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
-      app.set('protocol', 'http');
+      app.set('protocol', 'https');
       app.set('base_url', 'ayoshitake.com');
     });
     return app;
   },
 
 // Declare configuration value(s).
-  EXPRESS_PORT = 9000,
+  EXPRESS_PORT = process.env.PORT || 9000,
 // Define some session-related settings
   session_settings = {
     store: require( './modules/db' ).session_store
