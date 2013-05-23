@@ -70,26 +70,16 @@ html {
     margin: 20px;
 }
 
-.portal {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-
 .submit_button {
     margin: 20px;
 }
 
 .slideshow {
-  margin-top: 5em;
+  margin-top: 2em;
   margin-right: auto;
   margin-left: auto;
-}
-
-.slideshow {
-  margin-top: 5em;
-  margin-right: auto;
-  margin-left: auto;
+  width: 50%;
+  min-width: 275px;
 }
 
 .slideshow a {
