@@ -6,11 +6,7 @@ module.exports = function (app) {
   //temp bitcoin_test route for other server.
   app.get('/bitcoin_test/:username', function (req, res) {
     var username = req.params.username;
-    console.log('Request came in on route for username ' + username);
-    res.render('bitcoin_test', {
-      message: req.flash('error'),
-      title: 'bitcoin_test',
-    });
+    console.log('bitcoin_test request came in for username ' + username, ':', req.query);
   });
 
   app.get('/login', function (req, res) {
