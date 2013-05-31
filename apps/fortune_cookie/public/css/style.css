@@ -255,7 +255,7 @@ td { vertical-align: top; }
 }
 
 body {
-
+  margin: 0;
 }
 
 #wish_label, #received {
@@ -265,9 +265,6 @@ body {
 #wish {
   width: 300px;
 }
-
-main
-
 
 
 

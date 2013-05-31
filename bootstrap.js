@@ -27,7 +27,7 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('protocol', 'https');
+      app.set('protocol', 'http');
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {

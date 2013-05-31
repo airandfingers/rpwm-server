@@ -4,88 +4,95 @@
     src: url(/DESTROY.ttf) format("truetype");
 }
 
+body {
+    margin: 0;
+}
+
 header {
     font-family: DESTROY, sans-serif;
 }
 
-.navbar {
-    background: black;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-size: 1em;
-    padding: 0;
-    margin: 0;
-    height: 1.625em; /* 26/16 px */
-}
-
-.navbar ul {
-    margin: 0px;
-    padding: 3px;
-}
-
-.navbar li {
-    display: inline;
-    float: left;
-    background: black;
-    padding-left: 1%;
-    padding-right: 1%;
-    vertical-align: center;
-}
-
-.navbar li.right {
-    display: inline;
-    float: right;
-}
-
-.navbar a {
-    display: block;
-    text-decoration: none;
-}
-
-
-.navbar > ul > li > ul {
-    background-color: black;
-    position: absolute;
-    width: 10em;
-    font-size: .9em;
-    left: -999em;
-    margin: 0;
-}
-
-.navbar a:link    { color: #CCCCCC; }
-.navbar a:visited { color: #CCCCCC; }
-.navbar a:hover   { color: red; }
-.navbar a.current_site  { color: chartreuse; }
-
-.navbar li:hover ul, .navbar li ul:hover {
-    overflow: visible;
-    left:auto;
-}
-.banner {
+@media all and (min-width: 320px) {
+    .banner {
     padding-top: 2em;
     display: block;
     clear: both;
-}
-
-h3 {
-    font-size: 1em;
-    color: #efefff;
-    text-align: center;
-    margin: 0px auto 0 auto;
-    margin-bottom: 20px;
-}
-
-#login, #register {
-    width: 200px;
-    height: 200px;
     position: relative;
-    display: none;
-}
+    }
 
-@media all and (max-width: 800px) {
+    .navbar {
+        background: black;
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        font-size: 1em;
+        padding: 0;
+        margin: 0;
+        height: 1.625em; /* 26/16 px */
+    }
+
+    .navbar ul {
+        margin: 0px;
+        padding: 3px;
+    }
+
     .navbar li {
+        display: inline;
+        float: left;
+        background: black;
+        padding-left: 1%;
+        padding-right: 1%;
+        vertical-align: center;
+    }
+
+    .navbar li.right {
+        display: inline;
+        float: right;
+    }
+
+    .navbar a {
         display: block;
+        text-decoration: none;
+    }
+
+
+    .navbar > ul > li > ul {
+        background-color: black;
+        position: absolute;
+        width: 10em;
+        font-size: .9em;
+        left: -999em;
+        margin: 0;
+    }
+
+    .navbar a:link    { color: #CCCCCC; }
+    .navbar a:visited { color: #CCCCCC; }
+    .navbar a:hover   { color: red; }
+    .navbar a.current_site  { color: chartreuse; }
+
+    .navbar li:hover ul, .navbar li ul:hover {
+        overflow: visible;
+        left:auto;
+    }
+
+
+    h3 {
+        font-size: 1em;
+        color: #efefff;
+        text-align: center;
+        margin: 0px auto 0 auto;
+        margin-bottom: 20px;
+    }
+
+    #login, #register {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        display: none;
+    }
+    .navbar li {
+        display: block;        
     }
 
     .navbar li.right {
@@ -93,3 +100,9 @@ h3 {
         display: block;
     }
 }
+@media all and (min-width: 768px) {
+
+
+}
+
+
