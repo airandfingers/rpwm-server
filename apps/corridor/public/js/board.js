@@ -678,7 +678,7 @@ $(document).ready(function()
     BOARD.addHandlers();
     BOARD.initializeBoard();
     console.log('Connecting to ', window.location.href);
-    socket = io.connect(window.location.href, {transports: ['xhr-multipart', 'htmlfile', 'xhr-polling', 'jsonp-polling']});
+    socket = io.connect(window.location.href, {transports: ['websocket', 'xhr-multipart', 'htmlfile', 'xhr-polling', 'jsonp-polling']});
     var name = prompt('Please enter a name for yourself.') || 'Lazy Person';
     $('#chat_sender').val(name);
     socket.emit('setName', { name: name } );
