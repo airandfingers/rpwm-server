@@ -14,10 +14,10 @@ var express = require('express')
     else if (status >= 300) color = 36;
 
     return '\033[90m' + req.method
-      + ' ' + req.headers.host+ req.originalUrl + ' '
+      + ' ' + req.headers.host + req.originalUrl + ' '
       + '\033[' + color + 'm' + res.statusCode
       + ' \033[90m'
-      + (new Date - req._startTime)
+      + (new Date() - req._startTime)
       + 'ms\033[0m';
 
 // Define an initial app (middleware shared by all Express apps)
@@ -27,7 +27,7 @@ var express = require('express')
     app.use(express.logger(logger_options));
     app.use(express.bodyParser());
     app.configure('development', function() {
-      app.set('protocol', 'https');
+      app.set('protocol', 'http');
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
@@ -41,7 +41,7 @@ var express = require('express')
   EXPRESS_PORT = process.env.PORT || 9000,
 // Define some session-related settings
   session_settings = {
-    store: require( './modules/db' ).session_store
+    store: require('./modules/db').session_store
   , secret: '0Pp3nH3!meR'
   , sid_name: 'express.sid'
 };
