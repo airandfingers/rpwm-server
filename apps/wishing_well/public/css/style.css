@@ -198,11 +198,7 @@ textarea { overflow: auto; vertical-align: top; resize: vertical; }
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
-/*bobby added: wish form, to try and space this off the well image more*/
 
-#wish_form {
-  margin: 3em;
-}
 ;
 
 /* =============================================================================
@@ -224,33 +220,32 @@ td { vertical-align: top; }
    Author: Red Pill Web Masons (2012.3.9)
    ========================================================================== */
 
+.banner {
+  width: 100%;
+  height: 10%;
+}
+
 #logo {
+  clear: both;
   background-image: url('../img/wish5a.png');
-  width: 728px;
+  background-size: contain;
+  width: 70%;
+  max-width: 720px; 
   height: 90px;
   margin: 5% auto;
 }
 
-html {
+body {
+  background: black;
   background-image: url('../img/well.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
 }
-
-//body {
-  // Background
-//  color: #455;
-//  background: #a1abc4; /* Old browsers */
-//  background: -moz-linear-gradient(left,  #a1abc4 0%, #3c465e 87%); /* FF3.6+ */
-//  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#a1abc4), color-stop(87%,#3c465e)); /* Chrome,Safari4+ */
-//  background: -webkit-linear-gradient(left,  #a1abc4 0%,#3c465e 87%); /* Chrome10+,Safari5.1+ */
-//  background: -o-linear-gradient(left,  #a1abc4 0%,#3c465e 87%); /* Opera 11.10+ */
-//  background: -ms-linear-gradient(left,  #a1abc4 0%,#3c465e 87%); /* IE10+ */
-//  background: linear-gradient(left,  #a1abc4 0%,#3c465e 87%); /* W3C */
-//  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a1abc4', endColorstr='#3c465e',GradientType=1 ); /* IE6-9 */
-//}
 
 #wish_form {
   margin: auto;
+  margin: 3em;
+
 }
 
 #wish_label, #received {
@@ -262,6 +257,7 @@ html {
 }
 
 
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles
@@ -271,8 +267,6 @@ html {
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */
 }
-
-
 
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
