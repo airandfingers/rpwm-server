@@ -99,7 +99,6 @@
                       <% } else { %>
                         <a href="#" id="login_trigger">Login/Register</a>
                       <% } %>
-                    </li>
 
                     <!--Login div-->
                     <% if (! locals.username) { %>
@@ -117,34 +116,34 @@
                           <input type="submit" value="Login" class="button" />
                         </div>
                       </form>
-
                         <!-- Register form div-->
-                        <div class="dropdown_form">
-                        <form action="/register" method="post">
-                            <div class="username">
-                                <label>Username:</label>
-                                <input type="text" name="username" placeholder="username" autofocus /><br/>
-                            </div>
-                            <div class="password">
-                                <label>Password:</label>
-                                <input type="password" name="password" placeholder="password" />
-                            </div>
-                            <div class="password">
-                                <label>Confirm Password:</label>
-                                <input type="password" name="password2" placeholder="re-type password" />
-                            </div>
-                            <div class="submit_button">
-                                <input type="submit" value="Register" class="button"/>
-                            </div>
-                        </form>
-                      </div>
+                      <form action="/register" method="post">
+                          <div class="username">
+                              <label>Username:</label>
+                              <input type="text" name="username" placeholder="username" autofocus /><br/>
+                          </div>
+                          <div class="password">
+                              <label>Password:</label>
+                              <input type="password" name="password" placeholder="password" />
+                          </div>
+                          <div class="password">
+                              <label>Confirm Password:</label>
+                              <input type="password" name="password2" placeholder="re-type password" />
+                          </div>
+                          <div class="submit_button">
+                              <input type="submit" value="Register" class="button"/>
+                          </div>
+                      </form>
                       <!--Guest Access button, to add later
                       <div>
                         <input type="submit" value="Guest Access" class="button" />
                       </div>  -->
                     </div><!-- end of login div-->
                       
-                        <% } %>
+                        <% } %>                      
+                    </li>
+
+
                 </ul>
             </div>
         <% } %>

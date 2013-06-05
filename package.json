@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.0-119",
+  "version": "1.0.0-120",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
@@ -44,5 +44,8 @@
     "chai": "~1.4.2",
     "mocha": "~1.8.1",
     "supertest": "~0.5.1"
+  },
+  "scripts": {
+    "start": "bootstrap.js"
   }
 }
