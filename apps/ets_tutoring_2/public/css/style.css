@@ -99,6 +99,14 @@ body {
     padding-bottom: 4px;
 }
 
+#map-container {
+    height: 350px;
+}
+
+#map-popup {
+    width: 100%;
+}
+
 /*bootstrap overrides*/
 @media (max-width: 980px) {
     .nav-collapse, .nav-collapse.collapse {

@@ -31,7 +31,7 @@ var express = require('express')
       app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
     });
     app.configure('production', function() {
-      app.set('protocol', 'https');
+      app.set('protocol', 'http');
       app.set('base_url', 'ayoshitake.com');
     });
     return app;
@@ -121,6 +121,12 @@ bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 //rock paper scissors
 var rps_app = require('./apps/rps/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));
+
+//ETS tutoring
+var ets_app = require('./apps/ets_tutoring/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('etstutoring.ayoshitake.*', ets_app));
+var ets_app_2 = require('./apps/ets_tutoring_2/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('etstutoring2.ayoshitake.*', ets_app_2));
 
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
