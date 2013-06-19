@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.0-121",
+  "version": "1.0.0-124",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
@@ -22,6 +22,8 @@
   "domains": [
     "ayoshitake.com",
     "corridor.ayoshitake.com",
+    "etstutoring.ayoshitake.com",
+    "etstutoring2.ayoshitake.com",
     "fortunecookie.ayoshitake.com",
     "markslist.ayoshitake.com",
     "minesweeper.ayoshitake.com",

@@ -103,11 +103,16 @@ body {
     height: 350px;
 }
 
+/* exception to Bootstrap rule;*/
+#map-container img {
+    max-width: none;
+}
+
 #map-popup {
     width: 100%;
 }
 
-/*bootstrap overrides*/
+/* Bootstrap overrides */
 @media (max-width: 980px) {
     .nav-collapse, .nav-collapse.collapse {
         overflow: visible !important;
