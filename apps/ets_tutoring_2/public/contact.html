@@ -62,16 +62,17 @@
             <h1>ETS</h1>
             <div>
               <address>
-                    4010 Palos Verdes Dr. North #206 <br />
+                    4010 Palos Verdes Dr. N. #206 <br />
                     Rolling Hills Estates, CA 90274 <br />
                     Tel: <a href="tel:3105441555">310.544.1555</a> <br />
                     Fax: <a href="tel:3105448756">310.544.8756</a>
               </address>
             </div>
           </div>
-          <div class="span9" id="map-container">
+          <div class="span9" id="map-parent">
               <!--Google Map-->
-              <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=4010+PALOS+VERDES+DR.+NORTH+%23206+ROLLING+HILLS+ESTATES,+CA.+90274&amp;ie=UTF8&amp;hq=&amp;hnear=4010+Palos+Verdes+Dr+N,+Rolling+Hills+Estates,+California+90274&amp;gl=us&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?q=4010+PALOS+VERDES+DR.+NORTH+%23206+ROLLING+HILLS+ESTATES,+CA.+90274&amp;ie=UTF8&amp;hq=&amp;hnear=4010+Palos+Verdes+Dr+N,+Rolling+Hills+Estates,+California+90274&amp;gl=us&amp;t=m&amp;z=14&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+              <div id="map-container"></div>
+              <a href="http://maps.google.com/maps?q=4010+PALOS+VERDES+DR.+NORTH+%23206+ROLLING+HILLS+ESTATES,+CA.+90274&amp;ie=UTF8&amp;hq=&amp;hnear=4010+Palos+Verdes+Dr+N,+Rolling+Hills+Estates,+California+90274&amp;gl=us&amp;t=m&amp;z=14&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
           </div>
         </div>
       </div>
@@ -84,11 +85,42 @@
     </div> <!-- /container -->
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAxLQ_ZDUQ_yzaV2IAQLqS5PsctjXFyHH8&sensor=false">
+</script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
 
 <script src="js/libs/bootstrap/bootstrap.min.js"></script>
 
 <script src="js/script.js"></script>
+<script>
+    $(document).ready(function() {
+      var lat_long = new google.maps.LatLng(33.782504, -118.35294)
+        , map_options = {
+            center: lat_long
+          , zoom: 12
+          , mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+        , map = new google.maps.Map($('#map-container').get(0), map_options)
+        , marker = new google.maps.Marker({
+            position: lat_long
+          , map: map
+          , title: '4010 Palos Verdes Dr. N. #206'
+          , clickable: true
+        })
+        , info_window = new google.maps.InfoWindow({
+            content: '<img id="map-popup" src="/img/eric_card.jpg" />'
+        });
+      google.maps.event.addListener(marker, 'click', function() {
+        info_window.open(map, marker);
+        map.setCenter(new google.maps.LatLng(33.833635, -118.305028));
+      });
+      google.maps.event.addListener(info_window, 'closeclick', function() {
+        map.setCenter(lat_long);
+      });
+    });
+</script>
 <script>
     var _gaq=[['_setAccount','UA-33886495-1'],['_trackPageview']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
