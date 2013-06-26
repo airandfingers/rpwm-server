@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.0-127",
+  "version": "1.0.0-131",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
@@ -29,6 +29,7 @@
     "minesweeper.ayoshitake.com",
     "rps.ayoshitake.com",
     "rpsls.ayoshitake.com",
+    "text.ayoshitake.com",
     "wishingwell.ayoshitake.com",
     "w.ayoshitake.com",
     "ww.ayoshitake.com",

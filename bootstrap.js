@@ -128,6 +128,10 @@ bootstrap_app.use(express.vhost('etstutoring.ayoshitake.*', ets_app));
 var ets_app_2 = require('./apps/ets_tutoring_2/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('etstutoring2.ayoshitake.*', ets_app_2));
 
+//text editor
+var text_app = require('./apps/text/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('text.ayoshitake.*', text_app));
+
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));
