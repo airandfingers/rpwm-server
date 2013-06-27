@@ -6,7 +6,26 @@ html, body {
 }
 
 h1 {
-    padding-bottom: 1%;
+    padding-bottom: 2%;
+}
+
+h2 {
+    padding-top: 2%;
+    margin-top: 2%;
+}
+
+#billboard_line {
+    vertical-align: middle;
+}
+
+#ets_heading {
+    text-align: center;
+}
+
+#index_heading {
+    background-color: rgba(0,0,0,0);
+    margin: 0;
+    padding: 0;
 }
 
 #main-wrap {
@@ -44,7 +63,7 @@ body {
 }
 
 .navbar-inner {
-    min-height: 44px; /*using this to make navbar bigger, per client's request*/
+    min-height: 40px; /*using this to make navbar bigger, per client's request*/
 }
 
 .navbar li {
