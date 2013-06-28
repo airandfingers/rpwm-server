@@ -12,10 +12,14 @@ h1 {
 h2 {
     padding-top: 2%;
     margin-top: 2%;
+    min-height: 
 }
 
 #billboard_line {
+    padding-top: 75%;
+    display: table-cell;
     vertical-align: middle;
+    text-align: center;
 }
 
 #ets_heading {
@@ -106,6 +110,19 @@ body {
     background-color: white;
     padding: 2%;
     margin: .5%;
+}
+
+#lightbox {
+    position: absolute;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
 }
 
 /*employment page*/
