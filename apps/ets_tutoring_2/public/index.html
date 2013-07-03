@@ -69,9 +69,10 @@
         </div>
       </div>
         <div class="row">
-          <div id="slide_show1" class="span7 offset1" id="briana">        
+          <div id="slide_show1" class="span7 offset2" id="briana">        
             <img src ="img/Briana_1200_draw.jpg"/>
             <img src ="img/Briana_1200.jpg"/>                        
+            <img src ="img/Briana_1200_draw2.jpg"/>            
           </div>            
           <div class="span2">
             <div id="billboard_line">
@@ -80,19 +81,21 @@
             </div>
           </div>
         </div>
-
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span5 offset2">
-          <h2>High Performance</h2>
-          <p><a class="btn" href="chart.html">
-           <img src = "img/chart_med.jpg" height ="300px"/>
-          </a></p>
-         </br>
+    </div> <!-- /container -->
+      <aside>
+      
+        <div class="bottom_four">
+          <a class="btn" href="chart.html">
+           <img src = "img/Impact_of_SES_2009-10_26_crop1.jpg"/>
+          </a>
         </div>
-        <div class="span3">
-          <h2>Services</h2>
-            <div class="well">
+
+        <div id="bottom_four_2" class="bottom_four">
+            High Performance
+        </div>
+
+        <div class="well bottom_four">
+              <h2>Services</h2>
               <ul>
                 <li>Pre K-College Level</li>
                 <li>Home schooling</li>
@@ -102,17 +105,18 @@
                 <li>Special Ed./IEP</li>
                 <li>ESL</li>
               </ul>
-            </div>
-       </div> 
-      </div>
+        </div>
 
+        <div id="bottom_four_4" class="bottom_four">
+        </div>
+      </aside>
       <hr>
-
+    <div class="container">
       <footer>
         <p>&copy; ETS Educational and Tutorial Services, LLC. 2013</p>
       </footer>
+    </div>
 
-    </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.10.1.min.js"><\/script>')</script>
 
@@ -124,9 +128,9 @@
   $(document).ready(function() {
     $('#slide_show1').cycle({
       fx: 'fade',
-      speedIn: 10000,
-      speedOut: 10000,
-      speed: 2000
+      speedIn: 6000,
+      speedOut: 6000,
+      speed: 250
     });
   });
 </script>
