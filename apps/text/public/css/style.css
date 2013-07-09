@@ -215,23 +215,13 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author:
+   Author: Red Pill Web Masons
    ========================================================================== */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.error {
+  font-weight: bold;
+  color: hsla(0, 100%, 25%, 1);
+}
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

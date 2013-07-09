@@ -121,7 +121,7 @@ html {
 }
 
 #about_page > img {
-	opacity: 50%;
+	opacity: 0.5;
   width: 10%;
   min-width: 100px;
 }
@@ -149,7 +149,6 @@ html {
 }
 
 #under_construction {
-	display: none;
   font-weight: normal;
 }
 
@@ -162,4 +161,8 @@ html {
 #wilfred {
   max-width: 33%;
   margin: 10px auto;
+}
+
+a.activeSlide {
+  color: white;
 }

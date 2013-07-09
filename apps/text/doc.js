@@ -6,7 +6,7 @@ module.exports = (function() {
 
     , DocSchema = new Schema({
       title       : { type: String, required: true, unique: true } // the title of the document
-    , contents    : String //the text of the document
+    , contents    : { type: String, default: '#Placeholder\n**Edit me!**' } //the text of the document
     , created_at  : { type: Date, default: Date.now } //when the doc was created
     , modified_at : { type: Date, default: Date.now } // when the doc was last modified
     , user        : { type: ObjectId, ref: 'User' } //the user who created the doc

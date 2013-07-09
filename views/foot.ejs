@@ -58,13 +58,14 @@
 
   <% if (settings.show_banner) { %> 
   <!-- fade in the "under construction" message -->
-    <script>$('#under_construction').hide().fadeIn(2000);</script> 
+    <script>$('#under_construction').css('opacity', .001)
+                                    .animate({ opacity: 1.0 }, 2000);</script> 
   <% } %>
 
   <!-- scripts concatenated and minified via build script -->
   
-  <script src="js/plugins.js"></script>
-  <script src="js/script.js"></script>
+  <script src="/js/plugins.js"></script>
+  <script src="/js/script.js"></script>
   <!-- end scripts -->
 
   <!-- Asynchronous Google Analytics snippet. mathiasbynens.be/notes/async-analytics-snippet -->
