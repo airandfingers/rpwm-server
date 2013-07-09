@@ -64,6 +64,17 @@ var bootstrap_app = module.exports = starter_app_generator()
 });*/
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
+bootstrap_app.use(function(req, res, next) {
+  if (req.headers['x-forwarded-proto'] === 'https') {
+    var url = 'http://' + req.headers.host + req.originalUrl;
+    res.writeHead(301, {'location': url});
+    return res.end('Redirecting to <a href="' + url + '">' + url + '</a>.');
+  }
+  else {
+    //console.log('headers[x-forwarded-proto] is', req.headers['x-forwarded-proto'], ', so not redirecting');
+    return next();
+  }
+});
 bootstrap_app.use(express.static(__dirname + '/public'));
 bootstrap_app.use(express.cookieParser());
 bootstrap_app.use(express.session({
