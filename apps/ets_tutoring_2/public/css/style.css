@@ -102,6 +102,12 @@ body {
     color: white;
 }
 
+.navbar li .active {
+    background-color: #2c2c2c;
+    color: white;
+}
+
+
 
 #bottom_four_4 {
     background-image: url('/img/IMG_0378_draw1.jpg');
