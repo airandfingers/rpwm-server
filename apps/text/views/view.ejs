@@ -9,7 +9,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="doc_list_tbody">
       <% _.each(docs, function(doc) { %>
         <tr>
           <td><%= doc.title %></td>
@@ -33,4 +33,52 @@
     <div class="error"><%= error %></div>
   <% } %>
 
-<% include ../../../views/foot %>
+  <style>
+    .thumb {
+      height: 75px;
+      border: 1px solid #000;
+      margin: 10px 5px 0 0;
+    }
+  </style>
+
+  <!-- Custom file input per http://www.quirksmode.org/dom/inputfile.html -->
+  <span id="upload">
+    <input type="file" id="files" name="files[]" multiple style="opacity:0;" />
+    <img src="/img/upload.png" style="position:absolute; left:0; z-index:-1;" />
+  </span>
+  <output id="list"></output>
+
+<% include ../../../views/foot_start %>
+  <script>
+    $('#files').on('change', function handleFileSelect(evt) {
+      var files = evt.target.files; // FileList object
+
+      // Loop through the FileList and add text files to list.
+      _.all(files, function(file) {
+        /* Doesn't work with Windows 7 Chrome 30.1
+        // Only process text files.
+        if (! file.type.match('text.*')) {
+          return true; //continue
+        }*/
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            // Render new row.
+            var $tr = $('<tr></tr>');
+            $tr.append($('<td></td>').text(theFile.name));
+            $tr.append($('<td></td>').text(moment(theFile.lastModifiedDate).calendar()));
+            $tr.append($('<td></td>').text(moment().calendar()));
+            $tr.appendTo($('#doc_list_tbody'));
+          };
+        })(file);
+
+        // Read in the image file as a data URL.
+        reader.readAsText(file);
+      });
+    });
+  </script>
+
+<% include ../../../views/foot_end %>

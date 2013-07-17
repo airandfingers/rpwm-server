@@ -7,6 +7,33 @@
        data-doc="<%= JSON.stringify(doc) %>"
   />
 
+<% include ../../../views/foot_start %>
   <script src="/epiceditor/js/epiceditor.js"></script>
+  <script>
+    var doc = $('#server_values').data('doc')
+      , editor = new EpicEditor({
+          clientSideStorage: false
+        , useNativeFullscreen: false
+        , file: {
+            autoSave: 1000
+          , defaultContent: doc.contents
+          }
+    }).load();
+    console.log('doc is', doc);
+    editor
+      .enterFullscreen()
+      .focus()
+      .on('autosave', function(contents) {
+        console.log('autosaving:', contents);
+        $.post(
+          '/update/' + doc.title
+        , { contents: contents.content }
+        , { always: function(response) {
+              console.log('update response:', response);
+            }
+          }
+        );
+      });
+  </script>
   
-<% include ../../../views/foot %>
+<% include ../../../views/foot_end %>
