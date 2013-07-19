@@ -107,12 +107,17 @@ body {
     color: white;
 }
 
-
-
 #bottom_four_4 {
-    background-image: url('/img/IMG_0378_1200_vignette1.jpg');
+    background-image: url('/img/IMG_0378_draw1.jpg');
     background-size: cover;
     background-position: center;
+    transition-duration: 1s;
+    -webkit-transition-duration: 1s; /* Safari */
+    -webkit-backface-visibility: hidden;
+}
+
+#bottom_four_4:hover {
+    background-image: url('/img/IMG_0378_1200_vignette1.jpg');
 }
 
 #google_translate_element {
