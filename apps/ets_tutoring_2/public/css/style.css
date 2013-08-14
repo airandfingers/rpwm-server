@@ -16,6 +16,7 @@ aside {
 html, body {
     height: 100%;
     font-family: BurstMyBubble;
+    font-size: 1.1em;
 }
 
 h1 {
@@ -232,7 +233,7 @@ body {
         vertical-align: middle;
         text-align: center;
         line-height: 1em;
-        font-size: 5em;
+        font-size: 3.5em;
     }
 
     .bottom_four {
@@ -261,7 +262,7 @@ body {
 
     .bottom_four ul {
         list-style: none;
-        font-size: 1.5em;
+        font-size: 1.1em;
     }
 
 }
