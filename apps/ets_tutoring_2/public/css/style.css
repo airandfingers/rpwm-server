@@ -117,6 +117,11 @@ body {
     -webkit-backface-visibility: hidden;
 }
 
+#bottom_four_2 {
+    background-color: #1b1b1b;
+    color: white;
+}
+
 #bottom_four_4:hover {
     background-image: url('/img/IMG_0378_1200_vignette1.jpg');
 }

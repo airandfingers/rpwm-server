@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.0-146",
+  "version": "1.0.0-147",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
