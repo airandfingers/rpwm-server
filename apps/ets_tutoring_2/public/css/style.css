@@ -15,17 +15,8 @@ aside {
 
 html, body {
     height: 100%;
-    font-family: BurstMyBubble;
+    font-family: BurstMyBubble, arial, sans-serif;
     font-size: 1.1em;
-}
-
-h1 {
-    padding-bottom: .1em;
-}
-
-h2 {
-    padding-top: .5em;
-    margin-top: .5em;
 }
 
 #slide_show1 img {
@@ -109,21 +100,28 @@ body {
 }
 
 #bottom_four_4 {
-    background-image: url('/img/IMG_0378_draw1.jpg');
+    background-image: url('/img/IMG_0378_480_draw1.jpg');
     background-size: cover;
     background-position: center;
     transition-duration: 1s;
     -webkit-transition-duration: 1s; /* Safari */
     -webkit-backface-visibility: hidden;
 }
+#bottom_four_4_preload {
+    background-image: url('/img/IMG_0378_480_vignette1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
 
 #bottom_four_2 {
     background-color: #1b1b1b;
     color: white;
+    font-size: 300%;
 }
 
 #bottom_four_4:hover {
-    background-image: url('/img/IMG_0378_1200_vignette1.jpg');
+    background-image: url('/img/IMG_0378_480_vignette1.jpg');
 }
 
 #google_translate_element {
@@ -238,7 +236,6 @@ body {
         vertical-align: middle;
         text-align: center;
         line-height: 1em;
-        font-size: 3.5em;
     }
 
     .bottom_four {
@@ -270,5 +267,15 @@ body {
         font-size: 1.1em;
     }
 
+}
+
+@media all and (max-width: 768px) {
+    #bottom_four_2 {
+        padding: .3em;
+        font-size: 200%;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 1em;
+            }
 }
 

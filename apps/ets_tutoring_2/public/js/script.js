@@ -12,11 +12,20 @@ $('.nav-pills li a').click(function (e) {
 	$(this).tab('show');
 });
 // SES Schools page nav hash
-$(document).ready(function() {
+$(document).ready(function () {
 	var hash = window.location.hash;
 	if (hash) {
 		$('.nav-pills li a[href="' + hash + '"]').tab('show');
 	}
+});
+
+//hoverintent for bottom_four_4
+$(window).load(function () {
+  $('#bottom_four_4').hoverIntent(function() {
+      console.log('hover in. stub function for future functionality');
+    } , function() {
+      console.log('hover out. stub function for future functionality');
+  });
 });
 
 //lightbox
