@@ -2,8 +2,11 @@
 Red Pill Web Masons (2013)
 */
 
-// Header dropdown
+
+// Header dropdown & scrollspy
 $('.dropdown-toggle').dropdown();
+
+$('#navbar').scrollspy();
 
 // SES Schools page nav
 $('.nav-pills li a').click(function (e) {

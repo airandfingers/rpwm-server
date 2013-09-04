@@ -65,6 +65,11 @@ body {
     background-size: 100%;
 }
 
+.carousel-control {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 52px;
+    left: 15px;
+}
 .carousel_slide {
     margin : auto;
     height : 90%;
@@ -94,9 +99,18 @@ body {
     color: white;
 }
 
-.navbar li .active {
+.navbar li a .active {
     background-color: #2c2c2c;
     color: white;
+}
+
+.phone {
+    font-size: 125%;
+}
+
+/*this style is to remove scrollbars issue with SES schools by district page */
+.tab-content {
+    overflow: visible;
 }
 
 #bottom_four_4 {
