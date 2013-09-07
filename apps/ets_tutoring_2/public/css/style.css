@@ -189,7 +189,9 @@ body {
     margin-bottom: 20px;
 }
 
-
+#myCarousel {
+    margin-top: 18px;
+}
 
 /*qualifying schools page*/
 #qualify-hero {
