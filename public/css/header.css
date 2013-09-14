@@ -94,3 +94,7 @@ header {
         z-index: 10;
 
     }
+
+    #under_construction {
+        display: none;
+    }
