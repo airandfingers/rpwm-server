@@ -84,8 +84,12 @@ html {
 
 .slideshow a {
   min-width: 275px;
+  display: none;
 }
 
+.slideshow a.first {
+  display: block;
+}
 .slideshow a.portal img {
     min-width: 275px; 
 }
