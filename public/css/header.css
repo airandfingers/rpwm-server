@@ -90,7 +90,7 @@ header {
         display: none;
         color: white;
         font-size: .75em;
-        background-color: black;
+        background-color: rgba(0,0,0,.7);
         z-index: 10;
 
     }

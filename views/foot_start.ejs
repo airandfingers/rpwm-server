@@ -32,21 +32,28 @@
   <script>
     $(document).ready(function() {
       $('#login').hide();
-      $('#login_trigger').toggle(function() {
-        $(this)
-          .addClass('active');
-        $('#login')
-          .css({
-          left: $(this).position().left - $(this).width(), 
-          top: $(this).position().top + $(this).height()
-          })
-          .slideDown();
-      }, function () {
-        $(this)
-          .removeClass('active');
-        $('#login')
-          .slideUp();
+
+      $('#login_trigger').click(function() {
+        
+        if ($(this).hasClass('active')) {
+          $(this)
+            .removeClass('active');
+          $('#login')
+            .slideUp();
+        }
+
+        else {
+          $(this)
+            .addClass('active');
+          $('#login')
+            .css({
+            left: $(this).position().left - $(this).width(), 
+            top: $(this).position().top + $(this).height()
+            })
+            .slideDown();        
+        }
       });
+
       $('#login form :submit').click(function() {
         $(this)
           .parent()

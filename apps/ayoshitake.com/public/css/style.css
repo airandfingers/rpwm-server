@@ -31,6 +31,7 @@ html {
 
 .button {
    border-top: 1px solid #5a6770;
+   border-left: 1px solid #5a6770;
    background: #586975;
    background: -webkit-gradient(linear, left top, left bottom, from(#888c8b), to(#586975));
    background: -webkit-linear-gradient(top, #888c8b, #586975);
