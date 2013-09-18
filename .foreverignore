@@ -1,1 +1,15 @@
 *.log
+**/*.log
+
+# Ignore git repos
+.git
+**/.git
+**/.git/*
+**/.git/**/*
+
+# Ignore public files in "public" folders
+public/**/*
+**/public/**/*
+
+**/*.sublime-project
+**/*.sublime-workspace

@@ -668,7 +668,9 @@ var BOARD =
         $('#undo_button').removeAttr('disabled');
         },
     }
-    
+
+console.log('socket.io: Connecting to ', window.location.origin);
+socket = io.connect(window.location.origin, {transports: [/*'websocket',*/ 'xhr-polling', 'htmlfile', 'jsonp-polling']});
 $(document).ready(function()
 {
     BOARD.initialize();
@@ -677,8 +679,6 @@ $(document).ready(function()
     BOARD.buildChat();
     BOARD.addHandlers();
     BOARD.initializeBoard();
-    console.log('Connecting to ', window.location.href);
-    socket = io.connect(window.location.href, {transports: ['websocket', 'xhr-multipart', 'htmlfile', 'xhr-polling', 'jsonp-polling']});
     var name = prompt('Please enter a name for yourself.') || 'Lazy Person';
     $('#chat_sender').val(name);
     socket.emit('setName', { name: name } );
