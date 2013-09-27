@@ -5,10 +5,10 @@
 @font-face {
     font-family: 'burst_my_bubbleregular';
     src: url('/burstmybubble-webfont.eot');
-    src: url('/burstmybubble-webfont.eot?#iefix') format('embedded-opentype'),
+    src: url('/burstmybubble-webfont.svg#burst_my_bubbleregular') format('svg'),
+         url('/burstmybubble-webfont.eot?#iefix') format('embedded-opentype'),
          url('/burstmybubble-webfont.woff') format('woff'),
-         url('/burstmybubble-webfont.ttf') format('truetype'),
-         url('/burstmybubble-webfont.svg#burst_my_bubbleregular') format('svg');
+         url('/burstmybubble-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 
@@ -21,8 +21,8 @@ aside {
 
 html, body {
     height: 100%;
-    font-family: burst_my_bubbleregular, PaulMaul, ShortStack, arial, sans-serif;
-    font-size: 1.1em;
+    font-family: burst_my_bubbleregular, arial, sans-serif;
+    font-size: 100%;
 }
 
 #slide_show1 img {
