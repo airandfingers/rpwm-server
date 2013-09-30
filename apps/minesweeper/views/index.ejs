@@ -1,6 +1,6 @@
+<% if (! board_contents_only) { %>
 <% include ../../../views/head %>
 
-  <% if (! board_contents_only) { %>
     <h1><%= title %></h1>
     <div id="button-container">
       <button type="button" id="new-game-button" title="Start a new game.">New Game</button>
@@ -44,6 +44,6 @@
     <input type="hidden" id="numRows" value="<%= numRows %>" />
     <input type="hidden" id="numCols" value="<%= numCols %>" />
     <input type="hidden" id="numMines" value="<%= numMines %>" />
-  <% } %>
 
 <% include ../../../views/foot %>
+<% } %>
