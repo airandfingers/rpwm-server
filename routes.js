@@ -33,7 +33,7 @@ app.post('/login',
                                  failureFlash: true }),
          function (req, res) {
   // Authentication successful. Redirect.
-  var target = req.body.next;
+  var target = req.body.next || '/';
   if (_.isString(target)) {
     // Validate target, to prevent redirection attacks.
     if (target.match(/[\x00-\x1F]/) !== null || // Contains an invalid character
@@ -42,10 +42,9 @@ app.post('/login',
       console.error('Invalid redirection target.');
       target = '/';
     }
-    res.redirect(target);
   }
   else {
-    res.redirect('/');
+    res.redirect(target);
   }
 });
 
