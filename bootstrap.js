@@ -100,39 +100,39 @@ require('./routes');
 
 // Best attempt at regex so far: [a-zA-Z]*\.?ayoshitake.com (matches www.ayoshitake.com but not ayoshitake.com)
 
-//portal
+// Portal - links to other apps; "about" and "contact" pages
 var portal_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('ayoshitake.*', portal_app));
 bootstrap_app.use(express.vhost('www.ayoshitake.*', portal_app));
 
-//wishing well
+// Wishing Well - stores and shows wishes
 var wishing_well_app = require('./apps/wishing_well/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('wishingwell.ayoshitake.*', wishing_well_app));
 
-//markslist
+// Mark's List - serves static files out of a "share" directory
 var markslist_app = require('./apps/markslist/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('markslist.ayoshitake.*', markslist_app));
 
-//corridor
+// Corridor - 2-player clone of Quoridor (no concept of players yet)
 var corridor_app = require('./apps/corridor/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('corridor.ayoshitake.*', corridor_app));
 
-//minesweeper
+// Minesweeper - 1-player clone of Minesweeper
 var minesweeper_app = require('./apps/minesweeper/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('minesweeper.ayoshitake.*', minesweeper_app));
 
-//fortune_cookie
+// Fortune Cookie - stores, shows, and manages fortunes
 var fortune_cookie_app = require('./apps/fortune_cookie/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('fortunecookie.ayoshitake.*', fortune_cookie_app));
 
-//magi-cal.me
+// magi-cal.me - brochure site for a magician
 var magi_cal_app = require('./apps/magi_cal.me/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('w.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('ww.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 
-//rock paper scissors
+// rock paper scissors
 var rps_app = require('./apps/rps/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));
 
@@ -145,6 +145,10 @@ bootstrap_app.use(express.vhost('etstutoring2.ayoshitake.*', ets_app_2));
 //text editor
 var text_app = require('./apps/text/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('text.ayoshitake.*', text_app));
+
+//troll's goals
+var text_app = require('./apps/trolls_goals/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', text_app));
 
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
