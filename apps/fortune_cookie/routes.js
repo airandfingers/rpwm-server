@@ -4,12 +4,12 @@ module.exports = function (app) {
 
   app.get('/', function (req, res) {
     console.log('index called');
-    res.render('index', {title: "Choose your path.."});
+    res.render('index', { title: 'Choose your path..' });
   });
 
   app.get('/fortune_teller', function (req, res) {
     console.log('fortune_teller called');
-    res.render('fortune_teller', {title: "Fortune Teller!"});
+    res.render('fortune_teller', { title: 'Fortune Teller!' });
   });
 
   //Add a new fortune to database
@@ -27,7 +27,7 @@ module.exports = function (app) {
   app.get('/fortune_cookie', function (req, res) {
     console.log('fortune_cookie called');
     Fortune.findRandom(function(error, result) {
-      res.render('fortune_cookie', {title: "Fortune Cookie!", result: result});
+      res.render('fortune_cookie', { title: 'Fortune Cookie!', result: result });
     });
   });
 
@@ -41,8 +41,8 @@ module.exports = function (app) {
       }
       else {
         res.render('manage_fortunes',
-          {title: "Here're all the fortunes in our almighty fortune database",
-          results: results, manage: false}
+          { title: 'Here\'re all the fortunes in our almighty fortune database',
+          results: results, manage: false }
         );
       }
     });
@@ -55,8 +55,8 @@ module.exports = function (app) {
       if (err) { next(err); }
       else {
         res.render('manage_fortunes',
-          {title: "Here's where we manage the magic",
-          results: results, manage: true}
+          { title: 'Here\'s where we manage the magic',
+          results: results, manage: true }
         );
       }
     });

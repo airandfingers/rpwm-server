@@ -4,7 +4,7 @@ module.exports = function(starter_app_generator) {
       app = starter_app_generator(), // our express app
       server = http.createServer(app); // the web server itself
 
-  //MiddlewareConfiguration
+  //Middleware Configuration
   app.configure(function() {
     app.set('site_name', 'template');
     app.set('views', __dirname + '/views');

@@ -7,7 +7,7 @@ module.exports = function(starter_app_generator) {
   //Middleware Configuration
   app.configure(function() {
     app.set('site_name', 'fortune cookie');
-    app.set('show_banner', true)
+    app.set('show_banner', true);
     app.set('views', __dirname + '/views');
     app.use(express.methodOverride());
   });

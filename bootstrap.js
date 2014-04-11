@@ -3,26 +3,59 @@ var express = require('express')
   , http = require('http')
   , passport = require('passport')
   , flash = require('connect-flash')
+  , _ = require('underscore')
 
 // Define how to format log messages
+  , colors = {
+      WHITE: '\033[37m'
+    , GREY: '\033[90m'
+    , BLACK: '\033[30m'
+    , BLUE: '\033[34m'
+    , CYAN: '\033[36m'
+    , GREEN: '\033[32m'
+    , MAGENTA: '\033[35m'
+    , RED: '\033[31m'
+    , YELLOW: '\033[33m'
+  }
   , log_format = function(tokens, req, res) {
+    var message = '';
+
+    // Add HTTP method
+    message += colors.WHITE + req.method + ' ';
+
+    // Add host and path
+    message += colors.GREY + req.headers.host + colors.WHITE + req.originalUrl + ' ';
+
+    // Add HTTP status code
     var status = res.statusCode
-      , color = 32;
+      , color = colors.GREEN;
+    if (status >= 500) { color = colors.RED; }
+    else if (status >= 400) { color = colors.YELLOW; }
+    else if (status >= 300) { color = colors.CYAN; }
+    message += color + res.statusCode + ' ';
 
-    if (status >= 500) color = 31
-    else if (status >= 400) color = 33
-    else if (status >= 300) color = 36;
+    // Add route arguments
+    var args = req.query;
+    if (_.isEmpty(args)) {
+      args = req.body;
+    }
+    if (! _.isEmpty(args)) {
+      message += colors.WHITE + JSON.stringify(args) + ' ';
+    }
 
-    return '\033[90m' + req.method + ' ' +
-           req.headers.host + req.originalUrl + ' ' + 
-           '\033[' + color + 'm' + res.statusCode + 
-           ' \033[90m' + (new Date() - req._startTime) + 'ms\033[0m';
+    // Add response time
+    message += colors.GREY + (new Date() - req._startTime) + 'ms';
+
+    // Reset color to white
+    message += colors.WHITE;
+
+    return message;
   }
 // Define a function that generates initial apps with common middlewares
-  , starter_app_generator = function() {
+  , starter_app_generator = function(dont_log) {
     var app = express();
     app.set('view engine', 'ejs');
-    app.use(express.logger(log_format));
+    if (dont_log !== true) { app.use(express.logger(log_format)); }
     app.use(express.json());
     app.use(express.urlencoded());
     app.configure('development', function() {
@@ -50,7 +83,7 @@ var express = require('express')
     }
   }
 
-  , bootstrap_app = module.exports = starter_app_generator()
+  , bootstrap_app = module.exports = starter_app_generator(true)
   , bootstrap_server = http.createServer(bootstrap_app);
 
 // Set some configuration values
