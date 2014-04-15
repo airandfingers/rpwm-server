@@ -1,12 +1,12 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.1-3",
+  "version": "1.0.1-6",
   "private": true,
   "dependencies": {
     "connect-flash": "latest",
     "ecstatic": "latest",
     "ejs": "latest",
-    "express": "latest",
+    "express": "3.x",
     "connect": "latest",
     "connect-mongodb": "latest",
     "mime": "latest",

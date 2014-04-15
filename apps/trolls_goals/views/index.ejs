@@ -1,103 +1,88 @@
 <% include ../../../views/head_start %>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
 <% include ../../../views/head_end_and_header %>
-
-  <h1>Welcome to Troll's Goals!</h1>
   <div ng-app="app">
-
     <div ng-controller="MainCtrl">
-      <!-- Categories -->
       <div class="container">
-
+        <h1>Welcome to Troll's Goals!</h1>
         <tabset>
-          <tab heading="All Categories">
-            <h2 ng-show="categories.length">All Categories</h2>
-            <table class="table table-striped" ng-show="categories.length">
-              <thead>
-                <th>Title</th>
-                <th>Description</th>
-              </thead>
-              <tbody>
-              <tr ng-repeat="category in categories">
-                <td ng-click="activeCategory(category)">
-                  {{category.name}}
-                </td>
-                <td ng-click="activeCategory(category)">
-                  {{category.description}}
-                </td>
-                <td><button class="btn btn-danger" ng-click="deleteCategory(category)">Delete</button></td>
-              </tr>
-              </tbody>
-            </table>
+        <!-- Categories -->
+          <tab heading="Manage Categories">
+            <div class="tab_wrapper" ng-class="{ 'has-error': category_error }">
+              <h2 ng-show="categories.length">Categories</h2>
+              <table class="table table-striped" ng-show="categories.length">
+                <thead>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Tags</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="category in categories" ng-click="activeCategory(category)">
+                  <td>
+                    {{category.name}}
+                  </td>
+                  <td>
+                    {{category.description}}
+                  </td>
+                  <td>
+                    {{categoryTagNames(category)}}
+                  </td>
+                  <td><button class="btn btn-danger" ng-click="deleteCategory(category); $event.stopPropagation()">Delete</button></td>
+                </tr>
+                </tbody>
+              </table>
+              <h3 ng-if="!editing_category">New Category</h3>
+              <h3 ng-if="editing_category">Edit Category</h3>
+              <form ng-submit="saveCategory(category)">
+                <label for="category_name">Name:</label>
+                <input ng-model="category.name" id="category_name" />
+                <label for="category_description">Description:</label>
+                <input ng-model="category.description" id="category_description" />
+                <multiselect class="" multiple="true" change="selected()"
+                  ms-selected="{{categoryTagNames(category)}}"
+                  ng-model="category.tags" ms-header="Select Tags"
+                  options="tag._id as tag.name for tag in tags"></multiselect>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button ng-if="editing_category" class="btn btn-warning" ng-click="revertCategory()">Discard Changes</button>
+              </form>
+              <div class="help-block" ng-if="category_error">{{category_error}}</div>
+            </div>
           </tab>
-          <tab ng-repeat="tag in tags" heading="{{tag.name}}" active="{{tag.active}}">
-            <h2 ng-show="categories.length">{{tag.name}} categories</h2>
-            <span>{{tag.description}}</span>
-            <table class="table table-striped" ng-show="categories.length">
-              <thead>
-                <th>Title</th>
-                <th>Description</th>
-              </thead>
-              <tbody>
-              <tr ng-repeat="category in categories">
-                <td ng-click="activeCategory(category)">
-                  {{category.name}}
-                </td>
-                <td ng-click="activeCategory(category)">
-                  {{category.description}}
-                </td>
-                <td><button class="btn btn-danger" ng-click="deleteCategory(category)">Delete</button></td>
-              </tr>
-              </tbody>
-            </table>
+          <!-- Tags -->
+          <tab heading="Manage Tags">
+            <div class="tab_wrapper" ng-class="{ 'has-error': tag_error }">
+              <h2 ng-show="tags.length">Tags</h2>
+              <table class="table table-striped" ng-show="tags.length">
+                <thead>
+                  <th>Title</th>
+                  <th>Description</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="tag in tags" ng-click="activeTag(tag)">
+                  <td>
+                    {{tag.name}}
+                  </td>
+                  <td>
+                    {{tag.description}}
+                  </td>
+                  <td><button class="btn btn-danger" ng-click="deleteTag(tag); $event.stopPropagation()">Delete</button></td>
+                </tr>
+                </tbody>
+              </table>
+              <h3 ng-if="!editing_tag">New Tag</h3>
+              <h3 ng-if="editing_tag">Edit Tag</h3>
+              <form ng-submit="saveTag(tag)">
+                <label for="tag_name">Name:</label>
+                <input ng-model="tag.name" id="tag_name" />
+                <label for="tag_description">Description:</label>
+                <input ng-model="tag.description" id="tag_description" />
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button ng-if="editing_tag" class="btn btn-warning" ng-click="revertTag()">Discard Changes</button>
+              </form>
+              <div class="help-block" ng-if="tag_error">{{tag_error}}</div>
+            </div>
           </tab>
         </tabset>
-        <h3 ng-if="!editing">New Category</h3>
-        <h3 ng-if="editing">Edit Category</h3>
-        <form ng-submit="saveCategory(category)">
-          <label for="category_name">Name:</label>
-          <input ng-model="category.name" id="category_name" />
-          <label for="category_description">Description:</label>
-          <input ng-model="category.description" id="category_description" />
-          <multiselect class="" multiple="true" ms-selected="{{category.tags.length}} tag(s) selected"
-            ng-model="category.tags" ms-header="Select Some Tags"
-            options="tag.name for tag in tags"
-            change="selected()"></multiselect>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button ng-if="editing" class="btn btn-danger" ng-click="newCategory()">Discard Changes</button>
-        </form>
-      </div>
-
-      <!-- Tags -->
-      <div class="container">
-        <h2 ng-show="tags.length">Tags</h2>
-        <table class="table table-striped" ng-show="tags.length">
-          <thead>
-            <th>Title</th>
-            <th>Description</th>
-          </thead>
-          <tbody>
-          <tr ng-repeat="tag in tags">
-            <td ng-click="activeTag(tag)">
-              {{tag.name}}
-            </td>
-            <td ng-click="activeTag(tag)">
-              {{tag.description}}
-            </td>
-            <td><button class="btn btn-danger" ng-click="deleteTag(tag)">Delete</button></td>
-          </tr>
-          </tbody>
-        </table>
-        <h3 ng-if="!editing">New Tag</h3>
-        <h3 ng-if="editing">Edit Tag</h3>
-        <form ng-submit="saveTag(tag)">
-          <label for="tag_name">Name:</label>
-          <input ng-model="tag.name" id="tag_name" />
-          <label for="tag_description">Description:</label>
-          <input ng-model="tag.description" id="tag_description" />
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-          <button ng-if="editing" class="btn btn-success" ng-click="newTag()">New Tag</button>
       </div>
     </div>
   </div>
@@ -106,8 +91,8 @@
   <script src="/js/lib/async.js"></script>
   <script src="/js/lib/angular.js"></script>
   <script src="/js/lib/multiselect.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.2/angular-route.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.2/angular-resource.js"></script>
+  <script src="/js/lib/angular-route.js"></script>
+  <script src="/js/lib/angular-resource.js"></script>
   <script src="/js/lib/ui-bootstrap-tpls-0.10.0.js"></script>
   <script src="/js/main.js"></script>
 <% include ../../../views/foot_end %>

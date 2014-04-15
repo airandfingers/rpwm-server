@@ -225,9 +225,21 @@ multiselect .dropdown-menu{
 
 multiselect .dropdown-menu > li > a {
     padding: 3px 10px;
-    cursor:pointer;
+    cursor :pointer;
 }
 
+.navbar {
+    min-height: 26px !important;
+    border-radius: 0 !important;
+}
+
+.nav a {
+    cursor: pointer;
+}
+
+td {
+  cursor: pointer;
+}
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

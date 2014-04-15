@@ -15,6 +15,16 @@ module.exports = function(starter_app_generator) {
   //Development-mode-specific middleware configuration
   app.configure('development', function() {
     app.use(express.static(__dirname + '/public'));
+    app.use(function(req, res, next) {
+      res.error = function(error) {
+        console.error(error);
+        console.trace();
+        error = error.message || error;
+        res.status(500);
+        res.json({ error: error });
+      };
+      next();
+    });
     app.use(app.router);
     // Display "noisy" errors - show exceptions and stack traces
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
@@ -24,6 +34,15 @@ module.exports = function(starter_app_generator) {
   app.configure('production', function() {
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
+    app.use(function(req, res, next) {
+      res.error = function(error) {
+        console.error(error);
+        console.trace();
+        res.status(500);
+        res.json({ error: 'Sorry, an error occurred. We\'ll look into it.' });
+      };
+      next();
+    });
     app.use(app.router);
     // Display "quiet" errors - just HTTP response code 500
     app.use(function(req, res) {

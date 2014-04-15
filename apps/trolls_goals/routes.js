@@ -17,9 +17,7 @@ module.exports = function(app) {
     app.get('/api/' + model_name, function(req, res) {
       Model.find(function(find_err, docs) {
         if (find_err) {
-          var error = 'Error while finding ' + model_name + 's';
-          console.error(error + ':', find_err);
-          return res.json(error);
+          return res.error(find_err);
         }
         res.json(docs);
       });
@@ -28,13 +26,11 @@ module.exports = function(app) {
     app.get('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id;
       if (_.isEmpty(_id)) {
-        return res.json('No _id provided.');
+        return res.error('No _id provided.');
       }
       Model.findById(_id, function(find_err, doc) {
         if (find_err) {
-          var error = 'Error while finding ' + model_name;
-          console.error(error + ':', find_err);
-          return res.json(error);
+          return res.error(find_err);
         }
         res.json(doc);
       });
@@ -44,14 +40,12 @@ module.exports = function(app) {
       var spec = req.body
         , doc;
       if (_.isEmpty(spec)) {
-        return res.json('Invalid spec: ' + JSON.stringify(spec));
+        return res.error('Invalid spec: ' + JSON.stringify(spec));
       }
       doc = new Model(spec);
       doc.save(function(save_err) {
         if (save_err) {
-          var error = 'Error while saving ' + model_name;
-          console.error(error + ':', save_err);
-          return res.json(error);
+          return res.error(save_err);
         }
         res.json(doc.toObject());
       });
@@ -61,24 +55,22 @@ module.exports = function(app) {
       var _id = req.params._id
         , update_obj;
       if (_.isEmpty(_id)) {
-        return res.json('No _id provided.');
+        return res.error('No _id provided.');
       }
 
       update_obj = _.pick(req.body, Model.update_fields);
       if (_.isEmpty(update_obj)) {
-        return res.json('No valid fields to update.');
+        return res.error('No valid fields to update.');
       }
 
       Model.findOneAndUpdate({ _id: _id }, { $set: update_obj },
                              function(update_err, updated) {
         console.log('findOneAndUpdate returns', update_err, updated);
         if (update_err) {
-          var error = 'Error while updating ' + model_name;
-          console.error(error + ':', update_err);
-          return res.json(error);
+          res.error(update_err);
         }
         else if (updated === null) {
-          res.json('No doc found with _id=' + _id);
+          res.error('No doc found with _id=' + _id);
         }
         else {
           res.json(updated);
@@ -89,17 +81,15 @@ module.exports = function(app) {
     app.delete('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id;
       if (_.isEmpty(_id)) {
-        return res.json('No _id provided.');
+        return res.error('No _id provided.');
       }
       Model.findOneAndRemove({ _id: _id }, function(remove_err, removed) {
         console.log('findOneAndRemove returns', remove_err, removed);
         if (remove_err) {
-          var error = 'Error while removing ' + model_name;
-          console.error(error + ':', remove_err);
-          return res.json(error);
+          res.error(remove_err);
         }
         else if (removed === null) {
-          res.json('No doc found with _id=' + _id);
+          res.error('No doc found with _id=' + _id);
         }
         else {
           res.json(removed);
