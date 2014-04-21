@@ -18,16 +18,18 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="category in categories" ng-click="activeCategory(category)">
-                  <td>
+                  <td class="clickable">
                     {{category.name}}
                   </td>
-                  <td>
+                  <td class="clickable">
                     {{category.description}}
                   </td>
-                  <td>
+                  <td class="clickable">
                     {{categoryTagNames(category)}}
                   </td>
-                  <td><button class="btn btn-danger" ng-click="deleteCategory(category); $event.stopPropagation()">Delete</button></td>
+                  <td class="clickable">
+                    <button class="btn btn-danger" ng-click="deleteCategory(category); $event.stopPropagation()">Delete</button>
+                  </td>
                 </tr>
                 </tbody>
               </table>

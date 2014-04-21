@@ -29,4 +29,4 @@ module.exports = {
 , TEST_PASSWORD: db_config.TEST_PASSWORD
 , session_store: session_store
 , SESSION_SECRET: db_config.SESSION_SECRET
-}
+};

@@ -1,3 +1,5 @@
+  <link rel="stylesheet" href="<%= settings.protocol %>://<%= settings.base_url %>/css/header.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
@@ -16,8 +18,8 @@
                             { name: 'home', 
                               href: settings.base_url, 
                               dropdown: [
-                                { name: 'about', href: settings.base_url + '/about' },
-                                { name: 'contact', href: settings.base_url + '/contact' },
+                                { name: 'ABOUT', href: settings.base_url + '/about' },
+                                { name: 'CONTACT', href: settings.base_url + '/contact' },
                               ],
                             },
                             { name: 'corridor', href: 'corridor.' + settings.base_url },
@@ -26,6 +28,7 @@
                             { name: 'minesweeper', href: 'minesweeper.' + settings.base_url },
                             { name: 'wishing well', href: 'wishingwell.' + settings.base_url },
                             { name: 'text', href: 'text.' + settings.base_url },
+                            { name: 'troll`s goals', href: 'trollsgoals.' + settings.base_url },
                             <!-- temporarily removed { name: 'magi-cal', href: 'magi-cal.me' }, -->
                             { name: 'ETS', href: 'etstutoring.org' },
                         ],
@@ -66,58 +69,81 @@
                             <% } %>
                         </li>
                     <% } %>
-                    <!-- Combined Register/Login Dropdown-->
                     <li class="right">
-                      <% if (locals.username) { %>
-                        <a href="/logout">Logout <%= locals.username.toUpperCase() %></a>
+                      <!-- Logout/Login/Register Trigger(s) -->
+                      <% if (typeof locals.username === 'string') { %>
+                        <%= locals.username.toUpperCase() %> <a href="/logout">LOGOUT</a>
+                        <% if (locals.username.substring(0, 5) === 'guest') { %>
+                          <a href="#" id="guest_convert_trigger">REGISTER</a>
+                        <% } %>
                       <% } else { %>
-                        <a href="#" id="login_trigger">Login/Register</a>
+                        <a href="#" id="login_register_trigger">LOGIN/REGISTER</a>
                       <% } %>
 
-                    <!--Login div-->
-                    <% if (! locals.username) { %>
-                    <div id="login" class="dropdown_form">
-                      <form action="/login" method="post">
-                        <div class="username">
-                          <label>Username:</label>
-                          <input type="text" name="username" placeholder="username" autofocus /><br/>
-                        </div>
-                        <div class="password">
-                          <label>Password:</label>
-                          <input type="password" name="password" placeholder="password" />
-                        </div>
-                        <div class="submit_button">
-                          <input type="submit" value="Login" class="button" />
-                        </div>
-                      </form>
-                        <!-- Register form div-->
-                      <form action="/register" method="post">
-                          <div class="username">
-                              <label>Username:</label>
-                              <input type="text" name="username" placeholder="username" autofocus /><br/>
-                          </div>
-                          <div class="password">
-                              <label>Password:</label>
-                              <input type="password" name="password" placeholder="password" />
-                          </div>
-                          <div class="password">
-                              <label>Confirm Password:</label>
-                              <input type="password" name="password2" placeholder="re-type password" />
-                          </div>
-                          <div class="submit_button">
-                              <input type="submit" value="Register" class="button"/>
-                          </div>
-                      </form>
-                      <!--Guest Access button, to add later
-                      <div>
-                        <input type="submit" value="Guest Access" class="button" />
-                      </div>  -->
-                    </div><!-- end of login div-->
-                      
-                        <% } %>                      
+                      <!-- Guest Conversion dropdown -->
+                      <% if (typeof locals.username === 'string' && locals.username.substring(0, 5) === 'guest') { %>
+                        <div id="guest_convert" class="dropdown_form">
+                          <!-- Guest Conversion form -->
+                          <form action="/register" method="post">
+                              <div class="username">
+                                  <label for="guest_convert_username">USERNAME:</label>
+                                  <input type="text" name="username" id="guest_convert_username" placeholder="username" autofocus required remote="/check_username" /><br/>
+                              </div>
+                              <div class="password">
+                                  <label for="guest_convert_password">PASSWORD:</label>
+                                  <input type="password" name="password" id="guest_convert_password" placeholder="password" required />
+                              </div>
+                              <div class="password">
+                                  <label for="guest_convert_password_confirm">CONFIRM PASSWORD:</label>
+                                  <input type="password" name="password_confirm" id="guest_convert_password_confirm" placeholder="re-type password" required equalTo="#guest_convert_password" />
+                              </div>
+                              <div class="submit_button">
+                                  <input type="submit" value="Register" class="button" />
+                              </div>
+                          </form>
+                        </div><!-- Guest Conversion dropdown -->
+                      <!-- Login/Register dropdown -->
+                      <% } else if (typeof locals.username !== 'string') { %>
+                        <div id="login_register" class="dropdown_form">
+                          <h3>LOGIN</h3>
+                          <form action="/login" method="post">
+                            <div class="username">
+                              <label for="login_username">USERNAME:</label>
+                              <input type="text" name="username" id="login_username" placeholder="username" autofocus required />
+                            </div>
+                            <div class="password">
+                              <label for="login_password">PASSWORD:</label>
+                              <input type="password" name="password" id="login_password" placeholder="password" required />
+                            </div>
+                            <div class="submit_button">
+                              <input type="submit" value="Login" class="button" />
+                            </div>
+                          </form>
+                          <form action="/guest_login" method="post">
+                            <input type="submit" class="button" value="Login as Guest" />
+                          </form>
+                          <!-- Register form -->
+                          <h3>REGISTER</h3>
+                          <form action="/register" method="post">
+                              <div class="username">
+                                  <label for="register_username">USERNAME:</label>
+                                  <input type="text" name="username" id="register_username" placeholder="username" autofocus required remote="/check_username" />
+                              </div>
+                              <div class="password">
+                                  <label for="register_password">PASSWORD:</label>
+                                  <input type="password" name="password" id="register_password" placeholder="password" required />
+                              </div>
+                              <div class="password">
+                                  <label for="register_password_confirm">CONFIRM PASSWORD:</label>
+                                  <input type="password" name="password_confirm" id="register_password_confirm" placeholder="re-type password" required equalTo="#register_password" />
+                              </div>
+                              <div class="submit_button">
+                                  <input type="submit" value="Register" class="button" />
+                              </div>
+                          </form>
+                        </div><!-- Login/Register dropdown -->
+                      <% } %>
                     </li>
-
-
                 </ul>
             </div>
         <% } %>

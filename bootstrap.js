@@ -51,6 +51,7 @@ var express = require('express')
 
     return message;
   }
+
 // Define a function that generates initial apps with common middlewares
   , starter_app_generator = function(dont_log) {
     var app = express();
@@ -58,13 +59,9 @@ var express = require('express')
     if (dont_log !== true) { app.use(express.logger(log_format)); }
     app.use(express.json());
     app.use(express.urlencoded());
-    app.configure('development', function() {
+    app.configure(function() {
       app.set('protocol', 'http');
-      app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
-    });
-    app.configure('production', function() {
-      app.set('protocol', 'http');
-      app.set('base_url', 'ayoshitake.com');
+      app.set('base_url', base_url);
     });
     return app;
   }
@@ -72,13 +69,18 @@ var express = require('express')
   , db = require('./modules/db')
 // Declare configuration value(s)
   , EXPRESS_PORT = process.env.PORT || 9000
+// Determine the base URL
+  , base_url = process.env.NODE_ENV === 'production' ? 'ayoshitake.com' :
+                                                       'ayoshitake.dev' + ':' + EXPRESS_PORT
+  , b = console.log(base_url)
 // Define some session-related settings
   , session_settings = {
       store: db.session_store
     , secret: db.SESSION_SECRET
     , sid_name: 'express.sid'
     , cookie: {
-      maxAge: 3600000 // 1 hour
+        domain: '.' + base_url.split(':')[0] // .[domain], no port
+      , maxAge: 3600000 // 1 hour
     //, secure: true // Only communicate via HTTPS
     }
   }
@@ -90,17 +92,17 @@ var express = require('express')
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 // Attempt to redirect requests made with HTTPS to HTTP version (not working)
-bootstrap_app.use(function(req, res, next) {
+/*bootstrap_app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'https') {
     var url = 'http://' + req.headers.host + req.originalUrl;
     res.writeHead(301, { location: url });
     return res.end('Redirecting to <a href="' + url + '">' + url + '</a>.');
   }
   else {
-    //console.log('headers[x-forwarded-proto] is', req.headers['x-forwarded-proto'], ', so not redirecting');
+    console.log('headers[x-forwarded-proto] is', req.headers['x-forwarded-proto'], ', so not redirecting');
     return next();
   }
-});
+});*/
 bootstrap_app.use(express.static(__dirname + '/public')); // Serve files found in the public directory
 bootstrap_app.use(express.cookieParser()); // Parse cookie into req.cookies
 bootstrap_app.use(express.session({ // Store and retrieve sessions, using a session store and cookie
@@ -214,3 +216,21 @@ bootstrap_server.listen(EXPRESS_PORT);
 // This is printed after the server is up
 console.log('bootstrap server listening on port %d in %s mode',
             bootstrap_server.address().port, bootstrap_app.settings.env);
+
+// Set up handler for error or any kind of "kill" signal
+var closing = false;
+function handleErrorOrSignal(err) {
+  if (err) {
+    console.error('Error occurred:', err);
+    console.error(err.stack);
+  }
+  if (! closing) {
+    console.log('Shutting down server...');
+    closing = true;
+    process.exit(1);
+  }
+}
+process.on('SIGTERM', handleErrorOrSignal)
+       .on('SIGINT', handleErrorOrSignal)
+       .on('SIGHUP', handleErrorOrSignal)
+       .on('uncaughtException', handleErrorOrSignal);

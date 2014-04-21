@@ -5,26 +5,35 @@
     <p><%= message %></p>
   <% } %>
   <div id="login_main">
-    <div>
-      <a href="/register"> Don't have a login? Register here</a>
-      </br>
-    </div>
     <form action="/login" method="post">
-      <div class="username">
-        <label>Username:</label>
-        <input type="text" name="username" placeholder="username" autofocus /><br/>
+      <div class="form_row">
+        <label for="login_main_username">USERNAME:</label>
+        <input type="text" name="username" id="login_main_username" placeholder="username" autofocus required />
       </div>
-      <div class="password">
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="password" />
+      <div class="form_row">
+        <label for="login_main_password">PASSWORD:</label>
+        <input type="password" name="password" id="login_main_password" placeholder="password" required />
       </div>
-      <div class="submit_button">
-        <input type="submit" value="Boomcat!" class="button" />
+      <div class="form_row">
+        <input type="submit" value="Login" class="button" />
       </div>
       <% if (next) { %>
         <input type="hidden" name="next" value="<%= next %>" />
       <% } %>
     </form>
+    <form action="/guest_login" method="post">
+      <div class="form_row">
+        <input type="submit" class="button" value="Login as Guest" />
+      </div>
+      <% if (next) { %>
+        <input type="hidden" name="next" value="<%= next %>" />
+      <% } %>
+    </form>
+    <div class="form_row">
+      NO LOGIN?
+      <br />
+      <a href="/register<%= next ? '?next=' + next : '' %>"> REGISTER HERE</a>
+    </div>
   </div>
 
 <% include foot %>

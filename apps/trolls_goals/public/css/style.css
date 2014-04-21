@@ -218,7 +218,7 @@ td { vertical-align: top; }
    Author: Red Pill Web Masons
    ========================================================================== */
 
-multiselect .dropdown-menu{
+multiselect .dropdown-menu {
     padding-left: 5px; 
     padding-right: 5px;
 }
@@ -228,6 +228,11 @@ multiselect .dropdown-menu > li > a {
     cursor :pointer;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
+/* Override some styles Bootstrap got wrong */
 .navbar {
     min-height: 26px !important;
     border-radius: 0 !important;
@@ -235,10 +240,6 @@ multiselect .dropdown-menu > li > a {
 
 .nav a {
     cursor: pointer;
-}
-
-td {
-  cursor: pointer;
 }
 
 /* ==|== media queries ======================================================

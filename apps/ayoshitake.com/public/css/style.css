@@ -1,82 +1,4 @@
-@font-face {
-    /*font found at http://www.fontsquirrel.com/fonts/Destroy*/
-    font-family: "DESTROY";
-    src: url(/../../../public/css/DESTROY.ttf) format("truetype"); */this source link is currently broken. need to fix eventually */
-}
-
-a:link    { color: #CCCCCC; }
-a:visited { color: #CCCCCC; }
-a:hover   { color: #6AA6FF; }
-
-body{
-    margin: 0px;
-    padding: 0px;
-}
-    
-html {
-  /*new gradient */
-  background: #5b5f66; /* Old browsers */
-  background: -moz-linear-gradient(top,  #5b5f66 0%, #000000 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5b5f66), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #5b5f66 0%,#000000 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b5f66', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-
-	text-align: center;
-	min-width: 100%;
-	min-height: 100%;
-}
-
-.button {
-   border-top: 1px solid #5a6770;
-   border-left: 1px solid #5a6770;
-   background: #586975;
-   background: -webkit-gradient(linear, left top, left bottom, from(#888c8b), to(#586975));
-   background: -webkit-linear-gradient(top, #888c8b, #586975);
-   background: -moz-linear-gradient(top, #888c8b, #586975);
-   background: -ms-linear-gradient(top, #888c8b, #586975);
-   background: -o-linear-gradient(top, #888c8b, #586975);
-   padding: 6px 12px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: #ffffff;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
-   }
-.button:hover {
-   border-top-color: #6b7880;
-   background: #6b7880;
-   color: #88db83;
-   }
-.button:active {
-   border-top-color: #040505;
-   background: #040505;
-   }
-
-.invert {
-  color: #ffffff;
-  margin: 0 auto;
-  max-width: 700px;
-}
-
-.password {
-    margin: 20px;
-}
-
-.submit_button {
-    margin: 20px;
-}
-
 .slideshow {
-  margin-top: 2em;
   margin-right: auto;
   margin-left: auto;
   width: 50%;
@@ -91,83 +13,72 @@ html {
 .slideshow a.first {
   display: block;
 }
+
 .slideshow a.portal img {
-    min-width: 275px; 
+    border: 1px solid transparent;
 }
 
-.username {
-    margin: 20px;
+.slideshow a.portal img:hover {
+    border: 1px solid #6AA6FF;
 }
 
-.uglyregistration {
-    margin: 20px;
-    text-align: center;   
+#slide_nav {
+    position: relative;
+    text-decoration: none;
+    font-size: 2.5em;
+}
+
+#slide_nav a {
+    text-decoration: none;
+    color: black;
+}
+
+#slide_nav a.activeSlide {
+    color: white;
+}
+
+#slide_nav a:hover {
+    color: #6AA6FF;
 }
 
 #about_content {
-	color: white;
-	font-family: 'Helvetica Neue', Helvetica, Georgia, sans-serif;
-	font-size: 1.4em;
-	text-shadow: 1.8px 1.8px 1.8px #000;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Georgia, sans-serif;
+    font-size: 1.4em;
+    text-shadow: 1.8px 1.8px 1.8px #000;
 
-	width: 50%;
-  max-width: 700px;
-	text-align: center;
-	margin: 0 auto;
-	padding: 10px;
+    width: 50%;
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 #about_page {
-  background: url('/img/DSC_7307_1920.JPG');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  width:100%;
-  height:100%;
-}
+    background: url('/img/DSC_7307_1920.JPG');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+  }
 
 #about_page > img {
-	opacity: 0.5;
-  width: 10%;
-  min-width: 100px;
+    opacity: 0.5;
+    width: 10%;
+    min-width: 100px;
 }
 
 #contact-main {
     font-family: Paprika, courier, sans-serif;
-    
-}    
+}
 
 #logo {
-  opacity: 0.5;
-  -moz-opacity: 0.5;
-  filter:alpha(opacity=5);
-}
-
-#login_main {
-    font-family: DESTROY, Paprika, sans-serif;
-    margin: 100px 20px 20px 20px;
-}
-
-#slide_nav {
-  position: relative;
-  text-decoration: none;
-  font-size: 2.5em;
-}
-
-#under_construction {
-  font-weight: normal;
-}
-
-#registration_main {
-	font-family: DESTROY, Paprika, sans-serif;
-	margin: 100px 20px 20px 20px;
-
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+    filter:alpha(opacity=5);
 }
 
 #wilfred {
-  max-width: 33%;
-  margin: 10px auto;
-}
-
-a.activeSlide {
-  color: white;
+    max-width: 33%;
+    margin: 10px auto;
 }

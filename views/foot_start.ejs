@@ -1,75 +1,27 @@
   <!-- JavaScript at the bottom for fast page loading -->
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"><\/script>')</script>
-  <script>window.jQuery || document.write('<script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery-1.10.1.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery-2.1.0.min.js"><\/script>')</script>
 
-  <!-- Navbar script (for dropdown animation) -->
-  <% if (! settings.hide_navbar) { %>
-    <script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery.hoverIntent.min.js"></script>
-
-    <script>
-      $('.navbar li ul').css({
-        display: 'none',
-        left: 'auto'
-      });
-
-      $('.navbar li').hoverIntent(function() {
-        $(this)
-          .find('ul')
-          .stop(true, true)
-          .slideDown('fast');
-
-      }, function() {
-        $(this)
-          .find('ul')
-          .stop(true, true)
-          .fadeOut('fast');
-      });
-    </script>
-  <% } %>
-
-  <!-- Hide/Show Register/Login functionality -->
-  <script>
-    $(document).ready(function() {
-      $('#login').hide();
-
-      $('#login_trigger').click(function() {
-        
-        if ($(this).hasClass('active')) {
-          $(this)
-            .removeClass('active');
-          $('#login')
-            .slideUp();
-        }
-
-        else {
-          $(this)
-            .addClass('active');
-          $('#login')
-            .css({
-            left: $(this).position().left - $(this).width(), 
-            top: $(this).position().top + $(this).height()
-            })
-            .slideDown();
-        }
-      });
-
-      $('#login form :submit').click(function() {
-        $(this)
-          .parent()
-          .prev('a')
-          .click();
-        });
-    });
-  </script>
-
+  <!-- begin foot.ejs scripts -->
   <% if (settings.show_banner) { %>
-  <!-- fade in the "under construction" message -->
+    <!-- fade in the "under construction" message -->
     <script>$('#under_construction').css('opacity', .001)
                                     .animate({ opacity: 1.0 }, 2000);</script> 
   <% } %>
 
-  <!-- begin foot.ejs scripts -->
-  <script src="/js/plugins.js"></script>
-  <script src="/js/script.js"></script>
+  <% if (! settings.hide_navbar) { %>
+    <!-- Navbar scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script>window.jQuery.ui || document.write('<script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery-ui-1.10.4.min.js"><\/script>')</script>
+
+    <script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery.hoverIntent.min.js"></script>
+    <script src="<%= settings.protocol %>://<%= settings.base_url %>/js/lib/jquery.validate.min.js"></script>
+    <script src="<%= settings.protocol %>://<%= settings.base_url %>/js/dropdown.js"></script>
+  <% } %>
+
+  <% if (settings.include_scripts !== false) { %>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/script.js"></script>
+  <% } %>
   <!-- end foot.ejs scripts -->
