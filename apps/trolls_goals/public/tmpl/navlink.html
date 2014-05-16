@@ -1,0 +1,4 @@
+<li ng-class="{ active: isActive() }">
+  <a ng-if="! isActive()" href='#/{{href}}'>{{title}}</a>
+  <span ng-if="isActive()">{{title}}</span>
+</li>

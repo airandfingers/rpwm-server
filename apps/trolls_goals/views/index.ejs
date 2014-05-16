@@ -1,90 +1,21 @@
 <% include ../../../views/head_start %>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
 <% include ../../../views/head_end_and_header %>
-  <div ng-app="app">
-    <div ng-controller="MainCtrl">
-      <div class="container">
+  <div ng-app="app" id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <navlink href="manage_categories" title="Manage Categories"></navlink>
+        <navlink href="manage_tags" title="Manage Tags"></navlink>
+        <h3>Tags</h3>
+        <navlink href="tags/" title="All"></navlink>
+        <navlink ng-repeat="tag in tags" href="tags/{{tag.name}}" title="{{tag.name}}"></navlink>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="page-content">
         <h1>Welcome to Troll's Goals!</h1>
-        <tabset>
-        <!-- Categories -->
-          <tab heading="Manage Categories">
-            <div class="tab_wrapper" ng-class="{ 'has-error': category_error }">
-              <h2 ng-show="categories.length">Categories</h2>
-              <table class="table table-striped" ng-show="categories.length">
-                <thead>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Tags</th>
-                </thead>
-                <tbody>
-                <tr ng-repeat="category in categories" ng-click="activeCategory(category)">
-                  <td class="clickable">
-                    {{category.name}}
-                  </td>
-                  <td class="clickable">
-                    {{category.description}}
-                  </td>
-                  <td class="clickable">
-                    {{categoryTagNames(category)}}
-                  </td>
-                  <td class="clickable">
-                    <button class="btn btn-danger" ng-click="deleteCategory(category); $event.stopPropagation()">Delete</button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <h3 ng-if="!editing_category">New Category</h3>
-              <h3 ng-if="editing_category">Edit Category</h3>
-              <form ng-submit="saveCategory(category)">
-                <label for="category_name">Name:</label>
-                <input ng-model="category.name" id="category_name" />
-                <label for="category_description">Description:</label>
-                <input ng-model="category.description" id="category_description" />
-                <multiselect class="" multiple="true" change="selected()"
-                  ms-selected="{{categoryTagNames(category)}}"
-                  ng-model="category.tags" ms-header="Select Tags"
-                  options="tag._id as tag.name for tag in tags"></multiselect>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button ng-if="editing_category" class="btn btn-warning" ng-click="revertCategory()">Discard Changes</button>
-              </form>
-              <div class="help-block" ng-if="category_error">{{category_error}}</div>
-            </div>
-          </tab>
-          <!-- Tags -->
-          <tab heading="Manage Tags">
-            <div class="tab_wrapper" ng-class="{ 'has-error': tag_error }">
-              <h2 ng-show="tags.length">Tags</h2>
-              <table class="table table-striped" ng-show="tags.length">
-                <thead>
-                  <th>Title</th>
-                  <th>Description</th>
-                </thead>
-                <tbody>
-                <tr ng-repeat="tag in tags" ng-click="activeTag(tag)">
-                  <td>
-                    {{tag.name}}
-                  </td>
-                  <td>
-                    {{tag.description}}
-                  </td>
-                  <td><button class="btn btn-danger" ng-click="deleteTag(tag); $event.stopPropagation()">Delete</button></td>
-                </tr>
-                </tbody>
-              </table>
-              <h3 ng-if="!editing_tag">New Tag</h3>
-              <h3 ng-if="editing_tag">Edit Tag</h3>
-              <form ng-submit="saveTag(tag)">
-                <label for="tag_name">Name:</label>
-                <input ng-model="tag.name" id="tag_name" />
-                <label for="tag_description">Description:</label>
-                <input ng-model="tag.description" id="tag_description" />
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button ng-if="editing_tag" class="btn btn-warning" ng-click="revertTag()">Discard Changes</button>
-              </form>
-              <div class="help-block" ng-if="tag_error">{{tag_error}}</div>
-            </div>
-          </tab>
-        </tabset>
+        <div ng-view>
+        </div>
       </div>
     </div>
   </div>
@@ -96,5 +27,10 @@
   <script src="/js/lib/angular-route.js"></script>
   <script src="/js/lib/angular-resource.js"></script>
   <script src="/js/lib/ui-bootstrap-tpls-0.10.0.js"></script>
+
   <script src="/js/main.js"></script>
+  <script src="/js/filters.js"></script>
+  <script src="/js/categories.js"></script>
+  <script src="/js/tags.js"></script>
+  <script src="/js/records.js"></script>
 <% include ../../../views/foot_end %>

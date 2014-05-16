@@ -5,15 +5,13 @@ module.exports = (function() {
     , Schema = mongoose.Schema
     , ObjectId = Schema.ObjectId
 
-    , TagSchema = new Schema({
-        name: { type: String, unique: true, index: true } // the tag's unique name
-      , description: { type: String } // a description of the tag
+    , RecordSchema = new Schema({
+        category: { type: ObjectId, ref: 'categories', index: true }
       , username: { type: String, index: true }
+      , day: Number // days since 1970.1.1
     });
 
-  var Tag = mongoose.model('Tag', TagSchema);
+  var Record = mongoose.model('Record', RecordSchema);
 
-  Tag.update_fields = ['name', 'description'];
-
-  return Tag;
+  return Record;
 })();

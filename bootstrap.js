@@ -72,7 +72,6 @@ var express = require('express')
 // Determine the base URL
   , base_url = process.env.NODE_ENV === 'production' ? 'ayoshitake.com' :
                                                        'ayoshitake.dev' + ':' + EXPRESS_PORT
-  , b = console.log(base_url)
 // Define some session-related settings
   , session_settings = {
       store: db.session_store

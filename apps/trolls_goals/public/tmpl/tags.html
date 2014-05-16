@@ -1,0 +1,30 @@
+<h2 ng-if="tag">{{tag.name}}</h2>
+<h2 ng-if="! tag">All Categories</h2>
+ <table class="table table-striped" ng-show="tag_categories.length">
+    <thead>
+      <th>Name</th>
+      <th ng-repeat="day in [min_day, today] | makeRange">{{ day | dayToDate | dateFormat }}</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="category in tag_categories">
+        <td>
+          {{ category.name }}
+        </td>
+        <td class="clickable"
+            ng-click="createRecord(category._id, -1)"
+            ng-repeat="day in [min_day, today] | makeRange">
+          <span class="glyphicon glyphicon-ok-sign"
+                ng-repeat="record in records[category._id][day]"
+                ng-click="deleteRecord(record); $event.stopPropagation()">
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Total
+        </td>
+        <td ng-repeat="day in [min_day, today] | makeRange">
+          {{ getNumRecords(day) }}
+        </td>
+    </tbody>
+  </table>

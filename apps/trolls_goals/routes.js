@@ -1,6 +1,6 @@
 module.exports = function(app) {
   var _ = require('underscore')
-    , Activity = require('./models/activity')
+    , Record = require('./models/record')
     , Category = require('./models/category')
     , Tag = require('./models/tag');
 
@@ -9,13 +9,57 @@ module.exports = function(app) {
   });
 
   var models = {
-    category: Category
+    record: Record
+  , category: Category
   , tag: Tag
   };
 
+  // Custom Model-specific routes
+  app.get('/api/record/query', function(req, res) {
+    var category_ids = req.query.category_ids
+      , day_range = req.query.day_range
+      , query = { username: req.user.username };
+
+    if (_.isString(category_ids)) {
+      category_ids = [category_ids];
+    }
+    if (_.isArray(category_ids)) {
+      query.category = { $in: category_ids };
+    }
+
+    if (_.isString(day_range)) {
+      day_range = parseInt(day_range);
+      if (_.isNaN(day_range)) {
+        console.error('Unable to parse day_range:', req.query.day_range);
+      }
+      else {
+        query.day = { $gte: day_range };
+      }
+    }
+    else if (_.isArray(day_range)) {
+      day_range[0] = parseInt(day_range[0]);
+      day_range[1] = parseInt(day_range[1]);
+      if (_.isNaN(day_range[0]) || _.isNaN(day_range[1])) {
+        console.error('Unable to parse day_range:', req.query.day_range);
+      }
+      else {
+        query.day = { $gte: day_range[0], $lte: day_range[1] };
+      }
+    }
+
+    Record.find(query, function(find_err, docs) {
+      if (find_err) {
+        return res.error(find_err);
+      }
+      res.json(docs);
+    });
+  });
+
+  // Common CRUD routes
   _.each(models, function(Model, model_name) {
     app.get('/api/' + model_name, function(req, res) {
-      Model.find(function(find_err, docs) {
+      var query = { username: req.user.username };
+      Model.find(query, function(find_err, docs) {
         if (find_err) {
           return res.error(find_err);
         }
@@ -24,11 +68,12 @@ module.exports = function(app) {
     });
 
     app.get('/api/' + model_name + '/:_id', function(req, res) {
-      var _id = req.params._id;
+      var _id = req.params._id
+        , query = { username: req.user.username, _id: _id };
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
       }
-      Model.findById(_id, function(find_err, doc) {
+      Model.findOne(query, function(find_err, doc) {
         if (find_err) {
           return res.error(find_err);
         }
@@ -42,6 +87,7 @@ module.exports = function(app) {
       if (_.isEmpty(spec)) {
         return res.error('Invalid spec: ' + JSON.stringify(spec));
       }
+      spec.username = req.user.username;
       doc = new Model(spec);
       doc.save(function(save_err) {
         if (save_err) {
@@ -53,17 +99,16 @@ module.exports = function(app) {
 
     app.put('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id
+        , query = { username: req.user.username, _id: _id }
         , update_obj;
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
       }
-
       update_obj = _.pick(req.body, Model.update_fields);
       if (_.isEmpty(update_obj)) {
         return res.error('No valid fields to update.');
       }
-
-      Model.findOneAndUpdate({ _id: _id }, { $set: update_obj },
+      Model.findOneAndUpdate(query, { $set: update_obj },
                              function(update_err, updated) {
         console.log('findOneAndUpdate returns', update_err, updated);
         if (update_err) {
@@ -79,11 +124,12 @@ module.exports = function(app) {
     });
 
     app.delete('/api/' + model_name + '/:_id', function(req, res) {
-      var _id = req.params._id;
+      var _id = req.params._id
+        , query = { username: req.user.username, _id: _id };
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
       }
-      Model.findOneAndRemove({ _id: _id }, function(remove_err, removed) {
+      Model.findOneAndRemove(query, function(remove_err, removed) {
         console.log('findOneAndRemove returns', remove_err, removed);
         if (remove_err) {
           res.error(remove_err);
