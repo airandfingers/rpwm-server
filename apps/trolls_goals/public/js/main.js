@@ -1,9 +1,9 @@
 (function() {
 var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
   'trollsGoalsFilters', 'categories', 'tags', 'records',
-  'ui.multiselect', 'ui.bootstrap.tpls', 'ui.bootstrap.tabs']);
+  'ui.multiselect', 'ui.bootstrap.tpls', 'custom.bootstrap']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $customtooltipProvider) {
   $routeProvider
     .when('/', {
       redirectTo: '/manage_categories'
@@ -25,6 +25,10 @@ app.config(function($routeProvider) {
       controller: 'DisplayTagCtrl'
     })
     .otherwise({ redirectTo: '/' });
+
+  $customtooltipProvider.options({
+    appendToBody: true
+  });
 });
 
 app.run(function($rootScope, $location, TagFactory) {

@@ -90,7 +90,8 @@ tagsModule.controller('ManageTagsCtrl', function($scope, TagFactory, $rootScope)
   $scope.newTag();
 });
 
-tagsModule.controller('DisplayTagCtrl', function($scope, $rootScope, $routeParams, TagFactory, CategoryFactory, RecordFactory) {
+tagsModule.controller('DisplayTagCtrl', function($scope, $rootScope, $routeParams,
+                      $http, TagFactory, CategoryFactory, RecordFactory) {
   var tag_name = $routeParams.name
     , category_query = {};
   async.parallel([
@@ -155,12 +156,33 @@ tagsModule.controller('DisplayTagCtrl', function($scope, $rootScope, $routeParam
     });
   };
 
+  $scope.saveRecord = function(record) {
+    RecordFactory.update({ id: record._id }, record, function(r) {
+      console.log('successfully edited record!', r);
+    }, function(response) {
+      console.error(response.data.error);
+      $scope.tag_error = response.data.error;
+    });
+  };
+
   $scope.deleteRecord = function(record) {
     record.$delete({ id: record._id }, function(success) {
       console.log('successfully deleted record!', record);
       $rootScope.records[record.category][record.day] = _.reject($rootScope.records[record.category][record.day], function(_record) {
         return _record._id === record._id;
       });
+    }, function(response) {
+      console.error(response.data.error);
+      $scope.tag_error = response.data.error;
+    });
+  };
+
+  $scope.revertRecord = function(record) {
+    RecordFactory.get({ id: record._id }, function(r) {
+      _.each(r, function(val, key) {
+        record[key] = val;
+      });
+      console.log('successfully reverted record!', record);
     }, function(response) {
       console.error(response.data.error);
       $scope.tag_error = response.data.error;
@@ -177,6 +199,12 @@ tagsModule.controller('DisplayTagCtrl', function($scope, $rootScope, $routeParam
       }
     });
     return num_records;
+  };
+
+  $scope.record_methods = {
+    saveRecord: $scope.saveRecord
+  , deleteRecord: $scope.deleteRecord
+  , revertRecord: $scope.revertRecord
   };
 });
 

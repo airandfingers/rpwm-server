@@ -7,11 +7,14 @@ module.exports = (function() {
 
     , RecordSchema = new Schema({
         category: { type: ObjectId, ref: 'categories', index: true }
+      , description: { type: String } // a description of the record
       , username: { type: String, index: true }
       , day: Number // days since 1970.1.1
     });
 
   var Record = mongoose.model('Record', RecordSchema);
+
+  Record.update_fields = ['description'];
 
   return Record;
 })();

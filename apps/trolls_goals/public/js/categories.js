@@ -2,8 +2,8 @@
 var categoriesModule = angular.module('categories', []);
 categoriesModule.factory('CategoryFactory', function($resource, $rootScope) {
   var Category = $resource('/api/category/:id', null,
-                           { query: { method: 'GET', isArray: true, cache: true } },
-                           { update: { method: 'PUT' } }
+                           { query: { method: 'GET', isArray: true, cache: true }
+                           , update: { method: 'PUT' } }
   );
   Category.list = function(cb) {
     console.log('Category.list called');

@@ -1,0 +1,20 @@
+<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+  <div class="arrow"></div>
+  <div class="popover-inner">
+    <div>
+      <label for="{{item._id}}_activities">Activities:</label>
+      <input id="{{item._id}}_activities" type="text" ng-model="item.activities" />
+    </div>
+    <div>
+      <label for="{{item._id}}_units"># of Units:</label>
+      <input id="{{item._id}}_units" type="text" ng-model="item.num_units" />
+    </div>
+    <div>
+      <label for="{{item._id}}_description">Description:</label>
+      <input id="{{item._id}}_description" type="text" ng-model="item.description" />
+    </div>
+    <button class="btn btn-primary" ng-click="saveRecord(item);">Update</button>
+    <button class="btn btn-danger" ng-click="deleteRecord(item);">Delete</button>
+    <button class="btn btn-warning" ng-click="revertRecord(item);">Cancel</button>
+  </div>
+</div>
