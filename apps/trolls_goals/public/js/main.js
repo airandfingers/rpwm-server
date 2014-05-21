@@ -1,28 +1,28 @@
 (function() {
 var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
-  'trollsGoalsFilters', 'categories', 'tags', 'records',
-  'ui.multiselect', 'ui.bootstrap.tpls', 'custom.bootstrap']);
+  'trollsGoalsFilters', 'areas', 'domains', 'records',
+  'ui.bootstrap.tpls', 'ui.bootstrap.typeahead', 'custom.bootstrap']);
 
 app.config(function($routeProvider, $customtooltipProvider) {
   $routeProvider
     .when('/', {
-      redirectTo: '/manage_categories'
+      redirectTo: '/manage_areas'
     })
-    .when('/manage_categories', {
-      templateUrl: 'tmpl/manage_categories.html',
-      controller: 'ManageCategoriesCtrl'
+    .when('/manage_areas', {
+      templateUrl: 'tmpl/manage_areas.html',
+      controller: 'ManageAreasCtrl'
     })
-    .when('/manage_tags', {
-      templateUrl: 'tmpl/manage_tags.html',
-      controller: 'ManageTagsCtrl'
+    .when('/manage_domains', {
+      templateUrl: 'tmpl/manage_domains.html',
+      controller: 'ManageDomainsCtrl'
     })
-    /*.when('/category', {
-        templateUrl: 'category.html',
-        controller: 'CategoryController'
+    /*.when('/area', {
+        templateUrl: 'area.html',
+        controller: 'AreaController'
     })*/
-    .when('/tags/:name?', {
-      templateUrl: 'tmpl/tags.html',
-      controller: 'DisplayTagCtrl'
+    .when('/domains/:name?', {
+      templateUrl: 'tmpl/domain.html',
+      controller: 'DomainCtrl'
     })
     .otherwise({ redirectTo: '/' });
 
@@ -31,8 +31,8 @@ app.config(function($routeProvider, $customtooltipProvider) {
   });
 });
 
-app.run(function($rootScope, $location, TagFactory) {
-  TagFactory.list();
+app.run(function($rootScope, $location, DomainFactory) {
+  DomainFactory.list();
   $rootScope.today = Math.floor(new Date().getTime() / 86400000);
 });
 

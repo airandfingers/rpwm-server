@@ -9,18 +9,18 @@ module.exports = (function() {
       return Math.floor(new Date().getTime() / 86400000);
     }
 
-    , CategorySchema = new Schema({
-        name: { type: String, unique: true, index: true } // the category's unique name
-      , description: { type: String } // a description of the category
-      , tags: [{ type: ObjectId, ref: 'tags', index: true }]
+    , AreaSchema = new Schema({
+        name: { type: String, unique: true, index: true } // the area's unique name
+      , description: { type: String } // a description of the area
+      , domain: { type: ObjectId, ref: 'tags', index: true }
       , username: { type: String, index: true }
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
       , start_day: { type: Number, default: getToday }
     });
 
-  var Category = mongoose.model('Category', CategorySchema);
+  var Area = mongoose.model('Area', AreaSchema);
 
-  Category.update_fields = ['name', 'description', 'tags'];
+  Area.update_fields = ['name', 'description', 'domain'];
 
-  return Category;
+  return Area;
 })();

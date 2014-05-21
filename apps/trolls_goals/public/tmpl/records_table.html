@@ -1,0 +1,33 @@
+<table class="table table-striped" ng-show="domain_areas.length">
+  <thead>
+    <th>Name</th>
+    <th ng-repeat="day in [min_day, today] | makeRange">{{ day | dayToDate | dateFormat }}</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="area in domain_areas">
+      <td>
+        {{ area.name }}
+      </td>
+      <td class="clickable"
+          ng-click="createRecord(area._id, day)"
+          ng-repeat="day in [min_day, today] | makeRange">
+        <span class="glyphicon glyphicon-ok-sign"
+              ng-repeat="record in records[area._id][day]"
+              customtooltip="(Overridden by template)"
+              customtooltip-item="record"
+              customtooltip-methods="record_methods"
+              customtooltip-toggle="pop_open"
+              customtooltip-trigger="click"
+              ng-click="$event.stopPropagation()">
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Total
+      </td>
+      <td ng-repeat="day in [min_day, today] | makeRange">
+        {{ getNumRecords(day) }}
+      </td>
+  </tbody>
+</table>

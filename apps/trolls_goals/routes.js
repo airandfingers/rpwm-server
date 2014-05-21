@@ -1,8 +1,8 @@
 module.exports = function(app) {
   var _ = require('underscore')
     , Record = require('./models/record')
-    , Category = require('./models/category')
-    , Tag = require('./models/tag');
+    , Area = require('./models/area')
+    , Domain = require('./models/domain');
 
   app.get('/', function(req, res) {
     res.render('index', { title: 'Troll\'s Goals!' });
@@ -10,21 +10,21 @@ module.exports = function(app) {
 
   var models = {
     record: Record
-  , category: Category
-  , tag: Tag
+  , area: Area
+  , domain: Domain
   };
 
   // Custom Model-specific routes
   app.get('/api/record/query', function(req, res) {
-    var category_ids = req.query.category_ids
+    var area_ids = req.query.area_ids
       , day_range = req.query.day_range
       , query = { username: req.user.username };
 
-    if (_.isString(category_ids)) {
-      category_ids = [category_ids];
+    if (_.isString(area_ids)) {
+      area_ids = [area_ids];
     }
-    if (_.isArray(category_ids)) {
-      query.category = { $in: category_ids };
+    if (_.isArray(area_ids)) {
+      query.area = { $in: area_ids };
     }
 
     if (_.isString(day_range)) {

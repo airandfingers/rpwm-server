@@ -5,15 +5,15 @@ module.exports = (function() {
     , Schema = mongoose.Schema
     , ObjectId = Schema.ObjectId
 
-    , TagSchema = new Schema({
+    , DomainSchema = new Schema({
         name: { type: String, unique: true, index: true } // the tag's unique name
       , description: { type: String } // a description of the tag
       , username: { type: String, index: true }
     });
 
-  var Tag = mongoose.model('Tag', TagSchema);
+  var Domain = mongoose.model('Domain', DomainSchema);
 
-  Tag.update_fields = ['name', 'description'];
+  Domain.update_fields = ['name', 'description'];
 
-  return Tag;
+  return Domain;
 })();

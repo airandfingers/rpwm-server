@@ -4,11 +4,11 @@
   <div ng-app="app" id="wrapper">
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-        <navlink href="manage_categories" title="Manage Categories"></navlink>
-        <navlink href="manage_tags" title="Manage Tags"></navlink>
-        <h3>Tags</h3>
-        <navlink href="tags/" title="All"></navlink>
-        <navlink ng-repeat="tag in tags" href="tags/{{tag.name}}" title="{{tag.name}}"></navlink>
+        <navlink href="manage_areas" title="Manage Areas"></navlink>
+        <navlink href="manage_domains" title="Manage Domains"></navlink>
+        <h3>Domains</h3>
+        <navlink href="domains/" title="All"></navlink>
+        <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>
       </ul>
     </div>
     <div id="page-content-wrapper">
@@ -31,7 +31,7 @@
 
   <script src="/js/main.js"></script>
   <script src="/js/filters.js"></script>
-  <script src="/js/categories.js"></script>
-  <script src="/js/tags.js"></script>
+  <script src="/js/areas.js"></script>
+  <script src="/js/domains.js"></script>
   <script src="/js/records.js"></script>
 <% include ../../../views/foot_end %>

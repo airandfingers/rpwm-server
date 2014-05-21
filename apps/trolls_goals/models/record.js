@@ -6,7 +6,7 @@ module.exports = (function() {
     , ObjectId = Schema.ObjectId
 
     , RecordSchema = new Schema({
-        category: { type: ObjectId, ref: 'categories', index: true }
+        area: { type: ObjectId, ref: 'areas', index: true }
       , description: { type: String } // a description of the record
       , username: { type: String, index: true }
       , day: Number // days since 1970.1.1
