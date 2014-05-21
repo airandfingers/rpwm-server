@@ -27,7 +27,7 @@
         Total
       </td>
       <td ng-repeat="day in [min_day, today] | makeRange">
-        {{ getNumRecords(day) }}
+        {{ getNumRecords(domain_areas, day) }}
       </td>
   </tbody>
 </table>

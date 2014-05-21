@@ -33,7 +33,9 @@ app.config(function($routeProvider, $customtooltipProvider) {
 
 app.run(function($rootScope, $location, DomainFactory) {
   DomainFactory.list();
-  $rootScope.today = Math.floor(new Date().getTime() / 86400000);
+  var now = new Date();
+  now = now.getTime() - now.getTimezoneOffset() * 60000;
+  $rootScope.today = Math.floor(now / 86400000) + 1;
 });
 
 app.directive('navlink', function($location) {

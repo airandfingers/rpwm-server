@@ -13,7 +13,7 @@ recordsModule.directive('recordsTable', function($rootScope, RecordFactory) {
   $rootScope.records = $rootScope.records || {};
   return {
     restrict: 'E',
-    scope: { domainAreas: '@', today: '@' },
+    scope: { domainAreas: '@', today: '=', records: '=' },
     templateUrl: 'tmpl/records_table.html',
 
     link: function(scope, element, attrs) {
@@ -89,10 +89,12 @@ recordsModule.directive('recordsTable', function($rootScope, RecordFactory) {
         });
       };
 
-      scope.getNumRecords = function(day) {
-        var num_records = 0
+      scope.getNumRecords = function(domain_areas, day) {
+        var area_ids = _.pluck(domain_areas, '_id')
+          , num_records = 0
           , area_records;
         _.each(scope.records, function(records_by_day, area_id) {
+          if (! _.contains(area_ids, area_id)) { return; }
           area_records = records_by_day[day];
           if (_.isArray(area_records)) {
             num_records += area_records.length;
