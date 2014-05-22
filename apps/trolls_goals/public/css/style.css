@@ -257,8 +257,6 @@ th {
 }
 
 .sidebar-nav {
-  position: absolute;
-  top: 0;
   width: 150px;
   list-style: none;
   margin: 0;
