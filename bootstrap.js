@@ -79,7 +79,7 @@ var express = require('express')
     , sid_name: 'express.sid'
     , cookie: {
         domain: '.' + base_url.split(':')[0] // .[domain], no port
-      , maxAge: 3600000 // 1 hour
+      , maxAge: 31536000000 // 1 year
     //, secure: true // Only communicate via HTTPS
     }
   }
