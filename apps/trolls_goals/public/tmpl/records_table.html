@@ -1,10 +1,10 @@
 <table class="table table-striped" ng-show="domain_areas.length">
   <thead>
-    <th>Name</th>
+    <th>Area</th>
     <th ng-repeat="day in [min_day, today] | makeRange">{{ day | dayToDate | dateFormat }}</th>
   </thead>
   <tbody>
-    <tr ng-repeat="area in domain_areas">
+    <tr ng-repeat="area in domain_areas | orderBy: 'name'" title="{{area.description}}">
       <td>
         {{ area.name }}
       </td>
@@ -16,7 +16,6 @@
               customtooltip="(Overridden by template)"
               customtooltip-item="record"
               customtooltip-methods="record_methods"
-              customtooltip-toggle="pop_open"
               customtooltip-trigger="click"
               ng-click="$event.stopPropagation()">
         </span>

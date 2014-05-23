@@ -236,6 +236,7 @@ th {
   text-align: center;
 }
 
+/* START Sidebar styles */
 #wrapper {
   padding-left: 150px;
   transition: all 0.4s ease 0s;
@@ -280,6 +281,12 @@ th {
     transition: all 0.4s ease 0s;
   }
 }
+/* END Sidebar styles */
+/* START Tooltip styles */
+.popover-inner textarea {
+  width: 100%;
+}
+/* START Tooltip styles */
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

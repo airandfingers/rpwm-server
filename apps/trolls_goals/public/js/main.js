@@ -6,7 +6,11 @@ var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
 app.config(function($routeProvider, $customtooltipProvider) {
   $routeProvider
     .when('/', {
-      redirectTo: '/manage_areas'
+      redirectTo: '/domains'
+    })
+    .when('/domains/:name?', {
+      templateUrl: 'tmpl/domain.html',
+      controller: 'DomainCtrl'
     })
     .when('/manage_areas', {
       templateUrl: 'tmpl/manage_areas.html',
@@ -16,19 +20,7 @@ app.config(function($routeProvider, $customtooltipProvider) {
       templateUrl: 'tmpl/manage_domains.html',
       controller: 'ManageDomainsCtrl'
     })
-    /*.when('/area', {
-        templateUrl: 'area.html',
-        controller: 'AreaController'
-    })*/
-    .when('/domains/:name?', {
-      templateUrl: 'tmpl/domain.html',
-      controller: 'DomainCtrl'
-    })
     .otherwise({ redirectTo: '/' });
-
-  $customtooltipProvider.options({
-    appendToBody: true
-  });
 });
 
 app.run(function($rootScope, $location, DomainFactory) {

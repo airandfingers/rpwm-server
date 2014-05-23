@@ -7,7 +7,7 @@
       <th>Domain</th>
     </thead>
     <tbody>
-    <tr ng-repeat="area in areas" ng-click="activeArea(area)">
+    <tr ng-repeat="area in areas | orderBy: 'name' | orderBy: 'domain'" ng-click="activeArea(area)">
       <td class="clickable">
         {{area.name}}
       </td>

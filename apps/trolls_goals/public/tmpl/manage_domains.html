@@ -6,7 +6,7 @@
       <th>Description</th>
     </thead>
     <tbody>
-    <tr ng-repeat="domain in domains" ng-click="activeDomain(domain)">
+    <tr ng-repeat="domain in domains | orderBy: '_id'" ng-click="activeDomain(domain)">
       <td>
         {{domain.name}}
       </td>

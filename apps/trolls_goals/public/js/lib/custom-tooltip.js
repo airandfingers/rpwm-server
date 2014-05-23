@@ -97,7 +97,6 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
         var endSym = $interpolate.endSymbol();
         var template =
           '<' + directiveName + '-popup ' +
-            'title="customtooltipTitle" ' +
             'item="customtooltipItem" ' +
             'methods="customtooltipMethods" ' +
             'content="' + startSym + 'tt_content' + endSym + '" ' +
@@ -109,7 +108,7 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
 
         return {
           restrict: 'EA',
-          scope: {customtooltipTitle: '=', customtooltipItem: '=', customtooltipMethods: '='},
+          scope: {customtooltipItem: '=', customtooltipMethods: '='},
           transclude:true,
           template:'<div  ng-transclude><div>',
           link: function link (scope, element, attrs) {
@@ -291,16 +290,6 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
               }
             });
 
-            // from https://github.com/angular-ui/bootstrap/issues/590#issuecomment-24860409
-            scope.$watch(attrs[prefix + 'Toggle'], function (val) {
-              if (val) {
-                $timeout(show);
-              }
-              else {
-                $timeout(hide);
-              }
-            });
-
             attrs.$observe(prefix + 'AppendToBody', function (val) {
               appendToBody = angular.isDefined(val) ? $parse(val)(scope) : appendToBody;
             });
@@ -330,27 +319,35 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
     }];
   })
 
-  .directive('customtooltipPopup', function () {
+  .directive('customtooltipPopup', function ($timeout) {
     return {
       restrict: 'E',
       replace: true,
-      scope: { mediaid: '@', title: '=', item: '=', methods: '=', content: '@', placement: '@', animation: '&', isOpen: '=' },
+      scope: { mediaid: '@', item: '=', methods: '=', content: '@', placement: '@', animation: '&', isOpen: '=' },
       templateUrl: 'tmpl/record_tooltip.html',
       link: function (scope, element, attrs) {
         //console.log('link called with', scope, element, attrs);
-        var parent_scope = scope.$parent;
         scope.saveRecord = function(record) {
           scope.methods.saveRecord(record);
-          parent_scope.pop_open = parent_scope.pop_open === false ? null : false;
+          scope.closePopup();
         };
         scope.deleteRecord = function(record) {
           scope.methods.deleteRecord(record);
-          parent_scope.pop_open = parent_scope.pop_open === false ? null : false;
         };
         scope.revertRecord = function(record) {
           scope.methods.revertRecord(record);
-          parent_scope.pop_open = parent_scope.pop_open === false ? null : false;
+          scope.closePopup();
         };
+        scope.closePopup = function() {
+          var trigger = element.parent().find('span');
+          $timeout(function() {
+            trigger.triggerHandler('click');
+          });
+        }
+
+        element.bind('click', function($event) {
+          $event.stopPropagation();
+        });
       }
     };
   })
