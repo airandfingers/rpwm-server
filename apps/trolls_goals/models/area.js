@@ -16,11 +16,12 @@ module.exports = (function() {
       , username: { type: String, index: true }
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
       , start_day: { type: Number, default: getToday }
+      , prompt_for_description: Boolean
     });
 
   var Area = mongoose.model('Area', AreaSchema);
 
-  Area.update_fields = ['name', 'description', 'domain'];
+  Area.update_fields = ['name', 'description', 'domain', 'prompt_for_description'];
 
   return Area;
 })();

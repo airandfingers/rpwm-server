@@ -29,4 +29,17 @@ module.filter('makeRange', function() {
     return _.range(low_bound, high_bound + 1);
   };
 });
+
+module.filter('etceteraGoLast', function() {
+  return function(input) {
+    _.forEach(input, function(item, i) {
+      if (item.name.slice(0, 3).toLowerCase() === 'etc') {
+        input.splice(i, 1);
+        input.push(item);
+        return false;
+      }
+    });
+    return input;
+  };
+});
 })();

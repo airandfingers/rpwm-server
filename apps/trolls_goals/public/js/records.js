@@ -48,6 +48,7 @@ recordsModule.directive('recordsTable', function($rootScope, RecordFactory) {
         var record = { area: area_id, day: day };
         RecordFactory.save(record, function(r) {
           console.log('successfully added record!', r);
+          r.just_created = true;
           var records = $rootScope.records[record.area][day] || [];
           records.push(r);
           $rootScope.records[record.area][day] = records;
@@ -112,4 +113,23 @@ recordsModule.directive('recordsTable', function($rootScope, RecordFactory) {
     }
   }
 });
+
+recordsModule.directive('triggerClickOnLoad', function($timeout) {
+  return function link(scope, element, attrs) {
+    if (scope.record.just_created && scope.area.prompt_for_description) {
+      $timeout(function() {
+        element.triggerHandler('click');
+      });
+    }
+  };
+});
+
+recordsModule.directive('focusOnLoad', function($timeout) {
+  return function link(scope, element, attrs) {
+    $timeout(function() {
+      element[0].focus();
+    });
+  };
+});
+
 })();

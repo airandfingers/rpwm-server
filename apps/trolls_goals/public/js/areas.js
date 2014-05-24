@@ -33,6 +33,8 @@ areasModule.controller('ManageAreasCtrl', function($scope, $route, AreaFactory, 
     delete $scope.area_backup;
     delete $scope.area_error;
     $scope.area = new AreaFactory();
+    $scope.area.prompt_for_description = false;
+    $scope.area.start_day = $rootScope.today;
   };
 
   $scope.activeArea = function(area) {

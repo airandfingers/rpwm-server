@@ -4,7 +4,7 @@
     <th ng-repeat="day in [min_day, today] | makeRange">{{ day | dayToDate | dateFormat }}</th>
   </thead>
   <tbody>
-    <tr ng-repeat="area in domain_areas | orderBy: 'name'" title="{{area.description}}">
+    <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast" title="{{area.description}}">
       <td>
         {{ area.name }}
       </td>
@@ -13,6 +13,7 @@
           ng-repeat="day in [min_day, today] | makeRange">
         <span class="glyphicon glyphicon-ok-sign"
               ng-repeat="record in records[area._id][day]"
+              trigger-click-on-load
               customtooltip="(Overridden by template)"
               customtooltip-item="record"
               customtooltip-methods="record_methods"
