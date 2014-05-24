@@ -55,6 +55,10 @@ module.exports = (function () {
     if (isAuthenticated(req)) {
       return next();
     }
+    else if (req.method !== 'GET') {
+      res.status(401);
+      res.end();
+    }
     else {
       req.flash('error', 'You must log in before accessing ' + req.url);
       var redirect_url = '/login?next=' + req.url;

@@ -3,7 +3,7 @@ var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
   'trollsGoalsFilters', 'areas', 'domains', 'records',
   'ui.bootstrap.tpls', 'ui.bootstrap.typeahead', 'custom.bootstrap']);
 
-app.config(function($routeProvider, $customtooltipProvider) {
+app.config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
       redirectTo: '/domains'
@@ -21,6 +21,23 @@ app.config(function($routeProvider, $customtooltipProvider) {
       controller: 'ManageDomainsCtrl'
     })
     .otherwise({ redirectTo: '/' });
+
+  // intercept 401 Unauthorized requests and redirect,
+  // as shown at http://bneijt.nl/blog/post/angularjs-intercept-api-error-responses/
+  $httpProvider.interceptors.push(function ($q) {
+    return {
+      response: function(response) {
+        // HTTP Response code <= 300
+        return response;
+      },
+      responseError: function(rejection) {
+        if (rejection.status === 401) {
+          location.reload();
+        }
+        return $q.reject(rejection);
+      }
+    };
+  });
 });
 
 app.run(function($rootScope, $location, DomainFactory) {
