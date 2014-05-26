@@ -16,6 +16,10 @@
 
 .slideshow a.portal img {
     border: 1px solid transparent;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 275px;
+    max-width: 300px;
 }
 
 .slideshow a.portal img:hover {
