@@ -4,97 +4,185 @@
     src: url(/DESTROY.ttf) format("truetype");
 }
 
+html {
+    background: #5b5f66; /* Old browsers */
+    background: -moz-linear-gradient(top,  #5b5f66 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5b5f66), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #5b5f66 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #5b5f66 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b5f66', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    text-align: center;
+    /*min-width: 100%;
+    min-height: 100%;*/
+    height: 100%;
+}
+
 body {
     margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
 header {
     font-family: DESTROY, sans-serif;
 }
 
-    .banner {
+.banner {
     padding-top: 2em;
     display: block;
     clear: both;
     position: relative;
-    }
+}
 
-    .navbar {
-        background: black;
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
-        font-size: 1em;
-        padding: 0;
-        margin: 0;
-        height: 1.625em; /* 26/16 px */
-    }
+.navbar {
+    background: black;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    height: 1.625em; /* 26/16 px */
+}
 
-    .navbar ul {
-        margin: 0px;
-        padding: 3px;
-    }
+.navbar ul {
+    margin: 0px;
+    padding: 3px;
+}
 
-    .navbar li {
-        display: inline;
-        float: left;
-        background: black;
-        padding-left: 1%;
-        padding-right: 1%;
-        vertical-align: center;
-    }
+.navbar li {
+    display: inline;
+    float: left;
+    background: black;
+    padding-left: 1%;
+    padding-right: 1%;
+    vertical-align: center;
+}
 
-    .navbar li.right {
-        display: inline;
-        float: right;
-    }
+.navbar li.right {
+    display: inline;
+    float: right;
+}
 
-    .navbar a {
-        display: block;
-        text-decoration: none;
-    }
-
-
-    .navbar > ul > li > ul {
-        background-color: black;
-        position: absolute;
-        width: 10em;
-        font-size: .9em;
-        left: -999em;
-        margin: 0;
-        z-index: 1000;
-    }
-
-    .navbar a:link    { color: #CCCCCC; }
-    .navbar a:visited { color: #CCCCCC; }
-    .navbar a:hover   { color: red; }
-    .navbar a.current_site  { color: chartreuse; }
-
-    .navbar li:hover ul, .navbar li ul:hover {
-        overflow: visible;
-        left:auto;
-    }
+.navbar a {
+    display: block;
+    text-decoration: none;
+}
 
 
-    h3 {
-        font-size: 1em;
-        color: #efefff;
-        text-align: center;
-        margin: 0px auto 0 auto;
-        margin-bottom: 20px;
-    }
+.navbar > ul > li > ul {
+    background-color: black;
+    position: absolute;
+    width: 10em;
+    font-size: .9em;
+    left: -999em;
+    margin: 0;
+    z-index: 1000;
+}
 
-    #login {
-        position: absolute;
-        display: none;
-        color: white;
-        font-size: .75em;
-        background-color: rgba(0,0,0,.7);
-        z-index: 10;
+.navbar a:link    { color: #CCCCCC; }
+.navbar a:visited { color: #CCCCCC; }
+.navbar a:hover   { color: red; }
+.navbar a.current_site  { color: chartreuse; }
 
-    }
+.navbar li:hover ul, .navbar li ul:hover {
+    overflow: visible;
+    left:auto;
+}
 
-    #under_construction {
-        display: none;
-    }
+#login_register {
+    position: absolute;
+    display: none;
+    color: white;
+    font-size: .75em;
+    background-color: rgba(0,0,0,.7);
+    z-index: 10;
+}
+
+#guest_convert {
+    position: absolute;
+    display: none;
+    color: white;
+    font-size: .75em;
+    background-color: rgba(0,0,0,.7);
+    z-index: 10;
+}
+
+#under_construction {
+    display: none;
+}
+
+/* Not header styles - common pages */
+#login_main {
+    font-family: DESTROY, Paprika, sans-serif;
+    margin: 100px 20px 20px 20px;
+}
+
+#registration_main {
+    font-family: DESTROY, Paprika, sans-serif;
+    margin: 100px 20px 20px 20px;
+}
+
+.dropdown_form {
+    box-sizing: content-box;
+    padding: 5px;
+    white-space: nowrap;
+}
+
+/*.dropdown_form label, .dropdown_form input {
+    display: inline-block;
+}*/
+
+/* Not header styles - common backgrounds/elements */
+.button {
+   border-top: 1px solid #5a6770;
+   border-left: 1px solid #5a6770;
+   background: #586975;
+   background: -webkit-gradient(linear, left top, left bottom, from(#888c8b), to(#586975));
+   background: -webkit-linear-gradient(top, #888c8b, #586975);
+   background: -moz-linear-gradient(top, #888c8b, #586975);
+   background: -ms-linear-gradient(top, #888c8b, #586975);
+   background: -o-linear-gradient(top, #888c8b, #586975);
+   padding: 6px 12px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #ffffff;
+   cursor: pointer;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+}
+
+.button:hover {
+    border-top-color: #6b7880;
+    background: #6b7880;
+    color: #88db83;
+}
+
+.button:active {
+    border-top-color: #040505;
+    background: #040505;
+}
+
+.invert {
+    color: #ffffff;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.form_row {
+    margin: 20px;
+}
+
+label {
+    cursor: pointer;
+}

@@ -1,38 +1,44 @@
 <% include head %>
-
-<div role="main" class="main" id="registration_main">
-    <h1>
-      Pick your username and password, matey. Yarrr....
-    </h1>
-    <% if (message) { console.log(message);%>
-      <p><%= message %></p>
-    <% } %>
-    <div>
-        <a href="/login"> Already have an account? Login here</a>
-        </br>
-    </div>
-    <div class="uglyregistration">
-        <form action="/register" method="post">
-            <div class="username">
-                <label>Username:</label>
-                <input type="text" name="username" placeholder="username" autofocus /><br/>
-            </div>
-            <div class="password">
-                <label>Password:</label>
-                <input type="password" name="password" placeholder="password" />
-            </div>
-            <div class="password">
-                <label>Confirm Password:</label>
-                <input type="password" name="password2" placeholder="re-type password" />
-            </div>
-            <div class="submit_button">
-                <input type="submit" value="Log In" class="button"/>
-            </div>
-            <% if (next) { %>
-                <input type="hidden" name="next" value="<%= next %>" />
-            <% } %>
+  <h4>Ready to sign up?</h4>
+  <% if (message) { console.log(message); %>
+    <p><%= message %></p>
+  <% } %>
+  <div role="main" class="main" id="registration_main">
+      <form action="/register" method="post">
+        <div class="form_row">
+          <label for="register_main_username">USERNAME:</label>
+          <input type="text" name="username" id="register_main_username" placeholder="username" autofocus />
+        </div>
+        <div class="form_row">
+          <label for="register_main_password">PASSWORD:</label>
+          <input type="password" name="password" id="register_main_password" placeholder="password" />
+        </div>
+        <div class="form_row">
+          <label for="register_main_password_confirm">CONFIRM PASSWORD:</label>
+          <input type="password" name="password_confirm" id="register_main_password_confirm" placeholder="re-type password" />
+        </div>
+        <div class="form_row">
+          <input type="submit" value="Log In" class="button"/>
+        </div>
+        <% if (next) { %>
+          <input type="hidden" name="next" value="<%= next %>" />
+        <% } %>
+    </form>
+    <% if (typeof locals.username !== 'string') { %>
+        <form action="/guest_login" method="post">
+          <div class="form_row">
+            <input type="submit" class="button" value="Login as Guest" />
+          </div>
+          <% if (next) { %>
+            <input type="hidden" name="next" value="<%= next %>" />
+          <% } %>
         </form>
+    <% } %>
+    <div class="form_row">
+      ALREADY HAVE AN ACCOUNT?
+      <br />
+      <a href="/login<%= next ? '?next=' + next : '' %>">LOG IN HERE</a>
     </div>
-</div>
+  </div>
 
 <% include foot %>

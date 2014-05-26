@@ -30,13 +30,15 @@ module.exports = (function () {
   });
   passport.deserializeUser(function(id, done) {
     // Return an error, a user, or a message explaining why deserialization failed
-    User.findById(id, { password: false }, function(err, user) {
-      if (err) { return done(err); }
-      if (! user) {
-        return done(null, false, { message: 'Unknown id!' });
+    User.getByIdWithoutPassword(id, function(find_err, user) {
+      if (find_err) {
+        done(find_err);
+      }
+      else if (user instanceof User) {
+        done(null, user);
       }
       else {
-        return done(null, user);
+        done(null, false, { message: 'Unknown id!' });
       }
     });
   });
@@ -52,6 +54,10 @@ module.exports = (function () {
   function ensureAuthenticated(req, res, next) {
     if (isAuthenticated(req)) {
       return next();
+    }
+    else if (req.method !== 'GET') {
+      res.status(401);
+      res.end();
     }
     else {
       req.flash('error', 'You must log in before accessing ' + req.url);

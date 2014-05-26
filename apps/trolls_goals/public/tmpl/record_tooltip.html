@@ -1,0 +1,11 @@
+<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+  <div class="arrow"></div>
+  <div class="popover-inner">
+    <div>
+      <textarea placeholder="Description" ng-model="item.description" focus-on-load />
+    </div>
+    <button class="btn btn-primary" ng-click="saveRecord(item);">Update</button>
+    <button class="btn btn-danger" ng-click="deleteRecord(item);">Delete</button>
+    <button class="btn btn-warning" ng-click="revertRecord(item);">Cancel</button>
+  </div>
+</div>

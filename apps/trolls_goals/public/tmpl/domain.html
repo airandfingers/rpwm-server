@@ -1,0 +1,6 @@
+<div ng-show="domain_area_map"
+     ng-repeat="(domain_id, domain_areas) in domain_area_map">
+  <h2>{{getDomain(domain_id).name}}</h2>
+  <records-table domain-areas="{{domain_areas}}"
+                 records="records" today="today"></records-table>
+</div>

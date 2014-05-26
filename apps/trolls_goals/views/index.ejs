@@ -1,0 +1,39 @@
+<% include ../../../views/head_start %>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+<% include ../../../views/head_end_and_header %>
+  <div ng-app="app" id="wrapper">
+    <div id="sidebar-wrapper">
+      <a href="#/domains">
+        <img src="/logo_150.jpg" />
+      </a>
+      <ul class="sidebar-nav">
+        <navlink href="domains" title="All Areas"></navlink>
+        <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>
+        <hr></hr>
+        <navlink href="manage_areas" title="Manage Areas"></navlink>
+        <navlink href="manage_domains" title="Manage Domains"></navlink>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="page-content">
+        <div ng-view>
+        </div>
+      </div>
+    </div>
+  </div>
+<% include ../../../views/foot_start %>
+  <script src="/js/lib/lodash.js"></script>
+  <script src="/js/lib/async.js"></script>
+  <script src="/js/lib/angular.js"></script>
+  <script src="/js/lib/multiselect.js"></script>
+  <script src="/js/lib/angular-route.js"></script>
+  <script src="/js/lib/angular-resource.js"></script>
+  <script src="/js/lib/ui-bootstrap-tpls-0.10.0.js"></script>
+  <script src="/js/lib/custom-tooltip.js"></script>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/filters.js"></script>
+  <script src="/js/areas.js"></script>
+  <script src="/js/domains.js"></script>
+  <script src="/js/records.js"></script>
+<% include ../../../views/foot_end %>

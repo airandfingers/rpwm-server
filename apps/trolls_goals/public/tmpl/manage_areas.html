@@ -1,0 +1,46 @@
+<div class="tab_wrapper" ng-class="{ 'has-error': area_error }">
+  <h2>Areas</h2>
+  <table class="table table-striped" ng-show="areas.length">
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Domain</th>
+      <th>Prompt for Description?</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="area in areas | orderBy: 'domain'" ng-click="activeArea(area)">
+      <td class="clickable">
+        {{area.name}}
+      </td>
+      <td class="clickable">
+        {{area.description}}
+      </td>
+      <td class="clickable">
+        {{areaDomainName(area)}}
+      </td>
+      <td class="clickable">
+        {{area.prompt_for_description ? 'Yes' : 'No'}}
+      </td>
+      <td class="clickable">
+        <button class="btn btn-danger" ng-click="deleteArea(area); $event.stopPropagation()">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <h3 ng-show="editing_area">Edit Area</h3>
+  <h3 ng-hide="editing_area">New Area</h3>
+  <form ng-submit="saveArea(area)">
+    <label for="area_name">Name:</label>
+    <input type="text" ng-model="area.name" id="area_name" />
+    <label for="area_description">Description:</label>
+    <input type="text" ng-model="area.description" id="area_description" />
+    <label for="area_domain">Domain:</label>
+    <select ng-model="area.domain" placeholder="Select a Domain" ng-options="domain._id as domain.name for domain in domains" id="area_domain"></select>
+    <label for="area_prompt_for_description">Prompt for Description?</label>
+    <input type="checkbox" ng-model="area.prompt_for_description" id="area_prompt_for_description" />
+    <input type="hidden" ng-model="area.start_day" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button ng-show="editing_area" class="btn btn-warning" ng-click="revertArea()">Cancel</button>
+  </form>
+  <div class="help-block" ng-if="area_error">{{area_error}}</div>
+</div>

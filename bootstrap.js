@@ -3,35 +3,65 @@ var express = require('express')
   , http = require('http')
   , passport = require('passport')
   , flash = require('connect-flash')
+  , _ = require('underscore')
 
 // Define how to format log messages
-  , log_format = function(tokens, req, res) {
-    var status = res.statusCode
-      , color = 32;
-
-    if (status >= 500) color = 31
-    else if (status >= 400) color = 33
-    else if (status >= 300) color = 36;
-
-    return '\033[90m' + req.method + ' ' +
-           req.headers.host + req.originalUrl + ' ' + 
-           '\033[' + color + 'm' + res.statusCode + 
-           ' \033[90m' + (new Date() - req._startTime) + 'ms\033[0m';
+  , colors = {
+      WHITE: '\033[37m'
+    , GREY: '\033[90m'
+    , BLACK: '\033[30m'
+    , BLUE: '\033[34m'
+    , CYAN: '\033[36m'
+    , GREEN: '\033[32m'
+    , MAGENTA: '\033[35m'
+    , RED: '\033[31m'
+    , YELLOW: '\033[33m'
   }
+  , log_format = function(tokens, req, res) {
+    var message = '';
+
+    // Add HTTP method
+    message += colors.WHITE + req.method + ' ';
+
+    // Add host and path
+    message += colors.GREY + req.headers.host + colors.WHITE + req.originalUrl + ' ';
+
+    // Add HTTP status code
+    var status = res.statusCode
+      , color = colors.GREEN;
+    if (status >= 500) { color = colors.RED; }
+    else if (status >= 400) { color = colors.YELLOW; }
+    else if (status >= 300) { color = colors.CYAN; }
+    message += color + res.statusCode + ' ';
+
+    // Add route arguments
+    var args = req.query;
+    if (_.isEmpty(args)) {
+      args = req.body;
+    }
+    if (! _.isEmpty(args)) {
+      message += colors.WHITE + JSON.stringify(args) + ' ';
+    }
+
+    // Add response time
+    message += colors.GREY + (new Date() - req._startTime) + 'ms';
+
+    // Reset color to white
+    message += colors.WHITE;
+
+    return message;
+  }
+
 // Define a function that generates initial apps with common middlewares
-  , starter_app_generator = function() {
+  , starter_app_generator = function(dont_log) {
     var app = express();
     app.set('view engine', 'ejs');
-    app.use(express.logger(log_format));
+    if (dont_log !== true) { app.use(express.logger(log_format)); }
     app.use(express.json());
     app.use(express.urlencoded());
-    app.configure('development', function() {
+    app.configure(function() {
       app.set('protocol', 'http');
-      app.set('base_url', 'ayoshitake.dev:' + EXPRESS_PORT);
-    });
-    app.configure('production', function() {
-      app.set('protocol', 'http');
-      app.set('base_url', 'ayoshitake.com');
+      app.set('base_url', base_url);
     });
     return app;
   }
@@ -39,35 +69,39 @@ var express = require('express')
   , db = require('./modules/db')
 // Declare configuration value(s)
   , EXPRESS_PORT = process.env.PORT || 9000
+// Determine the base URL
+  , base_url = process.env.NODE_ENV === 'production' ? 'ayoshitake.com' :
+                                                       'ayoshitake.dev' + ':' + EXPRESS_PORT
 // Define some session-related settings
   , session_settings = {
       store: db.session_store
     , secret: db.SESSION_SECRET
     , sid_name: 'express.sid'
     , cookie: {
-      maxAge: 3600000 // 1 hour
+        domain: '.' + base_url.split(':')[0] // .[domain], no port
+      , maxAge: 31536000000 // 1 year
     //, secure: true // Only communicate via HTTPS
     }
   }
 
-  , bootstrap_app = module.exports = starter_app_generator()
+  , bootstrap_app = module.exports = starter_app_generator(true)
   , bootstrap_server = http.createServer(bootstrap_app);
 
 // Set some configuration values
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 // Attempt to redirect requests made with HTTPS to HTTP version (not working)
-bootstrap_app.use(function(req, res, next) {
+/*bootstrap_app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'https') {
     var url = 'http://' + req.headers.host + req.originalUrl;
     res.writeHead(301, { location: url });
     return res.end('Redirecting to <a href="' + url + '">' + url + '</a>.');
   }
   else {
-    //console.log('headers[x-forwarded-proto] is', req.headers['x-forwarded-proto'], ', so not redirecting');
+    console.log('headers[x-forwarded-proto] is', req.headers['x-forwarded-proto'], ', so not redirecting');
     return next();
   }
-});
+});*/
 bootstrap_app.use(express.static(__dirname + '/public')); // Serve files found in the public directory
 bootstrap_app.use(express.cookieParser()); // Parse cookie into req.cookies
 bootstrap_app.use(express.session({ // Store and retrieve sessions, using a session store and cookie
@@ -100,39 +134,39 @@ require('./routes');
 
 // Best attempt at regex so far: [a-zA-Z]*\.?ayoshitake.com (matches www.ayoshitake.com but not ayoshitake.com)
 
-//portal
+// Portal - links to other apps; "about" and "contact" pages
 var portal_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('ayoshitake.*', portal_app));
 bootstrap_app.use(express.vhost('www.ayoshitake.*', portal_app));
 
-//wishing well
+// Wishing Well - stores and shows wishes
 var wishing_well_app = require('./apps/wishing_well/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('wishingwell.ayoshitake.*', wishing_well_app));
 
-//markslist
+// Mark's List - serves static files out of a "share" directory
 var markslist_app = require('./apps/markslist/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('markslist.ayoshitake.*', markslist_app));
 
-//corridor
+// Corridor - 2-player clone of Quoridor (no concept of players yet)
 var corridor_app = require('./apps/corridor/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('corridor.ayoshitake.*', corridor_app));
 
-//minesweeper
+// Minesweeper - 1-player clone of Minesweeper
 var minesweeper_app = require('./apps/minesweeper/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('minesweeper.ayoshitake.*', minesweeper_app));
 
-//fortune_cookie
+// Fortune Cookie - stores, shows, and manages fortunes
 var fortune_cookie_app = require('./apps/fortune_cookie/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('fortunecookie.ayoshitake.*', fortune_cookie_app));
 
-//magi-cal.me
+// magi-cal.me - brochure site for a magician
 var magi_cal_app = require('./apps/magi_cal.me/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('w.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('ww.magi-cal.*', magi_cal_app));
 bootstrap_app.use(express.vhost('www.magi-cal.*', magi_cal_app));
 
-//rock paper scissors
+// rock paper scissors
 var rps_app = require('./apps/rps/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('rps.ayoshitake.*', rps_app));
 
@@ -145,6 +179,10 @@ bootstrap_app.use(express.vhost('etstutoring2.ayoshitake.*', ets_app_2));
 //text editor
 var text_app = require('./apps/text/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('text.ayoshitake.*', text_app));
+
+//troll's goals
+var text_app = require('./apps/trolls_goals/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', text_app));
 
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
@@ -177,3 +215,21 @@ bootstrap_server.listen(EXPRESS_PORT);
 // This is printed after the server is up
 console.log('bootstrap server listening on port %d in %s mode',
             bootstrap_server.address().port, bootstrap_app.settings.env);
+
+// Set up handler for error or any kind of "kill" signal
+var closing = false;
+function handleErrorOrSignal(err) {
+  if (err) {
+    console.error('Error occurred:', err);
+    console.error(err.stack);
+  }
+  if (! closing) {
+    console.log('Shutting down server...');
+    closing = true;
+    process.exit(1);
+  }
+}
+process.on('SIGTERM', handleErrorOrSignal)
+       .on('SIGINT', handleErrorOrSignal)
+       .on('SIGHUP', handleErrorOrSignal)
+       .on('uncaughtException', handleErrorOrSignal);
