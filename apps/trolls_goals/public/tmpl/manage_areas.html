@@ -36,8 +36,8 @@
     <input type="text" ng-model="area.description" id="area_description" />
     <label for="area_domain">Domain:</label>
     <select ng-model="area.domain" placeholder="Select a Domain" ng-options="domain._id as domain.name for domain in domains" id="area_domain"></select>
-    <label for="area_prompt_for_description">Prompt for Description?</label>
-    <input type="checkbox" ng-model="area.prompt_for_description" id="area_prompt_for_description" />
+    <label for="area_prompt_for_details">Prompt for Record Details?</label>
+    <input type="checkbox" ng-model="area.prompt_for_details" id="area_prompt_for_details" />
     <input type="hidden" ng-model="area.start_day" />
     <button type="submit" class="btn btn-primary">Submit</button>
     <button ng-show="editing_area" class="btn btn-warning" ng-click="revertArea()">Cancel</button>

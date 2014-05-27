@@ -286,6 +286,10 @@ th {
 .popover-inner textarea {
   width: 100%;
 }
+
+.popover-inner .btn-primary {
+  width: 132px;
+}
 /* START Tooltip styles */
 
 /* ==|== media queries ======================================================

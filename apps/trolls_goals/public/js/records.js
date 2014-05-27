@@ -116,7 +116,7 @@ recordsModule.directive('recordsTable', function($rootScope, RecordFactory) {
 
 recordsModule.directive('triggerClickOnLoad', function($timeout) {
   return function link(scope, element, attrs) {
-    if (scope.record.just_created && scope.area.prompt_for_description) {
+    if (scope.record.just_created && scope.area.prompt_for_details) {
       $timeout(function() {
         element.triggerHandler('click');
       });
@@ -128,6 +128,20 @@ recordsModule.directive('focusOnLoad', function($timeout) {
   return function link(scope, element, attrs) {
     $timeout(function() {
       element[0].focus();
+    });
+  };
+});
+
+recordsModule.directive('ngCtrlEnter', function () {
+  return function(scope, element, attrs) {
+    element.bind('keydown keypress', function (event) {
+      if (event.which === 13 && event.ctrlKey) {
+        scope.$apply(function () {
+            scope.$eval(attrs.ngCtrlEnter);
+        });
+
+        event.preventDefault();
+      }
     });
   };
 });
