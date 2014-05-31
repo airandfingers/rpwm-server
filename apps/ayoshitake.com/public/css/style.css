@@ -19,9 +19,13 @@ span.glyphicon {
 }
 
 img {
-vertical-align: baseline;
-
+  vertical-align: baseline;
 }
+
+img.preload {
+	display: none;
+}
+
 .box_gar {
 	margin: 4%;
 }
@@ -34,6 +38,6 @@ vertical-align: baseline;
 	 height: 120px; /* Height of new image */
 	 padding-left: 120px; /* Equal to width of new image */
 }
-#github:hover {
+#github:hover, img.preload_blue {
 	background: url('/img/GitHub-Mark/PNG/GitHub-Mark-120px-plus_blue2.png');
 }

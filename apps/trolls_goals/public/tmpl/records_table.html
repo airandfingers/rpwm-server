@@ -18,7 +18,7 @@
           ng-repeat="day in [firstDay, lastDay] | makeRange">
         <span class="glyphicon glyphicon-ok-sign"
               ng-repeat="record in records[area._id][day]"
-              title="{{record.description}}"
+              title="{{record.details}}"
               trigger-click-on-load
               customtooltip="(Overridden by template)"
               customtooltip-item="record"
