@@ -6,9 +6,9 @@ module.exports = function(starter_app_generator) {
 
   //Middleware Configuration
   app.configure(function() {
-    app.set('site_name', 'template');
+    app.set('site_name', 'all');
+    app.set('show_banner', true)
     app.set('views', __dirname + '/views');
-    app.use(express.methodOverride());
     app.use(express.static(__dirname + '/public'));
     app.use(app.router);
   });
@@ -21,11 +21,11 @@ module.exports = function(starter_app_generator) {
     }));
   });
 
-  //Production-mode-specific middleware configuration
+  //Development-mode-specific middleware configuration
   app.configure('production', function() {
     app.use(express.errorHandler());
   });
-  
+
   require('./routes')(app);
 
   return server;
