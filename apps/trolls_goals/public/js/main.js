@@ -1,17 +1,25 @@
 (function() {
 var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
-  'trollsGoalsFilters', 'areas', 'domains', 'records',
+  'trollsGoalsFilters', 'areas', 'domains', 'records', 'records_table',
   'ui.bootstrap.tpls', 'ui.bootstrap.typeahead', 'custom.bootstrap']);
 
 app.config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
-      redirectTo: '/domains'
+      redirectTo: '/day'
     })
-    .when('/domains/:name?', {
+    .when('/day/:day?', {
+      templateUrl: 'tmpl/day.html',
+      controller: 'DayCtrl'
+    })
+    .when('/week/:last_day?', {
+      templateUrl: 'tmpl/week.html',
+      controller: 'WeekCtrl'
+    })
+    /*.when('/domains/:name?', {
       templateUrl: 'tmpl/domain.html',
       controller: 'DomainCtrl'
-    })
+    })*/
     .when('/manage_areas', {
       templateUrl: 'tmpl/manage_areas.html',
       controller: 'ManageAreasCtrl'

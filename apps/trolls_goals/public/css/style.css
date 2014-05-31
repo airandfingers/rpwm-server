@@ -282,6 +282,30 @@ th {
   }
 }
 /* END Sidebar styles */
+/* START day styles */
+.time_container .time_header {
+  display: inline;
+}
+
+.time_container .change_time {
+  text-decoration: none;
+}
+
+.time_container .disabled {
+  color: #aaa;
+}
+
+.inline-table-wrapper {
+  display: inline-table;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.inline-table-wrapper-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+/* END day styles */
 /* START Tooltip styles */
 .popover-inner textarea {
   width: 100%;
@@ -290,7 +314,7 @@ th {
 .popover-inner .btn-primary {
   width: 132px;
 }
-/* START Tooltip styles */
+/* END Tooltip styles */
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.

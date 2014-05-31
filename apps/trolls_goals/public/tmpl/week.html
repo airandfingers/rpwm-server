@@ -1,0 +1,25 @@
+<div class="time_container">
+  <div>
+    <a href="#/week/{{last_day - 7}}" class="change_time">
+      <span class="glyphicon glyphicon-arrow-left"></span>
+    </a>
+    <h2 class="time_header">
+      {{ last_day - 6 | dayToDate | dateFormat }} - {{ last_day | dayToDate | dateFormat }}
+    </h2>
+    <a ng-if="last_day < today" class="change_time"
+      href="{{last_day + 7 === today ? '#/week/' : '#/week/' + (last_day + 7)}}">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+    <span ng-if="last_day >= today"
+          class="disabled glyphicon glyphicon-arrow-right">
+    </span>
+  </div>
+  <div ng-repeat="(domain_id, domain_areas) in domain_area_map"
+       ng-show="domain_areas.length"
+       class="domain_container">
+    <h2>{{getDomain(domain_id).name}}</h2>
+    <records-table domain-areas="{{domain_areas}}" show-header="true"
+                   records="records" first-day="{{last_day - 6}}" last-day="{{last_day}}">
+    </records-table>
+  </div>
+</div>

@@ -7,9 +7,11 @@
         <img src="/logo_150.jpg" />
       </a>
       <ul class="sidebar-nav">
-        <navlink href="domains" title="All Areas"></navlink>
-        <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>
-        <hr></hr>
+        <!--<navlink href="domains" title="All Areas"></navlink>
+        <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>-->
+        <navlink href="day" title="Today"></navlink>
+        <navlink href="week" title="This Week"></navlink>
+        <hr />
         <navlink href="manage_areas" title="Manage Areas"></navlink>
         <navlink href="manage_domains" title="Manage Domains"></navlink>
       </ul>
@@ -36,4 +38,5 @@
   <script src="/js/areas.js"></script>
   <script src="/js/domains.js"></script>
   <script src="/js/records.js"></script>
+  <script src="/js/records_table.js"></script>
 <% include ../../../views/foot_end %>
