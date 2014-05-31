@@ -1,0 +1,23 @@
+<div class="time_container">
+  <div class="inline-table-wrapper-wrapper">
+    <a href="#/day/{{day - 1}}" class="change_time">
+      <span class="glyphicon glyphicon-arrow-left"></span>
+    </a>
+    <h2 class="time_header">{{ day | dayToDate | dateFormat }}</h2>
+    <a ng-if="day < today" href="#/day/{{day + 1}}" class="change_time">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+    <span ng-if="day === today"
+          class="disabled glyphicon glyphicon-arrow-right">
+    </span>
+  </div>
+  <div ng-repeat="(domain_id, domain_areas) in domain_area_map"
+       ng-init="domain = getDomain(domain_id)" ng-show="domain_areas.length"
+       class="domain_container inline-table-wrapper">
+    <h3 title="{{domain.description}}">{{ domain.name }}</h3>
+    <records-table domain="domain" domain-areas="{{domain_areas}}"
+                   show-header="false" click-to-add-record-to-first-day="true"
+                   records="records" first-day="{{day}}" last-day="{{day}}">
+    </records-table>
+  </div>
+</div>

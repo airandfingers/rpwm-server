@@ -22,6 +22,11 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
       if (_.isFunction(cb)) { cb(); }
     }
   };
+
+  $rootScope.getDomain = function(domain_id) {
+    return _.find($rootScope.domains, { _id: domain_id });
+  };
+
   return Domain;
 });
 
@@ -90,10 +95,9 @@ domainsModule.controller('ManageDomainsCtrl', function($scope, DomainFactory, $r
   $scope.newDomain();
 });
 
-domainsModule.controller('DomainCtrl', function($scope, $rootScope, $routeParams,
-                         $http, DomainFactory, AreaFactory) {
-  var domain_name = $routeParams.name
-    , area_query = {};
+/*domainsModule.controller('DomainCtrl', function($scope, $rootScope, $routeParams,
+                         DomainFactory, AreaFactory) {
+  var domain_name = $routeParams.name;
   async.parallel([
     _.bind(DomainFactory.list, DomainFactory),
     _.bind(AreaFactory.list, AreaFactory)
@@ -116,10 +120,6 @@ domainsModule.controller('DomainCtrl', function($scope, $rootScope, $routeParams
       $scope.domain_area_map = _.groupBy($rootScope.areas, 'domain');
     }
   });
-
-  $scope.getDomain = function(domain_id) {
-    return _.find($rootScope.domains, { _id: domain_id });
-  };
-});
+});*/
 
 })();
