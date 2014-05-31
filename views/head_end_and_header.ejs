@@ -15,11 +15,12 @@
                 <ul>
                     <%
                     var sites = [
-                            { name: 'home', 
-                              href: settings.base_url, 
+                            { name: 'home', href: settings.base_url },
+                            { name: 'all', 
+                              href: 'all.' + settings.base_url, 
                               dropdown: [
-                                { name: 'ABOUT', href: settings.base_url + '/about' },
-                                { name: 'CONTACT', href: settings.base_url + '/contact' },
+                                { name: 'ABOUT', href: 'all.' + settings.base_url + '/about' },
+                                { name: 'CONTACT', href: 'all.' + settings.base_url + '/contact' },
                               ],
                             },
                             { name: 'corridor', href: 'corridor.' + settings.base_url },

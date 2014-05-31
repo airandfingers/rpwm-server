@@ -134,10 +134,14 @@ require('./routes');
 
 // Best attempt at regex so far: [a-zA-Z]*\.?ayoshitake.com (matches www.ayoshitake.com but not ayoshitake.com)
 
-// Portal - links to other apps; "about" and "contact" pages
-var portal_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('ayoshitake.*', portal_app));
-bootstrap_app.use(express.vhost('www.ayoshitake.*', portal_app));
+// Landing page
+var landing_app = require('./apps/ayoshitake.com/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('ayoshitake.*', landing_app));
+bootstrap_app.use(express.vhost('www.ayoshitake.*', landing_app));
+
+// All - links to all other apps; "about" and "contact" pages
+var all_app = require('./apps/all/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('all.ayoshitake.*', all_app));
 
 // Wishing Well - stores and shows wishes
 var wishing_well_app = require('./apps/wishing_well/app')(starter_app_generator);
@@ -181,15 +185,15 @@ var text_app = require('./apps/text/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('text.ayoshitake.*', text_app));
 
 //troll's goals
-var text_app = require('./apps/trolls_goals/app')(starter_app_generator);
-bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', text_app));
+var trolls_goals_app = require('./apps/trolls_goals/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', trolls_goals_app));
 
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));
 
-//default - portal
-bootstrap_app.use(express.vhost('*', portal_app));
+//default - landing
+bootstrap_app.use(express.vhost('*', landing_app));
 
 // DO NOT ADD MORE VHOSTS AFTER THE ABOVE WILDCARD RULE
 
