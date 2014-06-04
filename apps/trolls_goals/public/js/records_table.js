@@ -18,7 +18,7 @@ recordsTableModule.directive('recordsTable', function($rootScope, RecordFactory)
         scope.min_day = scope.firstDay > min_start_day ? scope.firstDay : min_start_day;
 
         RecordFactory.query({ area_ids: scope.area_ids,
-                              day_range: [0, $rootScope.today] },
+                              day_range: [scope.firstDay, scope.lastDay] },
                             function(records) {
           console.log('successfully fetched records!', records);
           var records_by_area_id = _.groupBy(records, 'area')
