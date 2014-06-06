@@ -192,6 +192,11 @@ bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', trolls_goals_app));
 var template_app = require('./apps/template/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));
 
+//wedding (redirect)
+var wedding_app = express();
+wedding_app.use(function(req, res) { res.redirect('http://weddingwire.com/anaandaaron'); });
+bootstrap_app.use(express.vhost('wedding.ayoshitake.*', wedding_app));
+
 //default - landing
 bootstrap_app.use(express.vhost('*', landing_app));
 
