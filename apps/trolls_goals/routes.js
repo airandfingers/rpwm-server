@@ -110,7 +110,7 @@ module.exports = function(app) {
       }
       Model.findOneAndUpdate(query, { $set: update_obj },
                              function(update_err, updated) {
-        console.log('findOneAndUpdate returns', update_err, updated);
+        //console.log('findOneAndUpdate returns', update_err, updated);
         if (update_err) {
           res.error(update_err);
         }
@@ -130,12 +130,22 @@ module.exports = function(app) {
         return res.error('No _id provided.');
       }
       Model.findOneAndRemove(query, function(remove_err, removed) {
-        console.log('findOneAndRemove returns', remove_err, removed);
+        //console.log('findOneAndRemove returns', remove_err, removed);
         if (remove_err) {
           res.error(remove_err);
         }
         else if (removed === null) {
           res.error('No doc found with _id=' + _id);
+        }
+        else if (_.isFunction(Model.deleteHook)) {
+          Model.deleteHook(_id, function(delete_hook_err) {
+            if (delete_hook_err) {
+              res.error(delete_hook_err);
+            }
+            else {
+              res.json(removed);
+            }
+          })
         }
         else {
           res.json(removed);

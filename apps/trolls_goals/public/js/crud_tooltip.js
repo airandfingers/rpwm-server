@@ -1,32 +1,29 @@
-// Adapted from code at http://plnkr.co/edit/6ceUmS
-
-angular.module('custom.bootstrap', ['custom.bootstrap.tooltip']);
-
+// Adapted from ui.bootstrap.tooltip, and additions from http://plnkr.co/edit/6ceUmS
 
 /**
  * The following features are still outstanding: animation as a
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html tooltips, and selector delegation.
  */
-angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
+angular.module('crudTooltip', [ 'ui.bootstrap.position' ])
 
 /**
- * The $customtooltip service creates tooltip- and popover-like directives as well as
+ * The $crudtooltip service creates tooltip- and popover-like directives as well as
  * houses global options for them.
  */
-  .provider( '$customtooltip', function () {
+  .provider( '$crudtooltip', function () {
     // The default options tooltip and popover.
     var defaultOptions = {
-     placement: 'top',
-     animation: true,
-     popupDelay: 0
+      placement: 'top',
+      animation: true,
+      popupDelay: 0
     };
 
     // Default hide triggers for each show trigger
     var triggerMap = {
-     'mouseenter': 'mouseleave',
-     'click': 'click',
-     'focus': 'blur'
+      'mouseenter': 'mouseleave',
+      'click': 'click',
+      'focus': 'blur'
     };
 
     // The options specified to the provider globally.
@@ -41,9 +38,9 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
      *     $tooltipProvider.options( { placement: 'left' } );
      *   });
      */
-  this.options = function( value ) {
-    angular.extend( globalOptions, value );
-  };
+    this.options = function( value ) {
+      angular.extend( globalOptions, value );
+    };
 
     /**
      * This allows you to extend the set of trigger mappings available. E.g.:
@@ -69,7 +66,7 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
      * Returns the actual instance of the $tooltip service.
      * TODO support multiple triggers
      */
-    this.$get = [ '$window', '$compile', '$timeout', '$parse', '$document', '$position', '$interpolate', function ( $window, $compile, $timeout, $parse, $document, $position, $interpolate ) {
+    this.$get = ['$window', '$compile', '$timeout', '$parse', '$document', '$position', '$interpolate', function ( $window, $compile, $timeout, $parse, $document, $position, $interpolate ) {
       return function $tooltip ( type, prefix, defaultTriggerShow ) {
         var options = angular.extend( {}, defaultOptions, globalOptions );
 
@@ -102,20 +99,21 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
         var endSym = $interpolate.endSymbol();
         var template = 
           '<' + directiveName +'-popup '+
-            'item="customtooltipItem" ' +
-            'methods="customtooltipMethods" ' +
+            'item="crudtooltipItem" ' +
+            'mode="crudtooltipMode"' +
+            'template-url="TEMPLATE_URL" ' +
             'content="'+startSym+'tt_content'+endSym+'" '+
             'placement="'+startSym+'tt_placement'+endSym+'" '+
             'animation="tt_animation" '+
             'is-open="tt_isOpen"'+
-            '>'+
-          '</' + directiveName + '-popup>';
+          '></' + directiveName + '-popup>';
 
         return {
           restrict: 'EA',
-          scope: { customtooltipItem: '=', customtooltipMethods: '=' },
+          scope: { crudtooltipItem: '=', crudtooltipMode: '@' },
           compile: function (tElem, tAttrs) {
-            var tooltipLinker = $compile( template );
+            var type_template = template.replace('TEMPLATE_URL', tAttrs.crudtooltipType)
+              , tooltipLinker = $compile( type_template );
 
             return function link ( scope, element, attrs ) {
               var tooltip;
@@ -359,25 +357,20 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
     }];
   })
 
-.directive( 'customtooltipPopup', function($timeout) {
+.directive( 'crudtooltipPopup', function($timeout, $http, $compile) {
+  // Map template types to template URLs
+  var template_map = {
+    record: '/tmpl/record_tooltip.html',
+    area: '/tmpl/area_tooltip.html',
+    domain: '/tmpl/domain_tooltip.html'
+  };
   return {
     restrict: 'E',
     replace: true,
-    scope: { item: '=', methods: '=', content: '@', placement: '@', animation: '&', isOpen: '&' },
-    templateUrl: 'tmpl/record_tooltip.html',
+    scope: { item: '=', mode: '=', content: '@', placement: '@', animation: '&', isOpen: '&' },
+    templateUrl: function(tElem, tAttrs) { return template_map[tAttrs.templateUrl]; },
     link: function (scope, element, attrs) {
       //console.log('link called with', scope, element, attrs);
-      scope.saveRecord = function(record) {
-        scope.methods.saveRecord(record);
-        scope.closePopup();
-      };
-      scope.deleteRecord = function(record) {
-        scope.methods.deleteRecord(record);
-      };
-      scope.revertRecord = function(record) {
-        scope.methods.revertRecord(record);
-        scope.closePopup();
-      };
       scope.closePopup = function() {
         var trigger = element.prev();
         $timeout(function() {
@@ -392,6 +385,6 @@ angular.module('custom.bootstrap.tooltip', [ 'ui.bootstrap.position' ])
   };
 })
 
-.directive('customtooltip', [ '$customtooltip', function ($customtooltip) {
-  return $customtooltip('customtooltip', 'customtooltip', 'click');
+.directive('crudtooltip', [ '$crudtooltip', function ($crudtooltip) {
+  return $crudtooltip('crudtooltip', 'crudtooltip', 'click');
 }]);

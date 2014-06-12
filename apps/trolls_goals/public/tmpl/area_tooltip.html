@@ -1,0 +1,52 @@
+<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+  <div class="arrow"></div>
+  <div class="popover-inner">
+    <div ng-ctrl-enter="$root.saveArea(item); closePopup();"
+         ng-ctrl-delete="$root.deleteArea(item); closePopup();"
+         ng-escape="$root.revertArea(item); closePopup();">
+      <div class="input-group" title="Name of this area">
+        <span class="input-group-addon bold" focus-next-when-clicked>Name</span>
+        <input type="text" class="form-control" ng-model="item.name" focus-on-load />
+      </div>
+      <div class="input-group" title="A short description of this area">
+        <span class="input-group-addon bold" focus-next-when-clicked>Description</span>
+        <input type="text" class="form-control" ng-model="item.description" />
+      </div>
+      <div class="input-group" title="The domain this area belongs to, if any">
+        <span class="input-group-addon bold" focus-next-when-clicked>Domain</span>
+        <select class="form-control" ng-model="item.domain" placeholder="Select a Domain"
+                ng-options="domain._id as domain.name for domain in $root.domains">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="input-group" title="When you add a record in this area, will you want to enter details?">
+        <span class="input-group-addon bold" focus-next-when-clicked>Enter Record Details?</span>
+        <select class="form-control" ng-model="item.prompt_for_details"
+                ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">
+        </select>
+      </div>
+      <input type="hidden" ng-model="item.start_day" />
+    </div>
+    <div class="crud_buttons">
+      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="Update (Ctrl + Enter)">
+        {{mode}}
+        <span class="glyphicon glyphicon-ok"></span>
+      </button>
+      <button ng-if="mode === 'Update'" class="btn btn-danger"
+              ng-click="$root.deleteArea(item); closePopup();" title="Delete (Ctrl + Delete)">
+        Delete
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+      <button ng-if="mode === 'Update'" class="btn btn-warning float-right"
+              ng-click="$root.revertArea(item); closePopup();" title="Discard Changes (Esc)">
+        Discard
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+      <button ng-if="mode !== 'Update'" class="btn btn-warning float-right"
+              ng-click="$root.newArea(); closePopup();" title="Cancel (Esc)">
+        Cancel
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
+</div>

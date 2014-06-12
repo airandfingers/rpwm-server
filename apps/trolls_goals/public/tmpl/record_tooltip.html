@@ -2,19 +2,24 @@
   <div class="arrow"></div>
   <div class="popover-inner">
     <div>
-      <textarea placeholder="Description" ng-model="item.details"
-                focus-on-load ng-ctrl-enter="saveRecord(item)"
-                ng-ctrl-delete="deleteRecord(item);" ng-escape="revertRecord(item)" />
+      <textarea placeholder="Details" ng-model="item.details" focus-on-load
+                ng-ctrl-enter="$root.saveRecord(item); closePopup();"
+                ng-ctrl-delete="$root.deleteRecord(item); closePopup();"
+                ng-escape="$root.revertRecord(item); closePopup();" />
     </div>
-    <button class="btn btn-primary" ng-click="saveRecord(item);" title="Update (Ctrl + Enter)">
-      <span class="glyphicon glyphicon-ok"></span>
-      <img src="/ctrl_enter.png" />
-    </button>
-    <button class="btn btn-danger" ng-click="deleteRecord(item);" title="Delete (Ctrl + Delete)">
-      <span class="glyphicon glyphicon-trash"></span>
-    </button>
-    <button class="btn btn-warning" ng-click="revertRecord(item);" title="Discard Changes (Esc)">
-      <span class="glyphicon glyphicon-remove"></span>
-    </button>
+      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="Update (Ctrl + Enter)">
+        {{mode}}
+        <span class="glyphicon glyphicon-ok"></span>
+      </button>
+      <button class="btn btn-danger" title="Delete (Ctrl + Delete)"
+              ng-click="$root.deleteRecord(item); closePopup();">
+        Delete
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+      <button class="btn btn-warning"
+              ng-click="$root.revertRecord(item); closePopup();" title="Discard Changes (Esc)">
+        Discard
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
   </div>
 </div>

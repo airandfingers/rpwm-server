@@ -1,5 +1,6 @@
 <% include ../../../views/head_start %>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/select.css" />
 <% include ../../../views/head_end_and_header %>
   <div ng-app="app" id="wrapper">
     <div id="sidebar-wrapper">
@@ -11,9 +12,6 @@
         <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>-->
         <navlink href="day" title="Today"></navlink>
         <navlink href="week" title="This Week"></navlink>
-        <hr />
-        <navlink href="manage_areas" title="Manage Areas"></navlink>
-        <navlink href="manage_domains" title="Manage Domains"></navlink>
       </ul>
     </div>
     <div id="page-content-wrapper">
@@ -30,11 +28,13 @@
   <script src="/js/lib/multiselect.js"></script>
   <script src="/js/lib/angular-route.js"></script>
   <script src="/js/lib/angular-resource.js"></script>
-  <script src="/js/lib/ui-bootstrap-tpls-0.10.0.js"></script>
-  <script src="/js/lib/custom-tooltip.js"></script>
+  <script src="/js/lib/select.js"></script>
+  <script src="/js/lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
+  <script src="/js/crud_tooltip.js"></script>
 
   <script src="/js/main.js"></script>
   <script src="/js/filters.js"></script>
+  <script src="/js/directives.js"></script>
   <script src="/js/areas.js"></script>
   <script src="/js/domains.js"></script>
   <script src="/js/records.js"></script>

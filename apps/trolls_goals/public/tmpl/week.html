@@ -15,11 +15,33 @@
     </span>
   </div>
   <div ng-repeat="(domain_id, domain_areas) in domain_area_map"
-       ng-show="domain_areas.length"
+       ng-init="domain = getDomain(domain_id)"
        class="domain_container">
-    <h2>{{getDomain(domain_id).name}}</h2>
-    <records-table domain-areas="{{domain_areas}}" show-header="true"
+    <div class="domain-header">
+      <span class="small-grey-icon glyphicon glyphicon-chevron-down"
+            title="Edit {{domain.name}}"
+            crudtooltip="."
+            crudtooltip-item="domain"
+            crudtooltip-type="domain"
+            crudtooltip-mode="Update"
+            crudtooltip-trigger="click"
+            crudtooltip-placement="bottom"
+            ng-click="$event.stopPropagation()">
+      </span>
+      <h3 title="{{domain.description}}" class="domain-title">{{ domain.name }}</h3>
+    </div>
+    <records-table domain="domain" domain-areas="domain_areas" show-header="true"
                    records="records" first-day="{{last_day - 6}}" last-day="{{last_day}}">
     </records-table>
   </div>
+  <button class="btn btn-primary btn-xl add-domain-button" title="Add new Domain"
+          crudtooltip="."
+          crudtooltip-item="$root.new_domain"
+          crudtooltip-type="domain"
+          crudtooltip-mode="Create"
+          crudtooltip-trigger="click"
+          crudtooltip-placement="top">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add New Domain
+  </button>
 </div>

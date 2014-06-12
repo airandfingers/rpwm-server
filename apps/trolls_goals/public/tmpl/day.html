@@ -1,5 +1,5 @@
 <div class="time_container">
-  <div class="inline-table-wrapper-wrapper">
+  <div>
     <a href="#/day/{{day - 1}}" class="change_time">
       <span class="glyphicon glyphicon-arrow-left"></span>
     </a>
@@ -12,12 +12,34 @@
     </span>
   </div>
   <div ng-repeat="(domain_id, domain_areas) in domain_area_map"
-       ng-init="domain = getDomain(domain_id)" ng-show="domain_areas.length"
+       ng-init="domain = getDomain(domain_id)"
        class="domain_container inline-table-wrapper">
-    <h3 title="{{domain.description}}">{{ domain.name }}</h3>
-    <records-table domain="domain" domain-areas="{{domain_areas}}"
+    <div class="domain-header">
+      <span class="small-grey-icon glyphicon glyphicon-chevron-down"
+            title="Edit {{domain.name}}"
+            crudtooltip="."
+            crudtooltip-item="domain"
+            crudtooltip-type="domain"
+            crudtooltip-mode="Update"
+            crudtooltip-trigger="click"
+            crudtooltip-placement="bottom"
+            ng-click="$event.stopPropagation()">
+      </span>
+      <h3 title="{{domain.description}}" class="domain-title">{{ domain.name }}</h3>
+    </div>
+    <records-table domain="domain" domain-areas="domain_areas"
                    show-header="false" click-to-add-record-to-first-day="true"
                    records="records" first-day="{{day}}" last-day="{{day}}">
     </records-table>
   </div>
+  <button class="btn btn-primary btn-xl add-domain-button" title="Add new Domain"
+          crudtooltip="."
+          crudtooltip-item="$root.new_domain"
+          crudtooltip-type="domain"
+          crudtooltip-mode="Create"
+          crudtooltip-trigger="click"
+          crudtooltip-placement="bottom">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add New Domain
+  </button>
 </div>

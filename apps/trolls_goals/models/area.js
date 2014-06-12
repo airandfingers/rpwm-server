@@ -2,6 +2,7 @@ module.exports = (function() {
   var mongoose = require('mongoose') //MongoDB abstraction layer
     , _ = require('underscore') // list utility library
     , db = require('../../../modules/db')
+    , Record = require('./record')
     , Schema = mongoose.Schema
     , ObjectId = Schema.ObjectId
 
@@ -10,9 +11,9 @@ module.exports = (function() {
     }
 
     , AreaSchema = new Schema({
-        name: { type: String, unique: true, index: true } // the area's unique name
+        name: { type: String, required: true, index: true } // the area's unique name
       , description: { type: String } // a description of the area
-      , domain: { type: ObjectId, ref: 'tags', index: true }
+      , domain: { type: ObjectId, ref: 'domains', index: true }
       , username: { type: String, index: true }
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
       , start_day: { type: Number, default: getToday }
@@ -22,6 +23,10 @@ module.exports = (function() {
   var Area = mongoose.model('Area', AreaSchema);
 
   Area.update_fields = ['name', 'description', 'domain', 'prompt_for_details'];
+
+  Area.deleteHook = function(_id, cb) {
+    Record.remove({ area: _id }, cb);
+  };
 
   return Area;
 })();

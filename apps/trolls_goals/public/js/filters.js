@@ -1,7 +1,7 @@
 (function() {
-var module = angular.module('trollsGoalsFilters', []);
+var filtersModule = angular.module('trollsGoalsFilters', []);
 
-module.filter('dayToDate', function() {
+filtersModule.filter('dayToDate', function() {
   return function(day) {
     var timestamp = day * 86400000 // multiply by ms/day
       , date = new Date(timestamp);
@@ -9,14 +9,14 @@ module.filter('dayToDate', function() {
   };
 });
 
-module.filter('dateFormat', function($filter) {
+filtersModule.filter('dateFormat', function($filter) {
   var angularDateFilter = $filter('date');
   return function(date) {
     return angularDateFilter(date, 'EEEE M.d'); // Long form: MMMM d, yyyy https://github.com/angular/angular.js/blob/master/src/ng/filter/filters.js
   };
 });
 
-module.filter('makeRange', function() {
+filtersModule.filter('makeRange', function() {
   return function(input) {
     var low_bound = parseInt(input[0])
       , high_bound = parseInt(input[1]);
@@ -30,7 +30,7 @@ module.filter('makeRange', function() {
   };
 });
 
-module.filter('etceteraGoLast', function() {
+filtersModule.filter('etceteraGoLast', function() {
   return function(input) {
     _.forEach(input, function(item, i) {
       if (item.name.slice(0, 3).toLowerCase() === 'etc') {

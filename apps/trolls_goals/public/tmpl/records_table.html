@@ -1,39 +1,71 @@
 <table class="table table-striped">
   <thead ng-if="showHeader">
-    <th>Area</th>
+    <th></th>
     <th ng-repeat="day in [firstDay, lastDay] | makeRange">{{ day | dayToDate | dateFormat }}</th>
   </thead>
   <tbody>
-    <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast" title="{{area.description}}">
+    <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast" title="{{area.description}} (Click to create record)">
       <td ng-if="clickToAddRecordToFirstDay"
-          class="clickable"
-          ng-click="createRecord(area._id, firstDay)">
+          class="clickable parent-sibling-cell-trigger"
+          ng-click="$root.createRecord(area._id, firstDay)">
+        <span class="small-grey-icon glyphicon glyphicon-chevron-down"
+              title="Edit {{area.name}}"
+              crudtooltip="."
+              crudtooltip-item="area"
+              crudtooltip-type="area"
+              crudtooltip-mode="Update"
+              crudtooltip-trigger="click"
+              crudtooltip-placement="bottom"
+              ng-click="$event.stopPropagation()">
+        </span>
         {{ area.name }}
       </td>
       <td ng-if="! clickToAddRecordToFirstDay">
+        <span class="small-grey-icon glyphicon glyphicon-chevron-down"
+              title="Edit {{area.name}}"
+              crudtooltip="."
+              crudtooltip-item="area"
+              crudtooltip-type="area"
+              crudtooltip-mode="Update"
+              crudtooltip-trigger="click"
+              crudtooltip-placement="bottom"
+              ng-click="$event.stopPropagation()">
+        </span>
         {{ area.name }}
       </td>
-      <td class="clickable"
-          ng-click="createRecord(area._id, day)"
+      <td class="clickable parent-cell-trigger"
+          ng-click="$root.createRecord(area._id, day)"
           ng-repeat="day in [firstDay, lastDay] | makeRange">
+        <span class="small-grey-icon glyphicon glyphicon-plus"
+              ng-if="! records[area._id][day] || records[area._id][day].length === 0"></span>
         <span class="glyphicon glyphicon-ok-sign"
               ng-repeat="record in records[area._id][day]"
               title="{{record.details}}"
               trigger-click-on-load
-              customtooltip="(Overridden by template)"
-              customtooltip-item="record"
-              customtooltip-methods="record_methods"
-              customtooltip-trigger="click"
+              crudtooltip="."
+              crudtooltip-item="record"
+              crudtooltip-type="record"
+              crudtooltip-mode="Update"
+              crudtooltip-trigger="click"
               ng-click="$event.stopPropagation()">
         </span>
       </td>
     </tr>
     <tr title="{{domain.description}}">
       <td>
+        <span class="small-grey-icon glyphicon glyphicon-plus"
+              title="Add new {{domain.name}} Area"
+              crudtooltip="."
+              crudtooltip-item="$root.new_area"
+              crudtooltip-type="area"
+              crudtooltip-mode="Create"
+              crudtooltip-trigger="click"
+              ng-click="$root.new_area.domain = domain._id">
+        </span>
         Total
       </td>
       <td ng-repeat="day in [firstDay, lastDay] | makeRange">
-        {{ getNumRecords(domain_areas, day) }}
+        {{ $root.getNumRecords(domain_areas, day) }}
       </td>
   </tbody>
 </table>

@@ -1,7 +1,7 @@
 (function() {
 var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
-  'trollsGoalsFilters', 'areas', 'domains', 'records', 'records_table',
-  'ui.bootstrap.tpls', 'ui.bootstrap.typeahead', 'custom.bootstrap']);
+  'trollsGoalsFilters', 'trollsGoalsDirectives', 'areas', 'domains', 'records',
+  'recordsTable', 'crudTooltip', 'ui.select']);
 
 app.config(function($routeProvider, $httpProvider) {
   $routeProvider
@@ -19,7 +19,7 @@ app.config(function($routeProvider, $httpProvider) {
     /*.when('/domains/:name?', {
       templateUrl: 'tmpl/domain.html',
       controller: 'DomainCtrl'
-    })*/
+    })
     .when('/manage_areas', {
       templateUrl: 'tmpl/manage_areas.html',
       controller: 'ManageAreasCtrl'
@@ -27,7 +27,7 @@ app.config(function($routeProvider, $httpProvider) {
     .when('/manage_domains', {
       templateUrl: 'tmpl/manage_domains.html',
       controller: 'ManageDomainsCtrl'
-    })
+    })*/
     .otherwise({ redirectTo: '/' });
 
   // intercept 401 Unauthorized requests and redirect,
@@ -48,24 +48,11 @@ app.config(function($routeProvider, $httpProvider) {
   });
 });
 
-app.run(function($rootScope, $location, DomainFactory) {
+app.run(function($rootScope, $location, DomainFactory, AreaFactory) {
   DomainFactory.list();
+  AreaFactory.list();
   var now = new Date();
   now = now.getTime() - now.getTimezoneOffset() * 60000;
   $rootScope.today = Math.floor(now / 86400000) + 1;
-});
-
-app.directive('navlink', function($location) {
-  return {
-    restrict: 'E',
-    scope: { href: '@', title: '@' },
-    templateUrl: 'tmpl/navlink.html',
-
-    link: function(scope, element, attrs) {
-      scope.isActive = function() {
-        return attrs.href === $location.path().substring(1);
-      };
-    }
-  }
 });
 })();
