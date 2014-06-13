@@ -44,13 +44,13 @@ directivesModule.directive('focusNextWhenClicked', function($timeout) {
 
 directivesModule.directive('ngCtrlEnter', function () {
   return function(scope, element, attrs) {
-    element.bind('keydown keypress', function (event) {
-      if (event.which === 13 && event.ctrlKey) {
+    element.bind('keydown keypress', function(e) {
+      if (e.which === 13 && e.ctrlKey) {
         scope.$apply(function () {
-            scope.$eval(attrs.ngCtrlEnter);
+          scope.$eval(attrs.ngCtrlEnter);
         });
 
-        event.preventDefault();
+        e.preventDefault();
       }
     });
   };
@@ -58,13 +58,13 @@ directivesModule.directive('ngCtrlEnter', function () {
 
 directivesModule.directive('ngCtrlDelete', function () {
   return function(scope, element, attrs) {
-    element.bind('keydown keypress', function (event) {
-      if (event.which === 46 && event.ctrlKey) {
+    element.bind('keydown keypress', function(e) {
+      if (e.which === 46 && e.ctrlKey) {
         scope.$apply(function () {
-            scope.$eval(attrs.ngCtrlDelete);
+          scope.$eval(attrs.ngCtrlDelete);
         });
 
-        event.preventDefault();
+        e.preventDefault();
       }
     });
   };
@@ -72,14 +72,44 @@ directivesModule.directive('ngCtrlDelete', function () {
 
 directivesModule.directive('ngEscape', function () {
   return function(scope, element, attrs) {
-    element.bind('keydown keypress', function (event) {
-      if (event.which === 27) {
+    element.bind('keydown keypress', function(e) {
+      if (e.which === 27) {
         scope.$apply(function () {
-            scope.$eval(attrs.ngEscape);
+          scope.$eval(attrs.ngEscape);
         });
 
-        event.preventDefault();
+        e.preventDefault();
       }
+    });
+  };
+});
+
+directivesModule.directive('clickOnArrow', function($document, $timeout) {
+  var directions_to_key_codes = {
+    left: 37
+  , up: 38
+  , right: 39
+  , down: 40
+  };
+  return function(scope, element, attrs) {
+    var key_code = directions_to_key_codes[attrs.clickOnArrow]
+      , handler = function(e) {
+      var tag_name = e.target.tagName.toUpperCase();
+      if (tag_name === 'INPUT' || tag_name === 'TEXTAREA') {
+        return;
+      }
+      if (e.which === key_code) {
+        $timeout(function () {
+          element.click();
+        });
+
+        e.preventDefault();
+      }
+    };
+    $document.bind('keydown keypress', handler);
+    // unbind handler, since body persists beyond element
+    scope.$on('$destroy', function() {
+      $document.unbind('keydown keypress', handler);
     });
   };
 });

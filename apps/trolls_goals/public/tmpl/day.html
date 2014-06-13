@@ -1,11 +1,15 @@
 <div class="time_container">
   <div>
-    <a href="#/day/{{day - 1}}" class="change_time">
-      <span class="glyphicon glyphicon-arrow-left"></span>
+    <a href="#/day/{{day - 1}}" class="change_time"
+       click-on-arrow="left">
+      <span class="glyphicon glyphicon-arrow-left">
+      </span>
     </a>
     <h2 class="time_header">{{ day | dayToDate | dateFormat }}</h2>
-    <a ng-if="day < today" href="#/day/{{day + 1 === today ? '' : day + 1}}" class="change_time">
-      <span class="glyphicon glyphicon-arrow-right"></span>
+    <a ng-if="day < today" href="#/day/{{day + 1 === today ? '' : day + 1}}" class="change_time"
+       click-on-arrow="right">
+      <span class="glyphicon glyphicon-arrow-right">
+      </span>
     </a>
     <span ng-if="day === today"
           class="disabled glyphicon glyphicon-arrow-right">
