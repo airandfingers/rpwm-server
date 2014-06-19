@@ -255,7 +255,7 @@ angular.module('crudTooltip', [ 'ui.bootstrap.position' ])
                 // need to wait for it to expire beforehand.
                 // FIXME: this is a placeholder for a port of the transitions library.
                 if ( scope.tt_animation ) {
-                  transitionTimeout = $timeout(removeTooltip, 500);
+                  transitionTimeout = $timeout(removeTooltip, 0);
                 } else {
                   removeTooltip();
                 }
