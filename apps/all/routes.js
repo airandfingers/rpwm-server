@@ -1,22 +1,6 @@
 module.exports = function(app) {
   app.get('/', function(req, res) {
-    res.redirect('/home');
-  });
-
-  app.get('/home', function(req, res) {
-    res.render('index', {title: 'ayoshitake.com welcomes you!', current_page: 'home'});
-  });
-  
-  app.get('/about', function(req, res) {
-    res.render('about', {title: 'About Aaron', current_page: 'about'});
-  });
-  
-  app.get('/contact', function(req, res) {
-    res.render('contact', {title: 'Drop us a line!', current_page: 'contact'});
-  });
-  
-  app.get('/blah', function(req, res) {
-    res.render('blah', {title: 'Bloop Blahp Bleep Blah!', current_page: 'blah'});
+    res.render('index', {title: 'Check out these things I\'ve made!', current_page: ''});
   });
 
   //Handle all other cases with a 404

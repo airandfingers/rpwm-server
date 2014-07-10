@@ -1,24 +1,3 @@
-// Navbar Menu functionality
-$(function() {  
-  $('.navbar li ul').css({
-    display: 'none',
-    left: 'auto'
-  });
-
-  $('.navbar li').hoverIntent(function() {
-    $(this)
-      .find('ul')
-      .stop(true, true)
-      .slideDown('fast');
-
-  }, function() {
-    $(this)
-      .find('ul')
-      .stop(true, true)
-      .fadeOut('fast');
-  });
-});
-
 // Hide/Show Login/Register functionality
 $(function() {
   var $login_register_trigger = $('#login_register_trigger')

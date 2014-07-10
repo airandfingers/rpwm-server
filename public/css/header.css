@@ -69,10 +69,8 @@ header {
 }
 
 .navbar a {
-    display: block;
     text-decoration: none;
 }
-
 
 .navbar > ul > li > ul {
     background-color: black;
@@ -84,10 +82,11 @@ header {
     z-index: 1000;
 }
 
-.navbar a:link    { color: #CCCCCC; }
+.navbar { color: #CCCCCC; }
+.navbar a:link { color: #CCCCCC; }
 .navbar a:visited { color: #CCCCCC; }
-.navbar a:hover   { color: red; }
-.navbar a.current_site  { color: chartreuse; }
+.navbar a:hover { color: red; }
+.navbar a.current_site { color: chartreuse; }
 
 .navbar li:hover ul, .navbar li ul:hover {
     overflow: visible;

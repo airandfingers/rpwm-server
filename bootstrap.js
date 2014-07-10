@@ -197,8 +197,10 @@ var wedding_app = express();
 wedding_app.use(function(req, res) { res.redirect('http://weddingwire.com/anaandaaron'); });
 bootstrap_app.use(express.vhost('wedding.ayoshitake.*', wedding_app));
 
-//default - landing
-bootstrap_app.use(express.vhost('*', landing_app));
+//default (redirect to landing)
+bootstrap_app.use(function(req, res) {
+  res.redirect('http://' + base_url + req.originalUrl);
+});
 
 // DO NOT ADD MORE VHOSTS AFTER THE ABOVE WILDCARD RULE
 

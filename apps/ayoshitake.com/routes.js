@@ -1,7 +1,6 @@
 module.exports = function(app) {
-  app.get('/test', function(req, res) {
-    console.log('test called');
-    res.end('Hello World!');
+  app.get('/', function(req, res) {
+    res.render('index');
   });
   //Handle all other cases with a 404
   //Note: ONLY do this if app.use(app.router) comes after

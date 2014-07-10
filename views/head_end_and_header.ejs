@@ -16,13 +16,7 @@
                     <%
                     var sites = [
                             { name: 'home', href: settings.base_url },
-                            { name: 'all', 
-                              href: 'all.' + settings.base_url, 
-                              dropdown: [
-                                { name: 'ABOUT', href: 'all.' + settings.base_url + '/about' },
-                                { name: 'CONTACT', href: 'all.' + settings.base_url + '/contact' },
-                              ],
-                            },
+                            { name: 'all', href: 'all.' + settings.base_url },
                             { name: 'corridor', href: 'corridor.' + settings.base_url },
                             { name: 'fortune cookie', href: 'fortunecookie.' + settings.base_url },
                             { name: 'markslist', href: 'markslist.' + settings.base_url },
@@ -30,7 +24,6 @@
                             { name: 'wishing well', href: 'wishingwell.' + settings.base_url },
                             { name: 'text', href: 'text.' + settings.base_url },
                             { name: 'troll`s goals', href: 'trollsgoals.' + settings.base_url },
-                            <!-- temporarily removed { name: 'magi-cal', href: 'magi-cal.me' }, -->
                             { name: 'ETS', href: 'etstutoring.org' },
                         ],
                         i,
@@ -40,13 +33,11 @@
                         pagename,
                         pagehref,
                         site_name,
-                        site_href,
-                        site_dropdown;
+                        site_href;
 
                     for (i = 0, len = sites.length; i < len; i++) {
                         site_name = sites[i].name;
                         site_href = sites[i].href;
-                        site_dropdown = sites[i].dropdown;
                     %>
                         <li>
                             <a href="<%= settings.protocol %>://<%= site_href %>"
@@ -55,25 +46,13 @@
                                     class="current_site"
                                 <% } %>
                             ><%= site_name.toUpperCase() %></a>
-                           <!--write nested ul for dropdowns-->
-                            <% if (site_dropdown !== undefined ) { %>
-                              <ul>
-                              <% for (j=0, len2 = site_dropdown.length; j < len2; j++) {
-                                pagename = site_dropdown[j].name;
-                                pagehref = site_dropdown[j].href;
-                                %>
-                                <li>
-                                  <a href="<%= settings.protocol %>://<%= pagehref %>"> <%= pagename %> </a>
-                                </li>
-                              <% } %>  
-                              </ul>
-                            <% } %>
                         </li>
                     <% } %>
                     <li class="right">
                       <!-- Logout/Login/Register Trigger(s) -->
                       <% if (typeof locals.username === 'string') { %>
-                        <%= locals.username.toUpperCase() %> <a href="/logout">LOGOUT</a>
+                        <%= locals.username.toUpperCase() %>
+                        <a href="/logout">LOGOUT</a>
                         <% if (locals.username.substring(0, 5) === 'guest') { %>
                           <a href="#" id="guest_convert_trigger">REGISTER</a>
                         <% } %>
