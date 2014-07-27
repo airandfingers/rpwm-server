@@ -7,7 +7,7 @@
                 ng-ctrl-delete="$root.deleteRecord(item); closePopup();"
                 ng-escape="$root.revertRecord(item); closePopup();" />
     </div>
-      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="Update (Ctrl + Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="{{mode}} (Ctrl + Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>

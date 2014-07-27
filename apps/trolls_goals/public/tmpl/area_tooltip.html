@@ -28,7 +28,7 @@
       <input type="hidden" ng-model="item.start_day" />
     </div>
     <div class="crud_buttons">
-      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="Update (Ctrl + Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="{{mode}} (Ctrl + Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>
