@@ -11,6 +11,7 @@ module.exports = (function() {
         name: { type: String, index: true } // the domain's name
       , description: { type: String } // a description of the domain
       , username: { type: String, index: true }
+      , user: { type: ObjectId, ref: 'users', index: true }
     });
 
   var Domain = mongoose.model('Domain', DomainSchema);

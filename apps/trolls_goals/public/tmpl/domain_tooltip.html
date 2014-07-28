@@ -1,7 +1,7 @@
 <div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
   <div class="arrow"></div>
   <div class="popover-inner">
-    <div ng-ctrl-enter="$root.saveDomain(item); closePopup();"
+    <div ng-enter="$root.saveDomain(item); closePopup();"
          ng-ctrl-delete="$root.deleteDomain(item); closePopup();"
          ng-escape="$root.revertDomain(item); closePopup();">
       <div class="input-group" title="Name of this domain">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="crud_buttons">
-      <button class="btn btn-primary" ng-click="$root.saveDomain(item); closePopup();" title="{{mode}} (Ctrl + Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveDomain(item); closePopup();" title="{{mode}} (Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>

@@ -1,7 +1,7 @@
 <div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
   <div class="arrow"></div>
   <div class="popover-inner">
-    <div ng-ctrl-enter="$root.saveArea(item); closePopup();"
+    <div ng-enter="$root.saveArea(item); closePopup();"
          ng-ctrl-delete="$root.deleteArea(item); closePopup();"
          ng-escape="$root.revertArea(item); closePopup();">
       <div class="input-group" title="Name of this area">
@@ -28,7 +28,7 @@
       <input type="hidden" ng-model="item.start_day" />
     </div>
     <div class="crud_buttons">
-      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="{{mode}} (Ctrl + Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="{{mode}} (Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>

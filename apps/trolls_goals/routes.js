@@ -18,7 +18,7 @@ module.exports = function(app) {
   app.get('/api/record/query', function(req, res) {
     var area_ids = req.query.area_ids
       , day_range = req.query.day_range
-      , query = { username: req.user.username };
+      , query = { user: req.user._id };
 
     if (_.isString(area_ids)) {
       area_ids = [area_ids];
@@ -58,7 +58,7 @@ module.exports = function(app) {
   // Common CRUD routes
   _.each(models, function(Model, model_name) {
     app.get('/api/' + model_name, function(req, res) {
-      var query = { username: req.user.username };
+      var query = { user: req.user._id };
       Model.find(query, function(find_err, docs) {
         if (find_err) {
           return res.error(find_err);
@@ -69,7 +69,7 @@ module.exports = function(app) {
 
     app.get('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id
-        , query = { username: req.user.username, _id: _id };
+        , query = { user: req.user._id, _id: _id };
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
       }
@@ -87,7 +87,7 @@ module.exports = function(app) {
       if (_.isEmpty(spec)) {
         return res.error('Invalid spec: ' + JSON.stringify(spec));
       }
-      spec.username = req.user.username;
+      spec.user = req.user._id;
       doc = new Model(spec);
       doc.save(function(save_err) {
         if (save_err) {
@@ -99,7 +99,7 @@ module.exports = function(app) {
 
     app.put('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id
-        , query = { username: req.user.username, _id: _id }
+        , query = { user: req.user._id, _id: _id }
         , update_obj;
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
@@ -125,7 +125,7 @@ module.exports = function(app) {
 
     app.delete('/api/' + model_name + '/:_id', function(req, res) {
       var _id = req.params._id
-        , query = { username: req.user.username, _id: _id };
+        , query = { user: req.user._id, _id: _id };
       if (_.isEmpty(_id)) {
         return res.error('No _id provided.');
       }

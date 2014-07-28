@@ -1,13 +1,13 @@
 <div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
   <div class="arrow"></div>
   <div class="popover-inner">
-    <div>
-      <textarea placeholder="Details" ng-model="item.details" focus-on-load
-                ng-ctrl-enter="$root.saveRecord(item); closePopup();"
-                ng-ctrl-delete="$root.deleteRecord(item); closePopup();"
-                ng-escape="$root.revertRecord(item); closePopup();" />
+    <div ng-enter="$root.saveRecord(item); closePopup();"
+         ng-ctrl-delete="$root.deleteRecord(item); closePopup();"
+         ng-escape="$root.revertRecord(item); closePopup();">
+      <input type="text" placeholder="Details" class="form-control" ng-model="item.details" focus-on-load />
     </div>
-      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="{{mode}} (Ctrl + Enter)">
+    <div class="crud_buttons">
+      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="{{mode}} (Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>
@@ -21,5 +21,6 @@
         Discard
         <span class="glyphicon glyphicon-remove"></span>
       </button>
+    </div>
   </div>
 </div>

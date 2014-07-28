@@ -42,12 +42,12 @@ directivesModule.directive('focusNextWhenClicked', function($timeout) {
   };
 });
 
-directivesModule.directive('ngCtrlEnter', function () {
+directivesModule.directive('ngEnter', function () {
   return function(scope, element, attrs) {
     element.bind('keydown keypress', function(e) {
-      if (e.which === 13 && e.ctrlKey) {
+      if (e.which === 13) {
         scope.$apply(function () {
-          scope.$eval(attrs.ngCtrlEnter);
+          scope.$eval(attrs.ngEnter);
         });
 
         e.preventDefault();

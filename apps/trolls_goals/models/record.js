@@ -9,6 +9,7 @@ module.exports = (function() {
         area: { type: ObjectId, ref: 'areas', index: true }
       , details: { type: String } // a details of the record
       , username: { type: String, index: true }
+      , user: { type: ObjectId, ref: 'users', index: true }
       , day: Number // days since 1970.1.1
     });
 

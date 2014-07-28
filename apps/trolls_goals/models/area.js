@@ -15,6 +15,7 @@ module.exports = (function() {
       , description: { type: String } // a description of the area
       , domain: { type: ObjectId, ref: 'domains', index: true }
       , username: { type: String, index: true }
+      , user: { type: ObjectId, ref: 'users', index: true }
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
       , start_day: { type: Number, default: getToday }
       , prompt_for_details: Boolean
