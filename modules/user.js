@@ -44,7 +44,7 @@ module.exports = (function() {
       if (save_err) {
         error = 'Error during save: ' + save_err;
       }
-      cb(error);
+      cb(error, user);
     });
   };
 
@@ -127,6 +127,7 @@ module.exports = (function() {
     
     console.log('updating user with', spec);
     _.extend(self, spec);
+    console.log('Calling save, self is', self);
     self.save(function(update_err, result) {
       console.log('update callback called with', update_err, result);
       if (update_err) {
@@ -139,7 +140,6 @@ module.exports = (function() {
 
   UserSchema.pre('save', function(next) {
     var user = this;
-    user.password = User.encryptPassword(user.password);
 
     User.findOne({ username : user.username }, function(err, result) {
       if (err) {

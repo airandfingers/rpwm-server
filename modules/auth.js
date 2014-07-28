@@ -60,7 +60,7 @@ module.exports = (function () {
       res.end();
     }
     else {
-      req.flash('error', 'You must log in before accessing ' + req.url);
+      req.flash('error', 'You must log in before accessing ' + req.headers.host + req.originalUrl);
       var redirect_url = '/login?next=' + req.url;
       res.redirect(redirect_url);
     }

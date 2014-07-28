@@ -119,11 +119,22 @@ header {
 #login_main {
     font-family: DESTROY, Paprika, sans-serif;
     margin: 100px 20px 20px 20px;
+    color: white;
 }
 
 #registration_main {
     font-family: DESTROY, Paprika, sans-serif;
     margin: 100px 20px 20px 20px;
+    color: white;
+}
+
+#login_main a, #registration_main a {
+    color: coral;
+    text-decoration: none;
+}
+
+#login_main a:hover, #registration_main a:hover {
+    color: red;
 }
 
 .dropdown_form {

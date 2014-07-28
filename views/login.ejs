@@ -1,8 +1,8 @@
 <% include head %>
 
-  <h4>Please log in.</h4>
+  <h4 class="invert">Welcome back!</h4>
   <% if (message) { %>
-    <p><%= message %></p>
+    <h5 class="invert"><%= message %></h5>
   <% } %>
   <div id="login_main">
     <form action="/login" method="post">
@@ -15,7 +15,7 @@
         <input type="password" name="password" id="login_main_password" placeholder="password" required />
       </div>
       <div class="form_row">
-        <input type="submit" value="Login" class="button" />
+        <input type="submit" value="Log in" class="button" />
       </div>
       <% if (next) { %>
         <input type="hidden" name="next" value="<%= next %>" />
@@ -23,16 +23,14 @@
     </form>
     <form action="/guest_login" method="post">
       <div class="form_row">
-        <input type="submit" class="button" value="Login as Guest" />
+        <input type="submit" class="button" value="Log in as Guest" />
       </div>
       <% if (next) { %>
         <input type="hidden" name="next" value="<%= next %>" />
       <% } %>
     </form>
     <div class="form_row">
-      NO LOGIN?
-      <br />
-      <a href="/register<%= next ? '?next=' + next : '' %>"> REGISTER HERE</a>
+      NO ACCOUNT? <a href="/register<%= next ? '?next=' + next : '' %>">REGISTER</a>
     </div>
   </div>
 

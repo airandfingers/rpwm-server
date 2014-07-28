@@ -1,7 +1,7 @@
 <% include head %>
-  <h4>Ready to sign up?</h4>
+  <h4 class="invert">Ready to sign up?</h4>
   <% if (message) { console.log(message); %>
-    <p><%= message %></p>
+    <h5 class="invert"><%= message %></h5>
   <% } %>
   <div role="main" class="main" id="registration_main">
       <form action="/register" method="post">
@@ -18,26 +18,14 @@
           <input type="password" name="password_confirm" id="register_main_password_confirm" placeholder="re-type password" />
         </div>
         <div class="form_row">
-          <input type="submit" value="Log In" class="button"/>
+          <input type="submit" value="Register" class="button"/>
         </div>
         <% if (next) { %>
           <input type="hidden" name="next" value="<%= next %>" />
         <% } %>
     </form>
-    <% if (typeof locals.username !== 'string') { %>
-        <form action="/guest_login" method="post">
-          <div class="form_row">
-            <input type="submit" class="button" value="Login as Guest" />
-          </div>
-          <% if (next) { %>
-            <input type="hidden" name="next" value="<%= next %>" />
-          <% } %>
-        </form>
-    <% } %>
     <div class="form_row">
-      ALREADY HAVE AN ACCOUNT?
-      <br />
-      <a href="/login<%= next ? '?next=' + next : '' %>">LOG IN HERE</a>
+      ALREADY HAVE AN ACCOUNT? <a href="/login<%= next ? '?next=' + next : '' %>">LOG IN</a>
     </div>
   </div>
 
