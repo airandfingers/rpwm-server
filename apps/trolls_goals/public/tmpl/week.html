@@ -18,6 +18,7 @@
   </div>
   <div ng-repeat="(domain_id, domain_areas) in domain_area_map"
        ng-init="domain = getDomain(domain_id)"
+       ng-show="! domain.hidden || show_hidden || domain._backup"
        class="domain_container">
     <div class="domain-header">
       <span class="small-grey-icon glyphicon glyphicon-chevron-down"
@@ -32,7 +33,7 @@
       </span>
       <h3 title="{{domain.description}}" class="domain-title">{{ domain.name }}</h3>
     </div>
-    <records-table domain="domain" domain-areas="domain_areas" show-header="true"
+    <records-table domain="domain" domain-areas="domain_areas" show-header="true" show-hidden="show_hidden"
                    records="records" first-day="{{last_day - 6}}" last-day="{{last_day}}">
     </records-table>
   </div>

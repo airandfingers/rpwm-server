@@ -19,11 +19,12 @@ module.exports = (function() {
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
       , start_day: { type: Number, default: getToday }
       , prompt_for_details: Boolean
+      , hidden: { type: Boolean } // whether this domain should be retrieved under normal circumstances
     });
 
   var Area = mongoose.model('Area', AreaSchema);
 
-  Area.update_fields = ['name', 'description', 'domain', 'prompt_for_details'];
+  Area.update_fields = ['name', 'description', 'domain', 'prompt_for_details', 'hidden'];
 
   Area.deleteHook = function(_id, cb) {
     Record.remove({ area: _id }, cb);

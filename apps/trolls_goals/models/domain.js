@@ -12,6 +12,7 @@ module.exports = (function() {
       , description: { type: String } // a description of the domain
       , username: { type: String, index: true }
       , user: { type: ObjectId, ref: 'users', index: true }
+      , hidden: { type: Boolean } // whether this domain should be retrieved under normal circumstances
     });
 
   var Domain = mongoose.model('Domain', DomainSchema);

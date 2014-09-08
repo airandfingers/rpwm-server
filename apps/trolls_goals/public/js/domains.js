@@ -23,9 +23,12 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
   };
 
   $rootScope.revertDomain = function(domain) {
-    _.each(domain._backup, function(val, key) {
-      domain[key] = val;
+    _.each(domain, function(val, key) {
+      if (key !== '_backup') {
+        domain[key] = domain._backup[key];
+      }
     });
+    delete domain._backup;
     $rootScope.calculateDomainAreaMap();
   };
 
@@ -95,9 +98,4 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
   return Domain;
 });
 
-/*domainsModule.controller('ManageDomainsCtrl', function($scope, DomainFactory, $rootScope) {
-  $scope.__defineGetter__('editing_domain', function() {
-    return (typeof $scope.domain_backup !== 'undefined');
-  });
-});*/
 })();

@@ -1,4 +1,5 @@
-<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }"
+     ng-init="$root.backupRecord(item)">
   <div class="arrow"></div>
   <div class="popover-inner">
     <div ng-enter="$root.saveRecord(item); closePopup();"

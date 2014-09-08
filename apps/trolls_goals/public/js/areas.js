@@ -13,9 +13,12 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
   };
 
   $rootScope.revertArea = function(area) {
-    _.each(area._backup, function(val, key) {
-      area[key] = val;
+    _.each(area, function(val, key) {
+      if (key !== '_backup') {
+        area[key] = area._backup[key];
+      }
     });
+    delete area._backup;
     $rootScope.calculateDomainAreaMap();
   };
 
@@ -88,15 +91,4 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
   return Area;
 });
 
-/*areasModule.controller('ManageAreasCtrl', function($scope, $route, AreaFactory, $rootScope) {
-  $scope.__defineGetter__('editing_area', function() {
-    return (typeof $rootScope.area_backup !== 'undefined');
-  });
-
-  $scope.areaDomainName = function(area) {
-    var domain = _.find($rootScope.domains, { _id: area.domain });
-    if (_.isEmpty(domain)) { return 'None'; }
-    return domain.name;
-  };
-});*/
 })();

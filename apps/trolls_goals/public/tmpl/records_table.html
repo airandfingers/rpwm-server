@@ -4,7 +4,9 @@
     <th ng-repeat="day in [firstDay, lastDay] | makeRange">{{ day | dayToDate | dateFormat }}</th>
   </thead>
   <tbody>
-    <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast" title="{{area.description}} (Click to create record)">
+    <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast"
+        title="{{area.description}} (Click to create record)"
+        ng-show="! area.hidden || show_hidden || area._backup">
       <td ng-if="clickToAddRecordToFirstDay"
           class="clickable parent-sibling-cell-trigger"
           ng-click="$root.createRecord(area._id, firstDay)">

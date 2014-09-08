@@ -59,6 +59,9 @@ module.exports = function(app) {
   _.each(models, function(Model, model_name) {
     app.get('/api/' + model_name, function(req, res) {
       var query = { user: req.user._id };
+      if (_.isObject(Model.default_query)) {
+        _.defaults(query, Model.default_query);
+      }
       Model.find(query, function(find_err, docs) {
         if (find_err) {
           return res.error(find_err);

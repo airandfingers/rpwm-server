@@ -1,4 +1,5 @@
-<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }">
+<div class="popover {{placement}}" ng-class="{ in: isOpen, fade: animation() }"
+     ng-init="$root.backupDomain(item)">
   <div class="arrow"></div>
   <div class="popover-inner">
     <div ng-enter="$root.saveDomain(item); closePopup();"
@@ -12,6 +13,12 @@
         <span class="input-group-addon bold" focus-next-when-clicked>Description</span>
         <input type="text" class="form-control" ng-model="item.description" />
       </div>
+    </div>
+    <div class="input-group" title="When you add a record in this area, will you want to enter details?">
+      <span class="input-group-addon bold" focus-next-when-clicked>Hide Domain?</span>
+      <select class="form-control" ng-model="item.hidden"
+              ng-options="o.v as o.n for o in [{ n: 'No', v: false }, { n: 'Yes', v: true }]">
+      </select>
     </div>
     <div class="crud_buttons">
       <button class="btn btn-primary" ng-click="$root.saveDomain(item); closePopup();" title="{{mode}} (Enter)">

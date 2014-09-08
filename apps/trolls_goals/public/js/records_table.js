@@ -4,7 +4,7 @@ recordsTableModule.directive('recordsTable', function($rootScope, RecordFactory)
   return {
     restrict: 'E',
     scope: { domain_areas: '=domainAreas', firstDay: '@', lastDay: '@', records: '=',
-             showHeader: '@', clickToAddRecordToFirstDay: '@', domain: '=' },
+             showHeader: '@', clickToAddRecordToFirstDay: '@', domain: '=', show_hidden: '=showHidden' },
     templateUrl: 'tmpl/records_table.html',
 
     link: function(scope, element, attrs) {

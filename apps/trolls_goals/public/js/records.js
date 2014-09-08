@@ -16,7 +16,21 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
     });
   };
 
+  $rootScope.backupRecord = $rootScope.backupRecord || function(record) {
+    record._backup = _.cloneDeep(record);
+  };
+
+  $rootScope.revertRecord = $rootScope.revertRecord || function(record) {
+    _.each(record, function(val, key) {
+      if (key !== '_backup') {
+        record[key] = record._backup[key];
+      }
+    });
+    delete record._backup;
+  };
+
   $rootScope.saveRecord = $rootScope.saveRecord || function(record) {
+    delete record._backup;
     Record.update({ id: record._id }, record, function(r) {
       console.log('successfully edited record!', r);
     }, function(response) {
@@ -31,18 +45,6 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
       $rootScope.records[record.area][record.day] = _.reject($rootScope.records[record.area][record.day], function(_record) {
         return _record._id === record._id;
       });
-    }, function(response) {
-      console.error(response.data.error);
-      scope.domain_error = response.data.error;
-    });
-  };
-
-  $rootScope.revertRecord = $rootScope.revertRecord || function(record) {
-    Record.get({ id: record._id }, function(r) {
-      _.each(r, function(val, key) {
-        record[key] = val;
-      });
-      console.log('successfully reverted record!', record);
     }, function(response) {
       console.error(response.data.error);
       scope.domain_error = response.data.error;
