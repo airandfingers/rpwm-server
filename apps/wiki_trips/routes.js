@@ -8,6 +8,6 @@ module.exports = function(app) {
   //      otherwise, this route will catch all incoming requests,
   //      including requests for static files that exist.
   app.all('*', function(req, res) {
-    res.status(404).end();//redirect('/404.html');
+    res.redirect('/404.html');
   }); 
 };

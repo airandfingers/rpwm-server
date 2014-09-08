@@ -188,6 +188,10 @@ bootstrap_app.use(express.vhost('text.ayoshitake.*', text_app));
 var trolls_goals_app = require('./apps/trolls_goals/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('trollsgoals.ayoshitake.*', trolls_goals_app));
 
+//wiki trips
+var wiki_trips_app = require('./apps/wiki_trips/app')(starter_app_generator);
+bootstrap_app.use(express.vhost('wikitrips.ayoshitake.*', wiki_trips_app));
+
 //template (just for fun)
 var template_app = require('./apps/template/app')(starter_app_generator);
 bootstrap_app.use(express.vhost('w.ayoshitake.*', template_app));
