@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.1-32",
+  "version": "1.0.1-33",
   "private": true,
   "dependencies": {
     "async": "latest",
@@ -39,6 +39,7 @@
     "ww.ayoshitake.com",
     "www.ayoshitake.com",
     "wedding.ayoshitake.com",
+    "wikitrips.ayoshitake.com",
     "magi-cal.me",
     "w.magi-cal.me",
     "ww.magi-cal.me",
