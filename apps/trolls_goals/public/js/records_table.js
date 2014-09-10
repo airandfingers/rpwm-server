@@ -31,7 +31,7 @@ recordsTableModule.directive('recordsTable', function($rootScope, RecordFactory)
           });
         }, function(response) {
           console.error(response.data.error);
-          scope.domain_error = response.data.error;
+          $rootScope.error = response.data.error;
         });
       });
     }

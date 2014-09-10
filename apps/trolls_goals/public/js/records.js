@@ -3,16 +3,23 @@ var recordsModule = angular.module('records', []);
 recordsModule.factory('RecordFactory', function($resource, $rootScope) {
   $rootScope.records = $rootScope.records || {};
   $rootScope.createRecord = $rootScope.createRecord || function(area_id, day) {
-    var record = { area: area_id, day: day };
+    var record = new Record();
+    record.area = area_id; 
+    record.day = day;
+    record.just_created = true;
+    var records = $rootScope.records[area_id][day] || [];
+    records.push(record);
+    $rootScope.records[area_id][day] = records;
     Record.save(record, function(r) {
       console.log('successfully added record!', r);
-      r.just_created = true;
-      var records = $rootScope.records[record.area][day] || [];
-      records.push(r);
-      $rootScope.records[record.area][day] = records;
+      record._id = r._id;
     }, function(response) {
       console.error(response.data.error);
-      scope.domain_error = response.data.error;
+      $rootScope.error = response.data.error;
+      // remove not-actually-created record
+      var records = $rootScope.records[area_id][day];
+      records = _.without(records, record);
+      $rootScope.records[area_id][day] = records;
     });
   };
 
@@ -35,7 +42,7 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
       console.log('successfully edited record!', r);
     }, function(response) {
       console.error(response.data.error);
-      scope.domain_error = response.data.error;
+      $rootScope.error = response.data.error;
     });
   };
 
@@ -47,7 +54,7 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
       });
     }, function(response) {
       console.error(response.data.error);
-      scope.domain_error = response.data.error;
+      $rootScope.error = response.data.error;
     });
   };
 

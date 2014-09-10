@@ -12,6 +12,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
   // Define Domain CRUD functions on $rootScope
   $rootScope.newDomain = function() {
     $rootScope.new_domain = new Domain();
+    $rootScope.new_domain.hidden = false;
   };
 
   $rootScope.getDomain = function(domain_id) {
@@ -40,7 +41,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.domain_error = response.data.error;
+        $rootScope.error = response.data.error;
       });
     }
     else {
@@ -50,7 +51,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.domain_error = response.data.error;
+        $rootScope.error = response.data.error;
       });
     }
     $rootScope.newDomain();
@@ -68,7 +69,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
       $rootScope.calculateDomainAreaMap();
     }, function(response) {
       console.error(response.data.error);
-      $rootScope.domain_error = response.data.error;
+      $rootScope.error = response.data.error;
     });
   };
 
@@ -84,7 +85,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.domain_error = response.data.error;
+        $rootScope.error = response.data.error;
         $rootScope.domains = [];
         if (_.isFunction(cb)) { cb(); }
       });

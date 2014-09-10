@@ -5,6 +5,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
   $rootScope.newArea = function() {
     $rootScope.new_area = new Area();
     $rootScope.new_area.prompt_for_details = false;
+    $rootScope.new_area.hidden = false;
     $rootScope.new_area.start_day = $rootScope.today;
   };
 
@@ -30,7 +31,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.area_error = response.data.error;
+        $rootScope.error = response.data.error;
       });
     }
     else {
@@ -41,7 +42,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.area_error = response.data.error;
+        $rootScope.error = response.data.error;
       });
     }
     $rootScope.newArea();
@@ -53,7 +54,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
       $rootScope.handleDeletedArea(area, true);
     }, function(response) {
       console.error(response.data.error);
-      $rootScope.area_error = response.data.error;
+      $rootScope.error = response.data.error;
     });
   };
 
@@ -77,7 +78,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {
         console.error(response.data.error);
-        $rootScope.area_error = response.data.error;
+        $rootScope.error = response.data.error;
         $rootScope.areas = [];
         if (_.isFunction(cb)) { cb(); }
       });

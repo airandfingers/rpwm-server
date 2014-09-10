@@ -31,6 +31,16 @@
         </div>
       </div>
     </div>
+    <div id="error-wrapper" class="hidden" ng-class="{ 'has-error': error, 'hidden': ! error }">
+      <div class="help-block" ng-if="error">
+        An error occurred: {{error}}
+        <br />
+        Sorry! Please try again, or refresh the page.
+        <span class="small-grey-icon glyphicon glyphicon-remove"
+              ng-click="$root.error = null">
+        </span>
+      </div>
+    </div>
   </div>
 <% include ../../../views/foot_start %>
   <script src="/js/lib/lodash.js"></script>
