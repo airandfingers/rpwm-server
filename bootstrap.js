@@ -69,16 +69,16 @@ var express = require('express')
   , db = require('./modules/db')
 // Declare configuration value(s)
   , EXPRESS_PORT = process.env.PORT || 9000
-// Determine the base URL
-  , base_url = process.env.NODE_ENV === 'production' ? 'ayoshitake.com' :
-                                                       'ayoshitake.dev' + ':' + EXPRESS_PORT
+// Determine the domain and base URL
+  , domain = process.env.NODE_ENV === 'production' ? 'ayoshitake.com' : 'ayoshitake.dev'
+  , base_url = process.env.NODE_ENV === 'production' ? domain : domain + ':' + EXPRESS_PORT
 // Define some session-related settings
   , session_settings = {
       store: db.session_store
     , secret: db.SESSION_SECRET
     , sid_name: 'express.sid'
     , cookie: {
-        domain: '.' + base_url.split(':')[0] // .[domain], no port
+        domain: domain
       , maxAge: 31536000000 // 1 year
     //, secure: true // Only communicate via HTTPS
     }
@@ -86,11 +86,20 @@ var express = require('express')
 
   , bootstrap_app = module.exports = starter_app_generator(true)
   , bootstrap_server = http.createServer(bootstrap_app);
+_.str = require('underscore.string')
 
 // Set some configuration values
 bootstrap_app.set('views', __dirname + '/views');
 bootstrap_app.set('show_banner', true);
 // Attempt to redirect requests made with HTTPS to HTTP version (not working)
+bootstrap_app.use(function allowDomain(req, res, next) {
+  //console.log('headers:', req.headers, ':headers')
+  if (_.isString(req.headers.origin) &&
+      _.str.endsWith(req.headers.origin, base_url)) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+  }
+  next();
+});
 /*bootstrap_app.use(function(req, res, next) {
   if (req.headers['x-forwarded-proto'] === 'https') {
     var url = 'http://' + req.headers.host + req.originalUrl;
