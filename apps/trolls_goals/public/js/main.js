@@ -1,9 +1,10 @@
 (function() {
 var app = angular.module('app', ['ng', 'ngRoute', 'ngResource',
-  'trollsGoalsFilters', 'trollsGoalsDirectives', 'areas', 'domains', 'records',
-  'recordsTable', 'crudTooltip', 'ui.select']);
+  'trollsGoalsFilters', 'trollsGoalsDirectives', 'controllers',
+  'areas', 'domains', 'records', 'recordsTable', 'crudTooltip', 'ui.select']);
 
 app.config(function($routeProvider, $httpProvider) {
+  // define routes
   $routeProvider
     .when('/', {
       redirectTo: '/day'
@@ -28,7 +29,7 @@ app.config(function($routeProvider, $httpProvider) {
       templateUrl: 'tmpl/manage_domains.html',
       controller: 'ManageDomainsCtrl'
     })*/
-    .otherwise({ redirectTo: '/' });
+    .otherwise({ redirectTo: '/day' });
 
   // intercept 401 Unauthorized requests and redirect,
   // as shown at http://bneijt.nl/blog/post/angularjs-intercept-api-error-responses/
@@ -51,8 +52,40 @@ app.config(function($routeProvider, $httpProvider) {
 app.run(function($rootScope, $location, DomainFactory, AreaFactory) {
   DomainFactory.list();
   AreaFactory.list();
-  var now = new Date();
-  now = now.getTime() - now.getTimezoneOffset() * 60000;
-  $rootScope.today = Math.floor(now / 86400000) + 1;
+
+  var calculateToday = function() {
+    var now = new Date()
+      , old_today = $rootScope.today
+      , new_today;
+    now = now.getTime() - now.getTimezoneOffset() * 60000;
+    new_today = Math.floor(now / 86400000) + 1;
+    if (new_today !== old_today) {
+      $rootScope.today = new_today;
+      // digest if today was changed from one day to another
+      if (_.isNumber(old_today)) {
+        $rootScope.$digest();
+      }
+    }
+  };
+  calculateToday();
+  // set up jQuery Idle handlers to recalculate today
+  $(document).idle({
+    onIdle: function() {
+      calculateToday();
+    }
+  , onActive: function() {
+      calculateToday();
+    }
+  , idle: 300000 // 5 minutes
+  });
+
+  $rootScope.onError = function(action, message) {
+    console.error(message);
+    $rootScope.error = {
+      action : action
+    , message : message
+    };
+  }
 });
+
 })();

@@ -8,10 +8,8 @@
         <img src="/logo_150.jpg" />
       </a>
       <ul class="sidebar-nav">
-        <!--<navlink href="domains" title="All Areas"></navlink>
-        <navlink ng-repeat="domain in domains" href="domains/{{domain.name}}" title="{{domain.name}}"></navlink>-->
-        <navlink href="day" title="Today"></navlink>
-        <navlink href="week" title="This Week"></navlink>
+        <navlink href="day/{{today}}" title="Today"></navlink>
+        <navlink href="week/{{today}}" title="This Week"></navlink>
       </ul>
       <button ng-show="! show_hidden" class="btn btn-primary btn-xs"
               ng-init="show_hidden = false"
@@ -33,7 +31,7 @@
     </div>
     <div id="error-wrapper" class="hidden" ng-class="{ 'has-error': error, 'hidden': ! error }">
       <div class="help-block" ng-if="error">
-        An error occurred: {{error}}
+        An error occurred while {{ error.action + (error.message ? ': ' + error.message : '.') }}
         <br />
         Sorry! Please try again, or refresh the page.
         <span class="small-grey-icon glyphicon glyphicon-remove"
@@ -43,6 +41,7 @@
     </div>
   </div>
 <% include ../../../views/foot_start %>
+  <script src="/js/lib/jquery.idle.min.js"></script>
   <script src="/js/lib/lodash.js"></script>
   <script src="/js/lib/async.js"></script>
   <script src="/js/lib/angular.js"></script>
@@ -56,6 +55,7 @@
   <script src="/js/main.js"></script>
   <script src="/js/filters.js"></script>
   <script src="/js/directives.js"></script>
+  <script src="/js/controllers.js"></script>
   <script src="/js/areas.js"></script>
   <script src="/js/domains.js"></script>
   <script src="/js/records.js"></script>

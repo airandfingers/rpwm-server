@@ -41,7 +41,7 @@ module.exports = function(starter_app_generator) {
         console.error(error);
         console.trace();
         res.status(500);
-        res.json({ error: 'Sorry, an error occurred. We\'ll look into it.' });
+        res.json({ error: '' });
       };
       next();
     });

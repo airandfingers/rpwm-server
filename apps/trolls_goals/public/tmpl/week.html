@@ -8,7 +8,7 @@
       {{ last_day - 6 | dayToDate | dateFormat }} - {{ last_day | dayToDate | dateFormat }}
     </h2>
     <a ng-if="last_day < today" class="change_time"
-       href="#/week/{{last_day + 7 === today ? '' : last_day + 7}}"
+       href="#/week/{{last_day + 7}}"
        click-on-arrow="right">
       <span class="glyphicon glyphicon-arrow-right"></span>
     </a>

@@ -14,8 +14,7 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
       console.log('successfully added record!', r);
       record._id = r._id;
     }, function(response) {
-      console.error(response.data.error);
-      $rootScope.error = response.data.error;
+      $rootScope.onError('creating a record', response.data.error);
       // remove not-actually-created record
       var records = $rootScope.records[area_id][day];
       records = _.without(records, record);
@@ -41,8 +40,7 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
     Record.update({ id: record._id }, record, function(r) {
       console.log('successfully edited record!', r);
     }, function(response) {
-      console.error(response.data.error);
-      $rootScope.error = response.data.error;
+      $rootScope.onError('updating a record', response.data.error);
     });
   };
 
@@ -53,8 +51,7 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
         return _record._id === record._id;
       });
     }, function(response) {
-      console.error(response.data.error);
-      $rootScope.error = response.data.error;
+      $rootScope.onError('deleting a record', response.data.error);
     });
   };
 
@@ -78,34 +75,6 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
                          , update: { method: 'PUT' } }
   );
   return Record;
-});
-
-recordsModule.controller('DayCtrl', function($scope, $rootScope, $routeParams,
-                                             DomainFactory, AreaFactory) {
-  // set up domain_area_map if it hasn't been set up yet
-  if (! _.isObject($rootScope.domain_area_map)) {
-    async.parallel([
-      _.bind(DomainFactory.list, DomainFactory),
-      _.bind(AreaFactory.list, AreaFactory)
-    ], function() {
-      $rootScope.calculateDomainAreaMap();
-    });
-  }
-  $scope.day = parseInt($routeParams.day) || $rootScope.today;
-});
-
-recordsModule.controller('WeekCtrl', function($scope, $rootScope, $routeParams,
-                                             DomainFactory, AreaFactory) {
-  // set up domain_area_map if it hasn't been set up yet
-  if (! _.isObject($rootScope.domain_area_map)) {
-    async.parallel([
-      _.bind(DomainFactory.list, DomainFactory),
-      _.bind(AreaFactory.list, AreaFactory)
-    ], function() {
-      $rootScope.calculateDomainAreaMap();
-    });
-  }
-  $scope.last_day = parseInt($routeParams.last_day) || $rootScope.today;
 });
 
 })();

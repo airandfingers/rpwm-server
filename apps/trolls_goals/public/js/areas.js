@@ -30,8 +30,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         console.log('successfully edited area!', a);
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('updating an area', response.data.error);
       });
     }
     else {
@@ -41,8 +40,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         $rootScope.records[a._id] = {};
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('creating an area', response.data.error);
       });
     }
     $rootScope.newArea();
@@ -53,8 +51,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
       console.log('successfully deleted area!', area);
       $rootScope.handleDeletedArea(area, true);
     }, function(response) {
-      console.error(response.data.error);
-      $rootScope.error = response.data.error;
+      $rootScope.onError('deleting an area', response.data.error);
     });
   };
 
@@ -77,8 +74,7 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
         $rootScope.areas = areas;
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('looking up areas', response.data.error);
         $rootScope.areas = [];
         if (_.isFunction(cb)) { cb(); }
       });

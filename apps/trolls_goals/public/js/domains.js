@@ -40,8 +40,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         console.log('successfully edited domain!', d);
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('updating a domain', response.data.error);
       });
     }
     else {
@@ -50,8 +49,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         $rootScope.domains.push(d);
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('creating a domain', response.data.error);
       });
     }
     $rootScope.newDomain();
@@ -68,8 +66,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
       });
       $rootScope.calculateDomainAreaMap();
     }, function(response) {
-      console.error(response.data.error);
-      $rootScope.error = response.data.error;
+      $rootScope.onError('deleting a domain', response.data.error);
     });
   };
 
@@ -84,8 +81,7 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
         $rootScope.domains = domains;
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {
-        console.error(response.data.error);
-        $rootScope.error = response.data.error;
+        $rootScope.onError('looking up domains', response.data.error);
         $rootScope.domains = [];
         if (_.isFunction(cb)) { cb(); }
       });
