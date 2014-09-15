@@ -1,11 +1,41 @@
 module.exports = function(app) {
-  var _ = require('underscore')
+  var fs = require('fs')
+    , _ = require('underscore')
     , Record = require('./models/record')
     , Area = require('./models/area')
     , Domain = require('./models/domain');
 
   app.get('/', function(req, res) {
     res.render('index', { title: 'Troll\'s Goals!' });
+  });
+
+  // read reset_data once
+  var reset_data = require('./models/reset_data.json');
+  app.get('/reset', function(req, res) {
+    var user_id = req.user._id
+      , domains = []
+      , areas = []
+      , domain
+      , area;
+    // add domains
+    _.each(reset_data, function(domain_obj) {
+      domain = new Domain({ name: domain_obj.name, description: domain_obj.description });
+      domain.user = user_id;
+      domain.save();
+      domains.push(domain);
+      // add domain's areas
+      _.each(domain_obj.areas, function(area_obj) {
+        area = new Area({ name: area_obj.name, description: area_obj.description });
+        area.domain = domain._id;
+        area.user = user_id;
+        area.save();
+        areas.push(area);
+      });
+    });
+
+    res.status(201)
+       .json({ domains: domains, areas: areas })
+       .end();
   });
 
   var models = {

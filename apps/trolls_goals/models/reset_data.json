@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Business",
+		"description": "It's business time!",
+		"areas": [
+			{
+				"name": "Day Job",
+				"description": "Bring home the bacon!"
+			},
+			{
+				"name": "Side Job/Hobby",
+				"description": "Lean into your better self!"
+			}
+		]
+	},
+	{
+		"name": "Pleasure",
+		"description": "Enjoy yourself!",
+		"areas": [
+			{
+				"name": "Games",
+				"description": "Yesterday's home runs dont' win today's games."
+			},
+			{
+				"name": "Web Surfing",
+				"description": "The Internet is a playground!"
+			}
+		]
+	}
+]

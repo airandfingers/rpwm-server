@@ -10,7 +10,6 @@ module.exports = (function() {
     , DomainSchema = new Schema({
         name: { type: String, index: true } // the domain's name
       , description: { type: String } // a description of the domain
-      , username: { type: String, index: true }
       , user: { type: ObjectId, ref: 'users', index: true }
       , hidden: { type: Boolean } // whether this domain should be retrieved under normal circumstances
     });

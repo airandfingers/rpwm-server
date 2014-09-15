@@ -1,6 +1,29 @@
 (function() {
-var recordsModule = angular.module('controllers', []);
-recordsModule.controller('DayCtrl', function($scope, $rootScope, $routeParams,
+var recordsModule = angular.module('controllers', [])
+  , initialize = function($rootScope, $http, DomainFactory, AreaFactory) {
+  if (! _.isObject($rootScope.domain_area_map)) {
+    async.parallel([
+      _.bind(DomainFactory.list, DomainFactory),
+      _.bind(AreaFactory.list, AreaFactory)
+    ], function() {
+      if (_.isEmpty($rootScope.domains) && _.isEmpty($rootScope.domains)) {
+        $http({ method: 'GET', url: '/reset' })
+          .success(function(data, status, headers, config) {
+            $rootScope.domains = data.domains;
+            $rootScope.areas = data.areas;
+            $rootScope.calculateDomainAreaMap();
+        })
+          .error(function(data, status, headers, config) {
+            $rootScope.onError('calling reset route', data);
+        });
+      }
+      else {
+        $rootScope.calculateDomainAreaMap();
+      }
+    });
+  }
+};
+recordsModule.controller('DayCtrl', function($scope, $rootScope, $routeParams, $http,
                                              $location, DomainFactory, AreaFactory) {
   // redirect to today if day is missing from route
   if (! _.isString($routeParams.day)) {
@@ -8,33 +31,20 @@ recordsModule.controller('DayCtrl', function($scope, $rootScope, $routeParams,
     return;
   }
 
-  // set up domain_area_map if it hasn't been set up yet
-  if (! _.isObject($rootScope.domain_area_map)) {
-    async.parallel([
-      _.bind(DomainFactory.list, DomainFactory),
-      _.bind(AreaFactory.list, AreaFactory)
-    ], function() {
-      $rootScope.calculateDomainAreaMap();
-    });
-  }
+  initialize($rootScope, $http, DomainFactory, AreaFactory);
+  
   $scope.day = parseInt($routeParams.day);
 });
 
-recordsModule.controller('WeekCtrl', function($scope, $rootScope, $routeParams,
+recordsModule.controller('WeekCtrl', function($scope, $rootScope, $routeParams, $http,
                                              $location, DomainFactory, AreaFactory) {
   if (! _.isString($routeParams.last_day)) {
     $location.path('/week/' + $rootScope.today);
     return;
   }
-  // set up domain_area_map if it hasn't been set up yet
-  if (! _.isObject($rootScope.domain_area_map)) {
-    async.parallel([
-      _.bind(DomainFactory.list, DomainFactory),
-      _.bind(AreaFactory.list, AreaFactory)
-    ], function() {
-      $rootScope.calculateDomainAreaMap();
-    });
-  }
+
+  initialize($rootScope, $http, DomainFactory, AreaFactory);
+
   $scope.last_day = parseInt($routeParams.last_day) || $rootScope.today;
 });
 
