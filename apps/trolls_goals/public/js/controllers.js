@@ -9,8 +9,12 @@ var recordsModule = angular.module('controllers', [])
       if (_.isEmpty($rootScope.domains) && _.isEmpty($rootScope.domains)) {
         $http({ method: 'GET', url: '/reset' })
           .success(function(data, status, headers, config) {
-            $rootScope.domains = data.domains;
-            $rootScope.areas = data.areas;
+            _.each(data.domains, function(domain_obj) {
+              $rootScope.domains.push(new DomainFactory(domain_obj));
+            });
+            _.each(data.areas, function(area_obj) {
+              $rootScope.areas.push(new AreaFactory(area_obj));
+            });
             $rootScope.calculateDomainAreaMap();
         })
           .error(function(data, status, headers, config) {
