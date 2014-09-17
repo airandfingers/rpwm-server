@@ -44,29 +44,42 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
       });
     }
     else {
-      Domain.save(domain, function(d) {
+      var domain_copy = _.clone(domain);
+      domain._id = 'ffffffffffffffffffffffff'; // create a temporary ID
+      $rootScope.domains.push(domain);
+      $rootScope.calculateDomainAreaMap();
+      Domain.save(domain_copy, function(d) {
         console.log('successfully added domain!', d);
-        $rootScope.domains.push(d);
+        domain._id = d._id;
         $rootScope.calculateDomainAreaMap();
       }, function(response) {
         $rootScope.onError('creating a domain', response.data.error);
+        $rootScope.domains = _.without($rootScope.domains, domain);
+        $rootScope.calculateDomainAreaMap();
       });
     }
     $rootScope.newDomain();
   };
 
   $rootScope.deleteDomain = function(domain) {
+    var deleted_areas = [];
+    $rootScope.domains = _.reject($rootScope.domains, function(_domain) {
+      return _domain.name === domain.name;
+    });
+    _.each($rootScope.domain_area_map[domain._id], function(area) {
+      deleted_areas.push(area);
+      $rootScope.handleDeletedArea(area, false);
+    });
+    $rootScope.calculateDomainAreaMap();
     domain.$delete({ id: domain._id }, function(success) {
       console.log('successfully deleted domain!', domain);
-      $rootScope.domains = _.reject($rootScope.domains, function(_domain) {
-        return _domain.name === domain.name;
-      });
-      _.each($rootScope.domain_area_map[domain._id], function(area) {
-        $rootScope.handleDeletedArea(area, false);
-      });
-      $rootScope.calculateDomainAreaMap();
     }, function(response) {
       $rootScope.onError('deleting a domain', response.data.error);
+      $rootScope.domains.push(domain);
+      _.each(deleted_areas, function(area) {
+        $rootScope.handleAddedArea(area, false);
+      });
+      $rootScope.calculateDomainAreaMap();
     });
   };
 
@@ -74,10 +87,8 @@ domainsModule.factory('DomainFactory', function($resource, $rootScope) {
                       { update: { method: 'PUT' } }
   );
   Domain.list = function(cb) {
-    console.log('Domain.list called');
     if (_.isUndefined($rootScope.domains)) {
       Domain.query(function(domains) {
-        console.log('Domain.list cb');
         $rootScope.domains = domains;
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {

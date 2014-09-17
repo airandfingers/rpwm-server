@@ -34,24 +34,29 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
       });
     }
     else {
+      $rootScope.areas.push(area);
+      $rootScope.calculateDomainAreaMap();
       Area.save(area, function(a) {
         console.log('successfully added area!', a);
-        $rootScope.areas.push(a);
+        area._id = a._id;
         $rootScope.records[a._id] = {};
-        $rootScope.calculateDomainAreaMap();
       }, function(response) {
         $rootScope.onError('creating an area', response.data.error);
+        $rootScope.areas = _.without($rootScope.areas, area);
+        $rootScope.calculateDomainAreaMap();
       });
     }
     $rootScope.newArea();
   };
 
   $rootScope.deleteArea = function(area) {
+    $rootScope.handleDeletedArea(area, true);
     area.$delete({ id: area._id }, function(success) {
       console.log('successfully deleted area!', area);
-      $rootScope.handleDeletedArea(area, true);
     }, function(response) {
       $rootScope.onError('deleting an area', response.data.error);
+      $rootScope.areas.push(area);
+      $rootScope.calculateDomainAreaMap();
     });
   };
 
@@ -60,17 +65,20 @@ areasModule.factory('AreaFactory', function($resource, $rootScope) {
       return _area.name === area.name;
     });
     if (recalculate) { $rootScope.calculateDomainAreaMap(); }
-  }
+  };
+
+  $rootScope.handleAddedArea = function(area, recalculate) {
+    $rootScope.areas.push(area);
+    if (recalculate) { $rootScope.calculateDomainAreaMap(); }
+  };
 
   var Area = $resource('/api/area/:id', null,
                            { query: { method: 'GET', isArray: true, cache: true }
                            , update: { method: 'PUT' } }
   );
   Area.list = function(cb) {
-    console.log('Area.list called');
     if (_.isUndefined($rootScope.areas)) {
       Area.query(function(areas) {
-        console.log('Area.list cb');
         $rootScope.areas = areas;
         if (_.isFunction(cb)) { cb(); }
       }, function(response) {

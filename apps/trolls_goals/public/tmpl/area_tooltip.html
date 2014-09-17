@@ -2,9 +2,9 @@
      ng-init="$root.backupArea(item)">
   <div class="arrow"></div>
   <div class="popover-inner">
-    <div ng-enter="$root.saveArea(item); closePopup();"
-         ng-ctrl-delete="$root.deleteArea(item); closePopup();"
-         ng-escape="$root.revertArea(item); closePopup();">
+    <div ng-enter="$root.saveArea(item); closePopup($event);"
+         ng-ctrl-delete="$root.deleteArea(item); closePopup($event);"
+         ng-escape="$root.revertArea(item); closePopup($event);">
       <div class="input-group" title="Name of this area">
         <span class="input-group-addon bold" focus-next-when-clicked>Name</span>
         <input type="text" class="form-control" ng-model="item.name" focus-on-load />
@@ -35,22 +35,22 @@
       <input type="hidden" ng-model="item.start_day" />
     </div>
     <div class="crud_buttons">
-      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup();" title="{{mode}} (Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveArea(item); closePopup($event);" title="{{mode}} (Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>
       <button ng-if="mode === 'Update'" class="btn btn-danger"
-              ng-click="$root.deleteArea(item); closePopup();" title="Delete (Ctrl + Delete)">
+              ng-click="$root.deleteArea(item); closePopup($event);" title="Delete (Ctrl + Delete)">
         Delete
         <span class="glyphicon glyphicon-trash"></span>
       </button>
       <button ng-if="mode === 'Update'" class="btn btn-warning float-right"
-              ng-click="$root.revertArea(item); closePopup();" title="Discard Changes (Esc)">
+              ng-click="$root.revertArea(item); closePopup($event);" title="Discard Changes (Esc)">
         Discard
         <span class="glyphicon glyphicon-remove"></span>
       </button>
       <button ng-if="mode !== 'Update'" class="btn btn-warning float-right"
-              ng-click="$root.newArea(); closePopup();" title="Cancel (Esc)">
+              ng-click="$root.newArea(); closePopup($event);" title="Cancel (Esc)">
         Cancel
         <span class="glyphicon glyphicon-remove"></span>
       </button>

@@ -371,16 +371,13 @@ angular.module('crudTooltip', [ 'ui.bootstrap.position' ])
     templateUrl: function(tElem, tAttrs) { return template_map[tAttrs.templateUrl]; },
     link: function (scope, element, attrs) {
       //console.log('link called with', scope, element, attrs);
-      scope.closePopup = function() {
+      scope.closePopup = function($event) {
         var trigger = element.prev();
         $timeout(function() {
           trigger.triggerHandler('click');
         });
-      }
-
-      element.bind('click', function($event) {
         $event.stopPropagation();
-      });
+      }
     }
   };
 })

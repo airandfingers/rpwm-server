@@ -1,6 +1,6 @@
 {
   "name": "rpwm-server",
-  "version": "1.0.1-37",
+  "version": "1.0.1-40",
   "private": true,
   "dependencies": {
     "async": "latest",

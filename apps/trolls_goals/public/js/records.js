@@ -45,13 +45,15 @@ recordsModule.factory('RecordFactory', function($resource, $rootScope) {
   };
 
   $rootScope.deleteRecord = $rootScope.deleteRecord || function(record) {
+    $rootScope.records[record.area][record.day] = _.reject($rootScope.records[record.area][record.day], function(_record) {
+      return _record._id === record._id;
+    });
     record.$delete({ id: record._id }, function(success) {
       console.log('successfully deleted record!', record);
-      $rootScope.records[record.area][record.day] = _.reject($rootScope.records[record.area][record.day], function(_record) {
-        return _record._id === record._id;
-      });
     }, function(response) {
       $rootScope.onError('deleting a record', response.data.error);
+      // recreate not-actually-deleted record
+      $rootScope.records[record.area][record.day].push(record);
     });
   };
 

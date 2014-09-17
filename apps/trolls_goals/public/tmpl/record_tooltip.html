@@ -2,23 +2,23 @@
      ng-init="$root.backupRecord(item)">
   <div class="arrow"></div>
   <div class="popover-inner">
-    <div ng-enter="$root.saveRecord(item); closePopup();"
-         ng-ctrl-delete="$root.deleteRecord(item); closePopup();"
-         ng-escape="$root.revertRecord(item); closePopup();">
+    <div ng-enter="$root.saveRecord(item); closePopup($event);"
+         ng-ctrl-delete="$root.deleteRecord(item); closePopup($event);"
+         ng-escape="$root.revertRecord(item); closePopup($event);">
       <input type="text" placeholder="Details" class="form-control" ng-model="item.details" focus-on-load />
     </div>
     <div class="crud_buttons">
-      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup();" title="{{mode}} (Enter)">
+      <button class="btn btn-primary" ng-click="$root.saveRecord(item); closePopup($event);" title="{{mode}} (Enter)">
         {{mode}}
         <span class="glyphicon glyphicon-ok"></span>
       </button>
       <button class="btn btn-danger" title="Delete (Ctrl + Delete)"
-              ng-click="$root.deleteRecord(item); closePopup();">
+              ng-click="$root.deleteRecord(item); closePopup($event);">
         Delete
         <span class="glyphicon glyphicon-trash"></span>
       </button>
       <button class="btn btn-warning"
-              ng-click="$root.revertRecord(item); closePopup();" title="Discard Changes (Esc)">
+              ng-click="$root.revertRecord(item); closePopup($event);" title="Discard Changes (Esc)">
         Discard
         <span class="glyphicon glyphicon-remove"></span>
       </button>
