@@ -5,10 +5,10 @@
   </thead>
   <tbody>
     <tr ng-repeat="area in domain_areas | orderBy: 'name' | etceteraGoLast"
-        title="{{area.description}} (Click to create record)"
         ng-show="! area.hidden || show_hidden || area._backup">
       <td ng-if="clickToAddRecordToFirstDay"
           class="clickable parent-sibling-cell-trigger"
+          title="{{area.description}} (Click to create record)"
           ng-click="$root.createRecord(area._id, firstDay)">
         <span class="small-grey-icon glyphicon glyphicon-chevron-down"
               title="Edit {{area.name}}"
@@ -22,7 +22,8 @@
         </span>
         {{ area.name }}
       </td>
-      <td ng-if="! clickToAddRecordToFirstDay">
+      <td ng-if="! clickToAddRecordToFirstDay"
+          title="{{area.description}}">
         <span class="small-grey-icon glyphicon glyphicon-chevron-down"
               title="Edit {{area.name}}"
               crudtooltip="."
@@ -36,13 +37,14 @@
         {{ area.name }}
       </td>
       <td class="clickable parent-cell-trigger"
+          title="{{area.description}} (Click to create record)"
           ng-click="$root.createRecord(area._id, day)"
           ng-repeat="day in [firstDay, lastDay] | makeRange">
         <span class="small-grey-icon glyphicon glyphicon-plus"
               ng-if="! records[area._id][day] || records[area._id][day].length === 0"></span>
         <span class="glyphicon glyphicon-ok-sign"
               ng-repeat="record in records[area._id][day]"
-              title="{{record.details}}"
+              title="{{record.details || 'Click to edit record'}}"
               trigger-click-on-load
               crudtooltip="."
               crudtooltip-item="record"
