@@ -16,17 +16,17 @@ recordsTableModule.directive('recordsTable', function($rootScope, RecordFactory)
 
         RecordFactory.query({ area_ids: scope.area_ids,
                               day_range: [scope.firstDay, scope.lastDay] },
-                            function(records) {
-          console.log('successfully fetched records!', records);
+                              function(records) {
           var records_by_area_id = _.groupBy(records, 'area')
             , area_records;
+          console.log('successfully fetched', scope.domain.name, 'records!', records_by_area_id);
           _.each(scope.area_ids, function(area_id) {
             area_records = records_by_area_id[area_id];
+            $rootScope.records[area_id] = $rootScope.records[area_id] || {};
             if (_.isObject(area_records)) {
-              $rootScope.records[area_id] = _.groupBy(area_records, 'day');
-            }
-            else {
-             $rootScope.records[area_id] = {};
+              _.each(_.groupBy(area_records, 'day'), function(day_records, day) {
+                $rootScope.records[area_id][day] = day_records;
+              });
             }
           });
         }, function(response) {
