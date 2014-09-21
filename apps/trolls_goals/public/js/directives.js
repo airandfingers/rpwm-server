@@ -47,7 +47,7 @@ directivesModule.directive('ngEnter', function () {
     element.bind('keydown keypress', function(e) {
       if (e.which === 13) {
         scope.$apply(function () {
-          scope.$eval(attrs.ngEnter);
+          scope.$eval(attrs.ngEnter, { $event: e });
         });
 
         e.preventDefault();
@@ -61,7 +61,7 @@ directivesModule.directive('ngCtrlDelete', function () {
     element.bind('keydown keypress', function(e) {
       if (e.which === 46 && e.ctrlKey) {
         scope.$apply(function () {
-          scope.$eval(attrs.ngCtrlDelete);
+          scope.$eval(attrs.ngCtrlDelete, { $event: e });
         });
 
         e.preventDefault();
@@ -75,7 +75,7 @@ directivesModule.directive('ngEscape', function () {
     element.bind('keydown keypress', function(e) {
       if (e.which === 27) {
         scope.$apply(function () {
-          scope.$eval(attrs.ngEscape);
+          scope.$eval(attrs.ngEscape, { $event: e });
         });
 
         e.preventDefault();

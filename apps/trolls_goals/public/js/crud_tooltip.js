@@ -377,7 +377,10 @@ angular.module('crudTooltip', [ 'ui.bootstrap.position' ])
           trigger.triggerHandler('click');
         });
         $event.stopPropagation();
-      }
+      };
+      element.bind('click', function($event) {
+       $event.stopPropagation();
+      });
     }
   };
 })
