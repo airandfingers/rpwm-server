@@ -1,6 +1,7 @@
 module.exports = function(app) {
   var fs = require('fs')
     , _ = require('underscore')
+    , async = require('async')
     , Record = require('./models/record')
     , Area = require('./models/area')
     , Domain = require('./models/domain');
@@ -36,6 +37,78 @@ module.exports = function(app) {
     res.status(201)
        .json({ domains: domains, areas: areas })
        .end();
+  });
+
+  app.get('/export', function(req, res) {
+    var query = { user: req.user._id };
+    async.parallel({
+      records: function findRecords(acb) {
+        var select = 'day details area';
+        Record.find(query, select, function(find_err, records) {
+          if (find_err) {
+            return acb(find_err);
+          }
+          records = _.groupBy(records, 'area');
+          records = _.mapObject(records, function(area_records) {
+            return _.sortBy(area_records, 'name');
+          });
+          acb(find_err, records);
+        });
+      },
+      areas: function findAreas(acb) {
+        var select = 'name description start_day domain';
+        Area.find(query, select, function(find_err, areas) {
+          if (find_err) {
+            return acb(find_err);
+          }
+          areas = _.groupBy(areas, 'domain');
+          areas = _.mapObject(areas, function(domain_areas) {
+            return _.sortBy(domain_areas, 'name');
+          });
+          acb(find_err, areas);
+        });
+      },
+      domains: function findDomains(acb) {
+        var select = 'name description';
+        Domain.find(query, select, function(find_err, domains) {
+          if (find_err) {
+            return acb(find_err);
+          }
+          domains = _.sortBy(domains, 'name');
+          acb(find_err, domains);
+        });
+      }
+    }, function(find_err, results) {
+      if (find_err) {
+        return res.error(find_err);
+      }
+      var records;
+      var areas;
+      var domains = _.map(results.domains, function(domain) {
+        areas = _.map(results.areas[domain._id], function(area) {
+          records = _.map(results.records[area._id], function(record) {
+            return record.toObject({ transform: function(doc, ret, options) {
+              delete ret._id;
+              delete ret.area;
+              ret.date_string = Area.dayNumToDate(ret.day).toUTCString();
+            }});
+          });
+          return area.toObject({ transform: function(doc, ret, options) {
+            delete ret._id;
+            delete ret.domain;
+            ret.records = records;
+          }});
+        });
+        return domain.toObject({ transform: function(doc, ret, options) {
+          delete ret._id;
+          ret.areas = areas;
+        }});
+      });
+      res.json({
+        user: { username: req.user.username, _id: req.user._id }
+      , domains: domains
+      });
+    })
   });
 
   var models = {

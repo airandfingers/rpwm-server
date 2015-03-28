@@ -6,8 +6,12 @@ module.exports = (function() {
     , Schema = mongoose.Schema
     , ObjectId = Schema.ObjectId
 
-    , getToday = function() {
-      return Math.floor(new Date().getTime() / 86400000);
+    , NUM_MS_IN_DAY = 86400000
+    , dateToDayNum = function(date) {
+      return Math.floor(date.getTime() / NUM_MS_IN_DAY);
+    }
+    , dayNumToDate = function(day_num) {
+      return new Date(day_num * NUM_MS_IN_DAY);
     }
 
     , AreaSchema = new Schema({
@@ -16,10 +20,13 @@ module.exports = (function() {
       , domain: { type: ObjectId, ref: 'domains', index: true }
       , user: { type: ObjectId, ref: 'users', index: true }
       , records: { type: Schema.Types.Mixed, default: function() { return {}; } } // Date: number of records
-      , start_day: { type: Number, default: getToday }
+      , start_day: { type: Number, default: function() { return dateToDayNum(new Date()); } }
       , prompt_for_details: Boolean
       , hidden: { type: Boolean } // whether this domain should be retrieved under normal circumstances
     });
+
+  AreaSchema.statics.dateToDayNum = dateToDayNum;
+  AreaSchema.statics.dayNumToDate = dayNumToDate;
 
   var Area = mongoose.model('Area', AreaSchema);
 
