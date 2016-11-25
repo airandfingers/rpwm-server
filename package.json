@@ -9,11 +9,11 @@
     "ejs": "latest",
     "express": "3.x",
     "connect": "latest",
-    "connect-mongodb": "latest",
+    "connect-mongo": "latest",
     "mime": "latest",
     "moment": "latest",
     "mongodb": "1.3.4",
-    "mongoose": "3.8.8",
+    "mongoose": "latest",
     "passport": "latest",
     "passport-local": "latest",
     "socket.io": "0.9.x",
@@ -47,7 +47,7 @@
   ],
   "main": "bootstrap.js",
   "engines": {
-    "node": "0.10.x"
+    "node": "4.x"
   },
   "devDependencies": {
     "chai": "~1.4.2",
@@ -55,6 +55,6 @@
     "supertest": "~0.5.1"
   },
   "scripts": {
-    "start": "bootstrap.js"
+    "start": "node --harmony bootstrap.js"
   }
 }

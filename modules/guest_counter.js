@@ -15,9 +15,8 @@ module.exports = (function() {
 
   /* Create static method on schema, incrementing the guest counter */
   GuestCounterSchema.statics.increment = function (callback) {
-    this.collection.findAndModify({}, [], { $inc: { next: 1 } }, {},
-                                         function(err, guest_counter) {
-      //console.log('findAndModify returns', err, guest_counter);
+    GuestCounter.findOneAndUpdate({}, { $inc: { next: 1 } }, { new: true },
+                                  function(err, guest_counter) {
       if (_.isFunction(callback)) {
         callback(err, guest_counter && guest_counter.next);
       }
